@@ -1,0 +1,11 @@
+$partamon-navbar-border-height: 3px;
+$partamon-navbar-height: 59px + $partamon-navbar-border-height;
+$partamon-logo-color: #8c67ef;
+
+@mixin partamon-background {
+  background: url(../assets/background-register.jpg);
+  background-attachment: fixed;
+  //@include desktop {
+  min-height: calc(100vh);
+  //}
+}
