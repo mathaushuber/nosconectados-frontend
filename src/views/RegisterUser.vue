@@ -1,26 +1,22 @@
 <template>
   <main>
-    <div class="container pt-6 pb-4">
-      <div class="columns">
-        <div class="column is-10 is-offset-1">
-          <div class="card mt-4 ">
-            <div class="card-content">
-              <div class="container">
-                <div
-                  class="is-flex is-flex-wrap-wrap is-justify-content-center mt-5 mb-6"
-                >
+    <div class="container pt-6 pb-4"><!-- Início container -->
+      <div class="columns"><!-- Início columns -->
+        <div class="column is-10 is-offset-1"><!--Início column-->
+          <div class="card mt-4 "><!--Início card-->
+            <div class="card-content"><!--Início card-content-->
+              <div class="container"><!--Início container secundario-->
+                <div class="is-flex is-flex-wrap-wrap is-justify-content-center mt-5 mb-6"><!--Início flex-wrap-->
                   <div class="is-relative">
                     <div
                       style="position: absolute;
-    z-index: 1;"
-                    >
-                    <b-button
-                        type="is-danger"
-                        @click="removePhoto"
-                        v-if="imageData"
-                      >
-                        <b-icon icon="close"
-                      /></b-button>
+                      z-index: 1;">
+                      <b-button
+                          type="is-danger"
+                          @click="removePhoto"
+                          v-if="imageData">
+                          <b-icon icon="close"/>  
+                      </b-button>
                     </div>
                     <figure class="image ">
                       <img
@@ -32,24 +28,25 @@
                       <img v-else class="img-avatar" src="~assets/avatar.png" />
                     </figure>
                   </div>
-                     <b-field label="Foto Pessoal" class=" has-text-centered">
-                    <b-upload
-                      v-model="avatar"
-                      accept="image/png,  image/jpeg"
-                      drag-drop
-                    >
-                      <section class="section">
-                        <div class="content has-text-centered">
-                          <p>
-                            <b-icon icon="upload" size="is-large"> </b-icon>
-                          </p>
-                          <p>Arraste a foto aqui</p>
-                        </div>
-                      </section>
-                    </b-upload>
-                  </b-field>
-                </div>
-              </div>
+
+                <!--Início formulário-->
+                <b-field label="Foto Pessoal" class=" has-text-centered">
+                  <b-upload
+                    v-model="avatar"
+                    accept="image/png,  image/jpeg"
+                    drag-drop>
+                    <section class="section">
+                      <div class="content has-text-centered">
+                        <p>
+                        <b-icon icon="upload" size="is-large"> </b-icon>
+                        </p>
+                        <p>Arraste a foto aqui</p>
+                      </div>
+                    </section>
+                  </b-upload>
+                </b-field>
+                </div><!--Fim flex-wrap-->
+              </div><!--Fim container secundario-->
               <div class="columns">
                 <div class="column">
                    <b-field label="Nome">
@@ -79,24 +76,21 @@
               <div class="columns">
                 <div class="column">
                   <b-field
-                    label="CPF *"
-                  >
+                    label="CPF *">
                     <b-input
                       type="text"
                       placeholder="CPF"
                       validation-message="Entre com um documento válido"
-                      v-mask.raw="['###.###.###-##']"
-                    ></b-input>
+                      v-mask.raw="['###.###.###-##']">                      
+                    </b-input>
                   </b-field>
                 </div>
                 <div class="column">
                    <b-field
-                    label="Gênero *"
-                  >
+                    label="Gênero *">
                     <b-select
                       placeholder="Selecione o gênero"
-                      expanded
-                    >
+                      expanded>
                       <option value="M">Masculino</option>
                       <option value="F">Feminino</option>
                       <option value="N">Outro</option>
@@ -106,26 +100,24 @@
               </div>
                 <div class="columns">
                   <div class="column">
-                      <b-field
-                    label="Email *"
-                  >
+                  <b-field
+                    label="Email *">
                     <b-input
                       placeholder="Email"
-                      type="email"
-                    ></b-input>
+                      type="email">                      
+                    </b-input>
                   </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column">
-                     <b-field
-                    label="Perfil do Facebook"
-                  >
+                    <b-field
+                    label="Perfil do Facebook">
                     <b-input
                       placeholder="URL"
-                      type="url"
-                    ></b-input>
-                  </b-field>
+                      type="url">
+                    </b-input>
+                    </b-field>
                   </div>
                 </div>
                 <div class="columns">
@@ -142,165 +134,145 @@
                     </b-field>
                   </div>
                   <div class="column">
-                     <b-field
-                    label="Telefone"
-                  >
+                    <b-field
+                    label="Telefone">
                     <b-input
                       type="text"
                       placeholder="Fone"
                       validation-message="Entre com um telefone válido"
-                      v-mask.raw="['+55 (##) # ####-####']"
-                    >
+                      v-mask.raw="['+55 (##) # ####-####']">
                     </b-input>
-                  </b-field>
+                    </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column">
-                      <b-field
-                    label="CEP"
-                  >
+                    <b-field
+                    label="CEP">
                     <b-input
                       type="text"
                       placeholder="CEP"
                       validation-message="Entre com um CEP válido"
-                      v-mask="['#####-###']"
-                    >
+                      v-mask="['#####-###']">
                     </b-input>
                   </b-field>
                   </div>
                   <div class="column">
-                     <b-field
-                    label="Bairro"
-                  >
+                  <b-field
+                    label="Bairro">
                     <b-input
                       type="text"
                       maxlength="64"
                       minlength="3"
-                      placeholder="Bairro"
-                    >
+                      placeholder="Bairro">
                     </b-input>
                   </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column is-6">
-                    <b-field
+                  <b-field
                     label="Rua"                  >
                     <b-input
                       type="text"
                       maxlength="64"
                       minlength="3"
-                      placeholder="Rua"
-                    >
+                      placeholder="Rua">
                     </b-input>
                   </b-field>
                   </div>
                   <div class="column">
-                     <b-field
-                    label="Número"
-                  >
+                  <b-field
+                    label="Número">
                     <b-input
                       type="text"
                       maxlength="64"
                       minlength="3"
                       placeholder="Número"
                       validation-message="Entre com um número"
-                      pattern="[0-9]*"
-                    >
+                      pattern="[0-9]*">
                     </b-input>
                   </b-field>
                   </div>
                   <div class="column">
-                        <b-field
-                    label="Complemento"
-                  >
+                  <b-field
+                    label="Complemento">
                     <b-input
                       type="text"
                       maxlength="64"
                       minlength="3"
-                      placeholder="Complemento"
-                    >
+                      placeholder="Complemento">
                     </b-input>
                   </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column">
-                   <b-field
-                    label="Estado"
-                  >
+                  <b-field
+                    label="Estado">
                     <b-select
                       placeholder="Selecione o estado"
                       @input="loadMunicipios"
-                      expanded
-                    >
+                      expanded>
                       <option
                         v-for="estado in estados"
                         :key="estado.id"
                         :value="estado.sigla"
-                        >{{ estado.nome }}</option
-                      >
+                        >{{ estado.nome }}
+                      </option>
                     </b-select>
                   </b-field>
                   </div>
                   <div class="column">
-                       <b-field
-                    label="Municipio"
-                  >
+                  <b-field
+                    label="Municipio">
                     <b-select
                       placeholder="Selecione o municipio"
-                      expanded
-                    >
+                      expanded>
                       <option
                         v-for="municipio in municipios"
                         :key="municipio.id"
                         :value="municipio.nome"
-                        >{{ municipio.nome }}</option
-                      >
+                        >{{ municipio.nome }}
+                      </option>
                     </b-select>
                   </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column">
-                     <b-field
-                    label="Senha"
-                  >
+                  <b-field
+                    label="Senha">
                     <password
                       maxlength="60"
-                      :secureLength="8"
-                    >
+                      :secureLength="8">
                     </password>
                   </b-field>
                   </div>
                   <div class="column">
                     <b-field
-                    label="Confirmação de senha"
-                  >
+                    label="Confirmação de senha">
                     <b-input
-                      type="password"
-                    >
+                      type="password">
                     </b-input>
                   </b-field>
                   </div>
                 </div>
                 <div class="columns">
                   <div class="column">
-                       <div class="buttons is-justify-content-right">
+                    <div class="buttons is-justify-content-right">
                     <b-button
-                      type="is-success"
-                      >
+                      type="is-success">
                       Registrar
                     </b-button>
-                  </div>
+                    </div>
                   </div>
                 </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </div><!--Fim card-content-->
+          </div><!--Fim card-->
+        </div><!--Fim column-->
+      </div><!--Fim columns-->
+    </div><!--Fim container-->
   </main>
 </template>
 
@@ -395,6 +367,7 @@ export default{
     },
   },
 };
+
 </script>
 
 <style lang="scss" scoped>
