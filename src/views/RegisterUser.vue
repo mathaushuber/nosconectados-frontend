@@ -123,14 +123,16 @@
                 <div class="columns">
                   <div class="column">
                     <b-field label="Data de Nascimento" grouped>
-                      <b-datepicker v-model="selected" :mobile-native="false">
-                        <template v-slot:trigger>
-                          <b-button
-                          icon-left="calendar-today"
-                          type="is-primary" />
-                        </template>
-                      </b-datepicker>
-                    <b-input expanded readonly />
+                    <b-datepicker
+                      ref="datepicker"
+                      expanded
+                      placeholder="Selecione uma data"
+                      v-model="selected">
+                    </b-datepicker>
+                    <b-button
+                      @click="$refs.datepicker.toggle()"
+                      icon-left="calendar-today"
+                      type="is-primary"/>
                     </b-field>
                   </div>
                   <div class="column">
@@ -213,6 +215,7 @@
                     <b-select
                       placeholder="Selecione o estado"
                       @input="loadMunicipios"
+                      v-model="estadoTemp"
                       expanded>
                       <option
                         v-for="estado in estados"
@@ -228,8 +231,13 @@
                     label="Municipio">
                     <b-select
                       placeholder="Selecione o municipio"
+                      :disabled="!estadoTemp"
                       expanded>
+                      <option v-if="!estadoTemp" value=""
+                        >Selecione o estado primeiro
+                      </option>
                       <option
+                        v-else
                         v-for="municipio in municipios"
                         :key="municipio.id"
                         :value="municipio.nome"
@@ -245,15 +253,25 @@
                     label="Senha">
                     <password
                       maxlength="60"
+                      v-model="passwordTemp"
                       :secureLength="8">
                     </password>
                   </b-field>
                   </div>
                   <div class="column">
                     <b-field
-                    label="Confirmação de senha">
+                    label="Confirmação de senha"
+                    :type="{ 'is-danger': !errors.passwordConfirmed }"
+                    :message="{
+                      'Senha diferente da inserida anteriormente': !errors.passwordConfirmed,
+                    }">
                     <b-input
-                      type="password">
+                      type="password"
+                      v-model="passwordConfirm"
+                      @input="
+                        errors.passwordConfirmed =
+                          passwordTemp == passwordConfirm
+                      ">
                     </b-input>
                   </b-field>
                   </div>
@@ -292,7 +310,13 @@ export default{
         return {
             avatar: null,
             imageData: null,
+            errors: {
+              passwordConfirmed: true,
+            },
+            passwordConfirm: null,
             estados: [],
+            estadoTemp: [],
+            passwordTemp: null,
             municipios: [],
             selected: null
         }
@@ -330,8 +354,8 @@ export default{
       }
     },
     loadMunicipios() {
-      if (this.estados) {
-        return getMunicipios(this.estados).then(
+      if (this.estadoTemp) {
+        return getMunicipios(this.estadoTemp).then(
           (resp) => (this.municipios = resp.data)
         );
       } else return [];
