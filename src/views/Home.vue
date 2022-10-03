@@ -8,8 +8,8 @@
           <div class="card-content"><!-- Início card-content -->
             <div class="content"><!-- Início content -->
 
-                <img src="../assets/partamon.png">
-                <p>Soluções para o manejo integrado de pragas</p>
+                <img src="../assets/pesthand.png" width="200" height="100">
+                <p class="mt-2">Soluções para o manejo integrado de pragas</p>
                 <h2 class="is-justify-content-center">Login</h2>
                 
                  <b-input placeholder="E-mail"></b-input>
