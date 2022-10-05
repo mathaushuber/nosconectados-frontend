@@ -56,17 +56,6 @@
           <b-icon icon="bug" size="is-large"
           type="is-danger"></b-icon>
             </td>
-            <td>Talhão de café 1D</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>28 ha</td>
-            <td>Café</td>
-            <td>Inativo</td>
-          </tr>
-             <tr>
-            <td>
-          <b-icon icon="bug" size="is-large"
-          type="is-danger"></b-icon>
-            </td>
             <td>Talhão de café 1E</td>
             <td>Lorem ipsum doler atmum specter</td>
             <td>16 ha</td>
@@ -117,12 +106,38 @@
         </b-tabs>
         </div><!-- Fim column de menu esquerdo-->
       <div class="column"><!--Início coluna direita mapa-->
+        <template>
+          <l-map :zoom="zoom" :center="center">
+          <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+          <l-marker :lat-lng="markerLatLng"></l-marker>
+          </l-map>
+        </template>
       </div><!-- Fim column direita mapa--> 
     </div><!-- Fim columns principais -->
   </main>
 </template>
 
 <script>
+
+import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+
+export default {
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker
+  },
+  data () {
+    return {
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution:
+        '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      zoom: 30,
+      center: [-31.765399, -52.337589],
+      markerLatLng: [-31.765399, -52.337589]
+    };
+  }
+}
 
 </script>
 
