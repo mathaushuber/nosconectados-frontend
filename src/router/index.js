@@ -22,6 +22,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/RegisterUser.vue"),
   },
+  {
+    path: "/create-sensor",
+    name: "CadastroSensor",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CreateSensor.vue"),
+  },
 ];
 
 const router = new VueRouter({
