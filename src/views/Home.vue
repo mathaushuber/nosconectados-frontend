@@ -8,7 +8,7 @@
           <div class="card-content"><!-- Início card-content -->
             <div class="content"><!-- Início content -->
 
-                <img src="../assets/pesthand.png" width="200" height="100">
+                <img src="../assets/conectamip.png" width="200" height="100">
                 <p class="mt-2">Soluções para o manejo integrado de pragas</p>
                 <h2 class="is-justify-content-center">Login</h2>
                 
