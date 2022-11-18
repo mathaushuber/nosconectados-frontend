@@ -5,7 +5,7 @@
     <b-navbar class="navbar-pesthand">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          <span class="pesthand-logo">PestHand</span>
+          <span class="pesthand-logo">Conectamip</span>
         </b-navbar-item>
       </template>
        
