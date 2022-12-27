@@ -48,13 +48,14 @@ main{
   height: 100vh;
 }
 @include mobile{
-  .fundo{
+  #fundo{
     display: none;
   }
 }
 @include desktop{
-    .fundo{
-  background: url(../assets/fundo.jpg);
+  #fundo img{
+  height: 50vh;
+  width: 100vw;
 }
   .card{
   width: 500px;
