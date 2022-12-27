@@ -5,13 +5,17 @@
     <b-navbar class="navbar-pesthand">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          <span class="pesthand-logo">Conectamip</span>
+          <span class="pesthand-logo">NOSCONECTADOS</span>
         </b-navbar-item>
       </template>
        
       <template #start>
         <b-navbar-item tag="router-link" :to="{ path: '/sobre' }">
           INFORMAÇÕES SOBRE
+        </b-navbar-item>
+
+        <b-navbar-item tag="router-link" :to="{ path: '/help' }">
+          AJUDA
         </b-navbar-item>
       </template>
 
