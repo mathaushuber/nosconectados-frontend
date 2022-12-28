@@ -3,11 +3,11 @@
   
   
       <div class="has-text-centered textWhite pb-6" padding-top="200px">
-          <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center">
-              Ajuda
+          <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">
+              Ajuda com a aplicação
           </h1>
-          <p class="mt-3 pb-6">
-              Como devo utilizar a aplicação?
+          <p class="help mt-3 pb-6">
+              Dicas para utilizar a plataforma da maneira correta!
           </p>
   
       </div>
@@ -90,6 +90,9 @@
     background-color: rgba(0,0,0,.1);
   }
   
+  .help{
+    color: #3a3b3b;
+  }
   h2 {
     margin: 20px auto 80px;
     font-size: 38px;
