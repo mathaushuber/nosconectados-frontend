@@ -3,7 +3,7 @@
     <div class="columns"> <!--Início das colunas principais-->
       <div class="column is-two-fifths"><!-- Início coluna de menu esquerdo-->
         <div class="logo">
-          <img src="../assets/conectamip.png" width="200" height="80">
+          <img src="../assets/nosconectados.svg" width="200" height="130">
           <h2 class="is-size-4 is-uppercase has-text-weight-light">Bem vindo, $USUÁRIO</h2>
         </div>
         
