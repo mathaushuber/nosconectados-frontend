@@ -51,9 +51,9 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 
 .pesthand-logo {
-  font-family: "Staatliches", cursive;
+  font-family: "Arial", cursive;
   color: $partamon-logo-color;
-  font-size: 1.7rem;
+  font-size: 1.1rem;
 }
 
 .navbar-pesthand{
