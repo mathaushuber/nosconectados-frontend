@@ -8,7 +8,7 @@
           <div class="card-content"><!-- Início card-content -->
             <div class="content"><!-- Início content -->
 
-                <img src="../assets/conectamip.png" width="200" height="100">
+                <img src="../assets/nosconectados.svg" width="250" height="150">
                 <p class="mt-2">Soluções para o manejo integrado de pragas</p>
                 <h2 class="is-justify-content-center">Login</h2>
                 
@@ -48,9 +48,6 @@ main{
   height: 100vh;
 }
 @include mobile{
-  #fundo{
-    display: none;
-  }
 }
 @include desktop{
   #fundo img{
