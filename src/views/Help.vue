@@ -6,9 +6,9 @@
           <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">
               Ajuda com a aplicação
           </h1>
-          <p class="help mt-3 pb-6">
+          <h2 class="help mt-1 pb-4">
               Dicas para utilizar a plataforma da maneira correta!
-          </p>
+          </h2>
   
       </div>
   <div style="visibility: hidden; position: absolute; width: 0px; height: 0px;">
@@ -94,9 +94,8 @@
     color: #3a3b3b;
   }
   h2 {
-    margin: 20px auto 80px;
-    font-size: 38px;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: 100px;
     text-align: center;
     letter-spacing: 2px;
     line-height: 1.5;
