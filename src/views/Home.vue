@@ -84,6 +84,7 @@ export default{
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 main{
