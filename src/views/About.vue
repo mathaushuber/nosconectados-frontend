@@ -8,7 +8,7 @@
 
 <div class="blank">
   <div class="container">
-    <h2 class="mt-5">Quem somos?</h2>
+    <h2 class="mt-5 pt-5">Quem somos?</h2>
     NOSCONECTADOS nasceu de uma iniciativa acadêmica, na Universidade Federal de Pelotas (UFPel), apoiado pelo Conselho Nacional de Desenvolvimento Científico 
     e Tecnológico (CNPq), tendo como principal objetivo fomentar o desenvolvimento tecnológico na parte sul do estado do Rio Grande do Sul, mais especificamente
     na cidade de Pelotas, visando principalmente o setor do agronegócio, desenvolvida a priori como uma plataforma de solução para o manejo integrado de pragas. 
@@ -31,12 +31,12 @@
       de viabilizar um melhor entendimento dos dados pela perspectiva do usuário.
     </p>
     <h2>Intuito da plataforma:</h2>
-    <p>
+    <p class="mb-5 pb-5">
       Trazer o melhor do software voltado à internet das coisas, capaz de fornecer dashboards e APIs, focado principalmente no mercado da agricultura digital, 
       extremamente aquecido atualmente, aplicando um conceito de smartfarm. Além da expectativa de incorporar a plataforma no mercado do agronegócio, 
       a plataforma também possibilita uma série de aplicações que podem abordar diversas áreas e finalidades como a utilização em pesquisas acadêmicas, 
       para monitoramento de diversos recursos, implementação de smartcities, smartcampus, entre outros.
-    </p>
+    </p><br />
   </div>
 </div>
 
@@ -69,10 +69,11 @@
 
 <div class="blank" id="devs">
   <div class="columns">
+    <div class="column"></div>
     <div class="column is-one-quarter">
       <a>
-      <div class="card mt-4" @click="showAlert()">
-        <div class="card-content">
+      <div class="card mt-6 pt-6" @click="showAlert()">
+        <div class="card-content center">
           <p class="title">Mathaus Huber</p>
           <p class="subtitle ellipsis mb-4 ml-6">
             HuberM1998 <b-icon icon="github"></b-icon>
@@ -82,7 +83,8 @@
           </figure>
         </div>
       </div>
-      </a>
+      </a><br />
+      <p class="center">All rights reserved. Copyright © 2023</p>
     </div>
   </div>
 </div>
@@ -129,8 +131,6 @@ body {
   background-image:url(../assets/background-about.jpg);
   background-size: cover;
   background-position: center;
-  
-/*  this is where the magic happens:  */
   background-attachment: fixed;
 }
 
@@ -249,5 +249,10 @@ h3 {
   margin: 0 auto;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 </style>
