@@ -9,7 +9,7 @@
       </b-switch>
     </b-field>
     <section class="parallax" id="init"><!--Início seção inicial-->
-      <h1>Tecnologia aliada a inovação!</h1>
+      <h1>TECNOLOGIA ALIADA A INOVAÇÃO!</h1>
       <p>Soluções estruturadas em auxílio a tomada de decisão com base no uso de Redes de Sensores sem Fio aplicadas a smartfarms, smartcities e smartcampus.</p>
       <b-button type="is-primary" tag="router-link" :to="{ path: '/registro' }">REGISTRE-SE</b-button>
     </section><!--Fim seção inicial-->
