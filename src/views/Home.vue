@@ -1,15 +1,21 @@
 <template>
-  <main>
-    <div id="fundo">
-      <img src="../assets/fundo.jpg">
-    </div>
+  <main v-bind:class="isSwitchedCustom">
+    <b-field>
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-3 ml-3"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
       <div class="container"><!-- Início container -->
         <div class="card center"><!-- Início card-->
           <div class="card-content"><!-- Início card-content -->
             <div class="content"><!-- Início content -->
-
+              <div class="center">
                 <img src="../assets/nosconectados.svg" width="250" height="150">
-                <p class="mt-2">Soluções para o manejo integrado de pragas</p>
+              </div>
+                <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
                 <h2 class="is-justify-content-center">Login</h2>
                 
                  <b-input placeholder="E-mail"></b-input>
@@ -44,6 +50,11 @@
 
 <script>
 export default{
+  data() {
+    return {
+      isSwitchedCustom: 'Light'
+          }
+        },
   methods: {
     showAlert(){
       this.$swal({
@@ -87,26 +98,44 @@ export default{
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
-main{
+.Light{
   height: 100vh;
+  background-image: url(../assets/Cover.png);
+}
+
+.Dark{
+  height: 100vh;
+  background-image: url(../assets/Cover-dark.png);
 }
 @include mobile{
+.card {
+  margin-top: 60px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 }
 @include desktop{
   #fundo img{
   height: 50vh;
   width: 100vw;
 }
-  .card{
-  width: 500px;
-  margin-top: -300px;
-  height: auto;
-  padding: 30px;
-  }
-}
-.center {
+
+img{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
+
+.card{
+  width: 500px;
+  display:block;
+  margin-top: 150px;
+  padding-top: 100px;
+  height: auto;
+  padding: 30px;
+  }
+}
+
 </style>
