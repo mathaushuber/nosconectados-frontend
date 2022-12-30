@@ -2,14 +2,14 @@
     <main v-bind:id="isSwitchedCustom">
       <b-field class="mode">
       <b-switch v-model="isSwitchedCustom"
-                class="mt-3 ml-3 letra"
+                class="mt-2 ml-3 letra"
                 true-value="Light"
                 false-value="Dark">
                 {{ isSwitchedCustom }}
       </b-switch>
     </b-field>
   
-      <div class="has-text-centered textWhite pb-6" padding-top="200px">
+      <div class="has-text-centered textWhite pb-6">
           <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">
               Ajuda com a aplicação
           </h1>
@@ -118,18 +118,28 @@ export default{
     color: rgb(255, 255, 255);
   }
 
+  #Dark .help{
+    color: #2b2c2c;
+  }
+
+  #Dark .mode{
+    color: #2b2c2c;
+  }
+
   body {
     font-family: "IBM Plex Sans", sans-serif;
     background-color: rgba(0,0,0,.1);
   }
   
   .help{
-    color: #3a3b3b;
+    color: #ffffff;
   }
 
   .mode{
     position: absolute;
+    color:#ffffff;
   }
+
   h2 {
     font-size: 15px;
     font-weight: 100px;

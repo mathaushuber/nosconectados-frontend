@@ -1,5 +1,13 @@
 <template>
-  <main>
+  <main v-bind:id="isSwitchedCustom">
+    <b-field class="mode mt-1">
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-2 ml-3 letra"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
     <div class="container pt-6 pb-4"><!-- Início container -->
       <div class="columns"><!-- Início columns -->
         <div class="column is-10 is-offset-1"><!--Início column-->
@@ -9,7 +17,7 @@
                 <div class="column">
                    <b-field label="Nome *">
                       <b-input 
-                      placeholder="Identificação do sensor"
+                      placeholder="Identificação da propriedade"
                       type="text"
                       validation-message="Entre com um nome válido"
                       pattern="[A-ZA-z çâêîôûáéíóúàèìòùãẽĩõũ]*"
@@ -91,7 +99,7 @@
                 <div class="columns">
                   <div class="column">
                   <b-field
-                    label="Estado">
+                    label="Estado *">
                     <b-select
                       placeholder="Selecione o estado"
                       @input="loadMunicipios"
@@ -108,7 +116,7 @@
                   </div>
                   <div class="column">
                   <b-field
-                    label="Municipio">
+                    label="Municipio *">
                     <b-select
                       placeholder="Selecione o municipio"
                       :disabled="!estadoTemp"
@@ -124,6 +132,29 @@
                         >{{ municipio.nome }}
                       </option>
                     </b-select>
+                  </b-field>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <b-field
+                    label="Latitude">
+                    <b-input
+                      type="text"
+                      placeholder="00.00000000"
+                      validation-message="Entre com uma latitude válida"
+                      >
+                    </b-input>
+                  </b-field>
+                  </div>
+                  <div class="column">
+                  <b-field
+                    label="Longitude">
+                    <b-input
+                      type="text"
+                      validation-message="Entre com uma longitude válida"
+                      placeholder="00.00000000">
+                    </b-input>
                   </b-field>
                   </div>
                 </div>
@@ -158,6 +189,7 @@ export default{
   data() {
         return {
             estados: [],
+            isSwitchedCustom: 'Light',
             estadoTemp: [],
             municipios: [],
             selected: null
@@ -193,6 +225,22 @@ export default{
 .img-avatar {
   max-width: 280px;
 }
+
+.mode{
+    position: absolute;
+    color:#ffffff;
+  }
+
+#Light .card .card-content{
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+}
+
+#Dark .card{
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+}
+
 @include tablet {
   .img-avatar {
     margin-right: 3rem;
@@ -205,7 +253,9 @@ export default{
 }
 
 main {
-  background: url('../assets/background-sensor.jpg');
+  background: url("../assets/capa.png"), url("../assets/ruido.png"),
+    linear-gradient(110deg, $primary, #7c26f8);
+  background-attachment: fixed;
   height: 100vh;
 }
 </style>

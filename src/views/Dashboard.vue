@@ -1,7 +1,15 @@
 <template>
-  <main>
+  <main v-bind:id="isSwitchedCustom">
+    <b-field class="mode mt-4 letra">
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-2 ml-3"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
     <div class="columns"> <!--Início das colunas principais-->
-      <div class="column is-two-fifths"><!-- Início coluna de menu esquerdo-->
+      <div class="column is-two-fifths" id="menu"><!-- Início coluna de menu esquerdo-->
         <div class="logo">
           <img src="../assets/nosconectados.svg" width="200" height="130">
           <h2 class="is-size-4 is-uppercase has-text-weight-light">Bem vindo, $USUÁRIO</h2>
@@ -98,15 +106,17 @@
 
           </tbody>
         </table>
+        <footer>
         <b-tabs size="is-large" class="block">
             <b-tab-item label="Resumo" icon="bell-plus"></b-tab-item>
             <b-tab-item label="Áreas" icon="apps"></b-tab-item>
             <b-tab-item label="Safra" icon="sprout"></b-tab-item>
             <b-tab-item label="Tempo" icon="cloud"></b-tab-item>
         </b-tabs>
+        </footer>
         </div><!-- Fim column de menu esquerdo-->
       <div class="column"><!--Início coluna direita mapa-->
-        <template>
+        <template id="mapa">
           <l-map :zoom="zoom" :center="center">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
           <l-marker :lat-lng="markerLatLng"></l-marker>
@@ -129,6 +139,7 @@ export default {
   },
   data () {
     return {
+      isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -148,10 +159,38 @@ export default {
   height:100vh;
   width: auto;
 }
- .logo {
+.logo{
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
   text-align: center;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#mapa{
+  height: 100vh;
+}
+
+#Dark .letra{
+  color: #ffffff;
+}
+#Dark #menu{
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#menu{
+  height: 100vh;
+}
+
+.mode{
+    position: absolute;
+    color:#000000;
 }
 </style>

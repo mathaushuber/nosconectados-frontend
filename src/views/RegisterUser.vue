@@ -1,5 +1,13 @@
 <template>
-  <main>
+  <main v-bind:id="isSwitchedCustom">
+    <b-field class="mode mt-1">
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-2 ml-3 letra"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
     <div class="container pt-6 pb-4"><!-- Início container -->
       <div class="columns"><!-- Início columns -->
         <div class="column is-10 is-offset-1"><!--Início column-->
@@ -309,6 +317,7 @@ export default{
   data() {
         return {
             avatar: null,
+            isSwitchedCustom: 'Light',
             imageData: null,
             errors: {
               passwordConfirmed: true,
@@ -398,6 +407,26 @@ export default{
 .img-avatar {
   max-width: 280px;
 }
+
+.mode{
+    position: absolute;
+    color:#ffffff;
+  }
+
+#Light .card .card-content{
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+}
+
+#Dark .card{
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+}
+
+#Dark .card .card-content b-field .label{
+  color: #ffffff;
+}
+
 @include tablet {
   .img-avatar {
     margin-right: 3rem;
