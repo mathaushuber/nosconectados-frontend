@@ -1,6 +1,13 @@
 <template>
-    <main>
-  
+    <main v-bind:id="isSwitchedCustom">
+      <b-field class="mode">
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-3 ml-3 letra"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
   
       <div class="has-text-centered textWhite pb-6" padding-top="200px">
           <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">
@@ -11,6 +18,7 @@
           </h2>
   
       </div>
+
   <div style="visibility: hidden; position: absolute; width: 0px; height: 0px;">
     <svg xmlns="http://www.w3.org/2000/svg">
       <symbol viewBox="0 0 24 24" id="expand-more">
@@ -84,7 +92,32 @@
     </main>
   </template>
   
+<script>
+export default{
+  data() {
+    return {
+      isSwitchedCustom: 'Light'
+          }
+        },
+};
+</script>
   <style lang="scss" scoped>
+  #Light{
+    background-color: rgb(255, 255, 255);
+  }
+
+  #Dark{
+    background-color: rgb(0, 0, 0);
+  }
+
+  #Dark details{
+    background-color: rgb(255, 255, 255);
+  }
+
+  #Dark .letra{
+    color: rgb(255, 255, 255);
+  }
+
   body {
     font-family: "IBM Plex Sans", sans-serif;
     background-color: rgba(0,0,0,.1);
@@ -92,6 +125,10 @@
   
   .help{
     color: #3a3b3b;
+  }
+
+  .mode{
+    position: absolute;
   }
   h2 {
     font-size: 15px;

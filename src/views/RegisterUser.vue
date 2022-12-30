@@ -410,6 +410,8 @@ export default{
 }
 
 main {
-  @include partamon-background;
+  background: url("../assets/capa.png"), url("../assets/ruido.png"),
+    linear-gradient(110deg, $primary, #7c26f8);
+  background-attachment: fixed;
 }
 </style>

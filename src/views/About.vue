@@ -1,6 +1,13 @@
 <template>
-  <main>
-
+  <main v-bind:id="isSwitchedCustom">
+    <b-field class="mode">
+      <b-switch v-model="isSwitchedCustom"
+                class="mt-3 ml-3 letra"
+                true-value="Light"
+                false-value="Dark">
+                {{ isSwitchedCustom }}
+      </b-switch>
+    </b-field>
     <section class="parallax" id="init"><!--Início seção inicial-->
       <h1>Tecnologia aliada a inovação!</h1>
       <p>Soluções estruturadas em auxílio a tomada de decisão com base no uso de Redes de Sensores sem Fio aplicadas a smartfarms, smartcities e smartcampus.</p>
@@ -8,62 +15,74 @@
     </section><!--Fim seção inicial-->
 
     <section class="blank"><!--Início seção secundária-->
-      <div class="container"><!--Início div container-->
-        <h2 class="mt-5 pt-5">Quem somos?</h2>
-        NOSCONECTADOS nasceu de uma iniciativa acadêmica, na Universidade Federal de Pelotas (UFPel), apoiado pelo Conselho Nacional de Desenvolvimento Científico 
-        e Tecnológico (CNPq), tendo como principal objetivo fomentar o desenvolvimento tecnológico na parte sul do estado do Rio Grande do Sul, mais especificamente
-        na cidade de Pelotas, visando principalmente o setor do agronegócio, desenvolvida a priori como uma plataforma de solução para o manejo integrado de pragas. 
-        <h2>O que a plataforma oferece?</h2>
-        <strong>Poder de decisão:</strong>
-        <p>
-          Através de uma análise sistemática pela qual as informações e os dados são usados como base para as escolhas, o profissional terá em mãos
-          uma ferramenta que servirá de apoio para a tomada de decisões no seu dia-a-dia. Assim é possível fazer uma análise lógica e ordenada para definir qual é 
-          a melhor decisão a ser tomada.
-        </p>
-        <strong>Dados confiáveis:</strong>
-        <p>
-          Contando com informações disponibilizadas através de Redes de Sensores sem Fio utilizadas para a coleta dos mais variados tipos de dados, 
-          consideráveis para as tomadas de decisões. Dessa forma, contamos com uma camada segurança que opera através de protocolos sobre a camada de 
-          dados que está preocupada com os dados coletados, processados, enviados, armazenados e analisados.
-        </p>
-        <strong>Relatórios atualizados:</strong>
-        <p>
-          Relatórios precisos que podem ser acessados por qualquer dispositivo com acesso a internet, disponibilizando dashboards intuitivos com a intenção
-          de viabilizar um melhor entendimento dos dados pela perspectiva do usuário.
-        </p>
-        <h2>Intuito da plataforma:</h2>
-        <p class="mb-5 pb-5">
-          Trazer o melhor do software voltado à internet das coisas, capaz de fornecer dashboards e APIs, focado principalmente no mercado da agricultura digital, 
-          extremamente aquecido atualmente, aplicando um conceito de smartfarm. Além da expectativa de incorporar a plataforma no mercado do agronegócio, 
-          a plataforma também possibilita uma série de aplicações que podem abordar diversas áreas e finalidades como a utilização em pesquisas acadêmicas, 
-          para monitoramento de diversos recursos, implementação de smartcities, smartcampus, entre outros.
-        </p><br />
-      </div><!--Fim div container-->
+      <div class="columns"><!--Início div columns-->
+        <div class="column"><!--Início div column-->
+          <div class="container"><!--Início div container-->
+            <h2 class="mt-5 pt-5">Quem somos?</h2>
+            NOSCONECTADOS nasceu de uma iniciativa acadêmica, na Universidade Federal de Pelotas (UFPel), apoiado pelo Conselho Nacional de Desenvolvimento Científico 
+            e Tecnológico (CNPq), tendo como principal objetivo fomentar o desenvolvimento tecnológico na parte sul do estado do Rio Grande do Sul, mais especificamente
+            na cidade de Pelotas, visando principalmente o setor do agronegócio, desenvolvida a priori como uma plataforma de solução para o manejo integrado de pragas. 
+            <h2>O que a plataforma oferece?</h2>
+            <strong>Poder de decisão:</strong>
+            <p>
+              Através de uma análise sistemática pela qual as informações e os dados são usados como base para as escolhas, o profissional terá em mãos
+              uma ferramenta que servirá de apoio para a tomada de decisões no seu dia-a-dia. Assim é possível fazer uma análise lógica e ordenada para definir qual é 
+              a melhor decisão a ser tomada.
+            </p>
+            <strong>Dados confiáveis:</strong>
+            <p>
+              Contando com informações disponibilizadas através de Redes de Sensores sem Fio utilizadas para a coleta dos mais variados tipos de dados, 
+              consideráveis para as tomadas de decisões. Dessa forma, contamos com uma camada segurança que opera através de protocolos sobre a camada de 
+              dados que está preocupada com os dados coletados, processados, enviados, armazenados e analisados.
+            </p>
+            <strong>Relatórios atualizados:</strong>
+            <p>
+              Relatórios precisos que podem ser acessados por qualquer dispositivo com acesso a internet, disponibilizando dashboards intuitivos com a intenção
+              de viabilizar um melhor entendimento dos dados pela perspectiva do usuário.
+            </p>
+            <h2>Intuito da plataforma:</h2>
+            <p class="mb-5 pb-5">
+              Trazer o melhor do software voltado à internet das coisas, capaz de fornecer dashboards e APIs, focado principalmente no mercado da agricultura digital, 
+              extremamente aquecido atualmente, aplicando um conceito de smartfarm. Além da expectativa de incorporar a plataforma no mercado do agronegócio, 
+              a plataforma também possibilita uma série de aplicações que podem abordar diversas áreas e finalidades como a utilização em pesquisas acadêmicas, 
+              para monitoramento de diversos recursos, implementação de smartcities, smartcampus, entre outros.
+            </p><br />
+          </div><!--Fim div container-->
+        </div><!--Fim div column-->
+      </div><!--Fim div columns-->
     </section><!--Fim seção secundária-->
 
     <section class="parallax second" id="segundo"><!--Início seção terceária-->
-      <div class="item">
-        <div class="img img-first"></div>
-        <div class="card">
-          <h3>Smart Cities</h3>
-          <p>Cidade que usa tipos diferentes de sensores eletrônicos para coletar dados e usá-los para gerenciar recursos e ativos eficientemente.</p>
-          <b-button rounded class="mb-4" @click="cityAlert()">SAIBA MAIS</b-button><br />
+      <div class="columns">
+        <div class="column">
+          <div class="item">
+            <div class="img img-first"></div>
+            <div class="card">
+              <h3>Smart Cities</h3>
+              <p>Cidade que usa tipos diferentes de sensores eletrônicos para coletar dados e usá-los para gerenciar recursos e ativos eficientemente.</p>
+              <b-button rounded class="mb-4" @click="cityAlert()">SAIBA MAIS</b-button><br />
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <div class="img img-second"></div>
-        <div class="card">
-          <h3>Smart Campus</h3>
-          <p>Conceito que promove o desenvolvimento e implementação de soluções tecnológicas e sustentáveis focadas em áreas universitárias.</p>
-          <b-button rounded class="mb-4" @click="campusAlert()">SAIBA MAIS</b-button><br />
+        <div class="column">
+          <div class="item">
+            <div class="img img-second"></div>
+            <div class="card">
+              <h3>Smart Campus</h3>
+              <p>Conceito que promove o desenvolvimento e implementação de soluções tecnológicas e sustentáveis focadas em áreas universitárias.</p>
+              <b-button rounded class="mb-4" @click="campusAlert()">SAIBA MAIS</b-button><br />
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <div class="img img-third"></div>
-        <div class="card">
-          <h3>Smart Farming</h3>
-          <p>Agricultura inteligente, focada na otimização da produção para trazer mais eficiência e diminuir desperdícios através da tecnologia.</p>
-          <b-button rounded class="mb-4" @click="farmAlert()">SAIBA MAIS</b-button>
+        <div class="column">
+          <div class="item">
+            <div class="img img-third"></div>
+            <div class="card">
+              <h3>Smart Farming</h3>
+              <p>Agricultura inteligente, focada na otimização da produção para trazer mais eficiência e diminuir desperdícios através da tecnologia.</p>
+              <b-button rounded class="mb-4" @click="farmAlert()">SAIBA MAIS</b-button>
+            </div>
+          </div>
         </div>
       </div>
     </section><!--Fim seção terceária-->
@@ -139,6 +158,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isSwitchedCustom: 'Light'
+          }
+        },
   methods: {
     showAlert() {
       this.$swal({
@@ -197,6 +221,59 @@ body {
   font-family: 'Red Hat Text', sans-serif;
 }
 
+.mode{
+  text-align:left;
+  display:grid;
+  justify-content:left;
+  align-items: flex-start;
+  position: absolute;
+  top: -10;
+  left: -10;
+}
+#Light{
+    background-color: rgb(255, 255, 255);
+  }
+
+#Light .mode{
+  color: rgb(255, 255, 255);
+}
+
+#Dark{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+#Dark .mode{
+  color: rgb(0, 0, 0);
+}
+
+#Dark #segundo .card{
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+#Dark #segundo .item{
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+#Dark #init h1{
+  color: rgb(5, 5, 5);
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
+#Dark #init p{
+  color: rgb(252, 249, 249);
+}
+
+@include mobile{
+  #segundo{
+    padding-top: 200px;
+    padding-bottom: 100px;
+  }
+}
+
 .parallax {
   text-align: center;
   color: white;
@@ -226,6 +303,10 @@ h2{
   max-width: 52ch;
   line-height: 1.5;
   padding: 1em;
+}
+
+#segundo{
+  position:relative;
 }
 
 #init p{
