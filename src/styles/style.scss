@@ -14,3 +14,9 @@ $link-focus-border: $primary;
 .columns {
   @extend .mx-0;
 }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
