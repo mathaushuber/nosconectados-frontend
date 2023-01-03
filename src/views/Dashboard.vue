@@ -31,7 +31,7 @@
           <b-icon icon="bug-check" size="is-large"
           type="is-success"></b-icon>
             </td>
-            <td>Talhão de café 1A</td>
+            <td>{{sensor.readAt}}</td>
             <td>Lorem ipsum doler atmum specter</td>
             <td>23 ha</td>
             <td>Café</td>
@@ -130,6 +130,7 @@
 <script>
 
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+import axios from "axios";
 
 export default {
   components: {
@@ -139,6 +140,9 @@ export default {
   },
   data () {
     return {
+      sensor: {
+        readAt: "",
+      },
       isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -147,7 +151,19 @@ export default {
       center: [-31.765399, -52.337589],
       markerLatLng: [-31.765399, -52.337589]
     };
-  }
+  },
+  methods: {
+     getUser() {
+       axios
+         .get("http://localhost/partamon-backend/api/rd_sensor.php/?rq=read")
+         .then((res) => {
+           this.sensor = res.data;
+         })
+         .catch((error) => {
+           console.log(error);
+         });
+     },
+   },
 }
 
 </script>

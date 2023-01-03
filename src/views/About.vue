@@ -164,6 +164,12 @@ export default {
           }
         },
   methods: {
+    success() {
+                this.$buefy.toast.open({
+                    message: 'Obrigado pela sua avaliação!',
+                    type: 'is-success'
+                })
+            },
     showAlert() {
       this.$swal({
       title: 'Desenvolvido por Mathaus Huber',

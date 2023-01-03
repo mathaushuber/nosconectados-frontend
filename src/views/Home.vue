@@ -17,18 +17,27 @@
               </div>
                 <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
                 <h2 class="is-justify-content-center">Login</h2>
-                
-                 <b-input placeholder="E-mail"></b-input>
+                <form id="form">
+                 <b-input 
+                 placeholder="E-mail"
+                 v-model="email">
+                </b-input>
                  <b-input 
                  placeholder="Senha" 
                  class="mt-5"
                  type="password"
-                 password-reveal></b-input><br>
+                 v-model="password"
+                 password-reveal></b-input>
+                </form>
+                <br>
                  <a class="center" @click="showAlert()">Esqueci minha senha</a><br>
+                 <button type="submit" class="btn-login">Login</button>
+                 <button id="btn_check_auth" class="btn-auth">Verificar autenticação</button>
                  <div class="buttons center is-justify-content-center">
                   <b-button 
                      type="is-success" 
                      tag="router-link"
+                     @click="login()"
                      :to="{ path: '/dashboard' }"
                      class="mt-5">Entrar
                   </b-button>                   
@@ -49,13 +58,30 @@
 </template>
 
 <script>
+import axios from "axios";
 export default{
   data() {
     return {
-      isSwitchedCustom: 'Light'
+      isSwitchedCustom: 'Light',
+      email: '',
+      password: '',
+      error: false
           }
         },
+  created() {
+     this.getSensor();
+   },
   methods: {
+        getSensor() {
+          axios
+      .get("http://localhost/partamon-backend/api/rd_sensor.php/?rq=read")
+      .then((res) => {
+              console.log(res.data)
+      })
+      .catch((error) => {
+              console.log(error);
+      });
+     },
     showAlert(){
       this.$swal({
   title: 'Entre com o seu e-mail',
