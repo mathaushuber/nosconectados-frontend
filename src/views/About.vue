@@ -2,19 +2,28 @@
   <main v-bind:id="isSwitchedCustom">
     <b-field class="mode">
       <b-switch v-model="isSwitchedCustom"
-                class="mt-3 ml-3 letra"
+                class="mt-5 ml-3 letra"
                 true-value="Light"
                 false-value="Dark">
                 {{ isSwitchedCustom }}
       </b-switch>
     </b-field>
-    <section class="parallax" id="init"><!--Início seção inicial-->
-      <h1>TECNOLOGIA ALIADA A INOVAÇÃO!</h1>
-      <p>Soluções estruturadas em auxílio a tomada de decisão com base no uso de Redes de Sensores sem Fio aplicadas a smartfarms, smartcities e smartcampus.</p>
-      <b-button type="is-primary" tag="router-link" :to="{ path: '/registro' }">REGISTRE-SE</b-button>
+    <section id="init"><!--Início seção inicial-->
+      <div class="columns">
+      <div class="column">
+        <div class="center text">
+        <h1>TECNOLOGIA ALIADA A INOVAÇÃO!</h1>
+        <p class="center">Soluções estruturadas em auxílio a tomada de decisão com base no uso de Redes de Sensores sem Fio aplicadas a smartfarms, smartcities e smartcampus.</p>
+        <b-button type="is-primary" tag="router-link" :to="{ path: '/registro' }">REGISTRE-SE</b-button>
+        </div>
+      </div>
+      <div class="column">
+        <img src="../assets/background-about.png" class="imagem">
+      </div>
+      </div>
     </section><!--Fim seção inicial-->
 
-    <section class="blank"><!--Início seção secundária-->
+    <section id="content"><!--Início seção secundária-->
       <div class="columns"><!--Início div columns-->
         <div class="column"><!--Início div column-->
           <div class="container"><!--Início div container-->
@@ -87,7 +96,7 @@
       </div>
     </section><!--Fim seção terceária-->
 
-    <section class="blank" id="devs"><!--Início seção quaternária-->
+    <section id="devs"><!--Início seção quaternária-->
       <div class="columns"><!--Início div columns-->
         <div class="column is-one-third"><!--Início primeira column à esquerda-->
           <div class="hero center mt-6"><!--Início Hero-->
@@ -241,7 +250,7 @@ body {
   }
 
 #Light .mode{
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 #Dark{
@@ -253,20 +262,9 @@ body {
   color: rgb(0, 0, 0);
 }
 
-#Dark #segundo .card{
+#Dark #segundo{
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
-}
-
-#Dark #segundo .item{
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-}
-
-#Dark #init h1{
-  color: rgb(5, 5, 5);
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: rgb(255, 255, 255);
 }
 
 #Dark #init p{
@@ -278,8 +276,13 @@ body {
     padding-top: 200px;
     padding-bottom: 100px;
   }
+
 }
 
+#init {
+  min-height: 100vh;
+  color: rgb(0, 0, 0);
+}
 .parallax {
   text-align: center;
   color: white;
@@ -289,10 +292,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image:url(../assets/background-about.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+}
+
+@include desktop{
+  .imagem{
+    position: absolute;
+    height: 100%;
+  }
 }
 
 h1 {
@@ -313,6 +322,7 @@ h2{
 
 #segundo{
   position:relative;
+  background-color: rgb(255, 255, 255);
 }
 
 #init p{
@@ -328,10 +338,17 @@ h2{
   background-color: var(--color);
 }
 
+#content{
+  background: linear-gradient(110deg, $primary, #7c26f8);
+  color: rgb(255, 255, 255);
+}
+
+#content strong{
+  color: rgb(255, 255, 255);
+}
+
 .second {
-  background-image:url(../assets/background-about2.jpg);
-  background-attachment: fixed;
-  height: 1200px;
+  background-color: rgb(255, 255, 255);
 }
 
 h3 {
@@ -403,9 +420,29 @@ h3 {
 .center {
   margin-left: auto;
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   text-align: center;
 }
 
+@include desktop{ 
+  .text{
+    margin-top: 350px;
+  }
+
+  #content{
+    margin-top: 150px;
+  }
+}
+
+@include mobile{
+  #init{
+    margin-top: 80px;
+  }
+  .mode{
+    margin-top: -80px;
+  }
+}
 .jt {
   @include mobile{
     font-size:13.1vmin;

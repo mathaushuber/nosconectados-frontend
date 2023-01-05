@@ -226,7 +226,8 @@ export default{
   
   .textWhite {
       color: white;
-      background: url(../assets/capa.jpg);   
+      background: url("../assets/capa.png"), url("../assets/ruido.png"),
+      linear-gradient(110deg, $primary, #7c26f8); 
   }
   
   </style>

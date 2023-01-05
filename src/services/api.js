@@ -4,8 +4,8 @@ import axios from "axios";
     baseURL: `${API_URL}/api/v1`,
   });
 
-  function loginUser(email, password) {
-    return api.post("/login", { email, password });
+  function loginUser(email, user_password) {
+    return api.post("/login", { email, user_password });
   }
 
   function getUser() {
