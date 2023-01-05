@@ -1,8 +1,28 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store/index";
 
 Vue.use(VueRouter);
+
+let middlewareAuth = function (to, from, next) {
+  if (store.state.user.id) {
+    next();
+  } else {
+    let token = window.sessionStorage.getItem("token");
+    if (token)
+      store
+        .dispatch("loginUserByToken", token)
+        .then(() => {
+          next();
+        })
+        .catch(() => {
+          window.sessionStorage.removeItem("token");
+          next({ path: "/" });
+        });
+    else next({ path: "/" });
+  }
+};
 
 const routes = [
   {
@@ -13,6 +33,8 @@ const routes = [
    {
     path: "/dashboard",
     name: "Dashboard",
+    props: true,
+    beforeEnter: middlewareAuth,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Dashboard.vue"),
   },
@@ -25,6 +47,7 @@ const routes = [
   {
     path: "/create-sensor",
     name: "CadastroSensor",
+    beforeEnter: middlewareAuth,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/CreateSensor.vue"),
   },

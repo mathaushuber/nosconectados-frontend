@@ -6,6 +6,7 @@ import VueMask from "v-mask";
 import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import store from "./store";
 
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -25,5 +26,6 @@ Vue.component('l-marker', LMarker);
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");

@@ -17,27 +17,27 @@
               </div>
                 <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
                 <h2 class="is-justify-content-center">Login</h2>
-                <form id="form">
+                <b-field :type="{ 'is-danger': error }">
                  <b-input 
                  placeholder="E-mail"
                  v-model="email">
                 </b-input>
+                </b-field>
+                <b-field :type="{ 'is-danger': error }">
                  <b-input 
                  placeholder="Senha" 
                  class="mt-5"
                  type="password"
-                 v-model="password"
+                 v-model="user_password"
                  password-reveal></b-input>
-                </form>
+                </b-field>
                 <br>
                  <a class="center" @click="showAlert()">Esqueci minha senha</a><br>
-                 <button type="submit" class="btn-login">Login</button>
-                 <button id="btn_check_auth" class="btn-auth">Verificar autenticação</button>
                  <div class="buttons center is-justify-content-center">
                   <b-button 
                      type="is-success" 
                      tag="router-link"
-                     @click="login()"
+                     @click="login"
                      :to="{ path: '/dashboard' }"
                      class="mt-5">Entrar
                   </b-button>                   
@@ -58,30 +58,31 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions, mapState } from "vuex";
+
 export default{
+  name: "Home",
+  components: {},
   data() {
     return {
       isSwitchedCustom: 'Light',
       email: '',
-      password: '',
+      user_password: '',
       error: false
           }
         },
-  created() {
-     this.getSensor();
-   },
   methods: {
-        getSensor() {
-          axios
-      .get("http://localhost/partamon-backend/api/rd_sensor.php/?rq=read")
-      .then((res) => {
-              console.log(res.data)
+    ...mapActions(["loginUser", "loginUserByToken"]),
+    login() {
+      this.loginUser({
+        email: this.email,
+        user_password: this.user_password,
       })
-      .catch((error) => {
-              console.log(error);
-      });
-     },
+        .then(() => {
+          this.$router.push("/dashboard");
+        })
+        .catch(() => (this.error = true));
+    },
     showAlert(){
       this.$swal({
   title: 'Entre com o seu e-mail',
@@ -117,6 +118,12 @@ export default{
     })
   }
 })
+    },
+  },
+  computed: { ...mapState(["user"]) },
+  watch: {
+    user(newUser) {
+      if (newUser.id) this.$router.push("/dashboard");
     },
   },
 };

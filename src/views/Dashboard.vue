@@ -31,7 +31,7 @@
           <b-icon icon="bug-check" size="is-large"
           type="is-success"></b-icon>
             </td>
-            <td>{{sensor.readAt}}</td>
+            <td></td>
             <td>Lorem ipsum doler atmum specter</td>
             <td>23 ha</td>
             <td>Café</td>
@@ -128,9 +128,8 @@
 </template>
 
 <script>
-
+import { mapState } from "vuex";
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
-import axios from "axios";
 
 export default {
   components: {
@@ -153,17 +152,10 @@ export default {
     };
   },
   methods: {
-     getUser() {
-       axios
-         .get("http://localhost/partamon-backend/api/rd_sensor.php/?rq=read")
-         .then((res) => {
-           this.sensor = res.data;
-         })
-         .catch((error) => {
-           console.log(error);
-         });
-     },
    },
+  computed: {
+    ...mapState(["user"]),
+  },
 }
 
 </script>
