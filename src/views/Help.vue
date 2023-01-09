@@ -1,13 +1,5 @@
 <template>
     <main v-bind:id="isSwitchedCustom">
-      <b-field class="mode">
-      <b-switch v-model="isSwitchedCustom"
-                class="mt-2 ml-3 letra"
-                true-value="Light"
-                false-value="Dark">
-                {{ isSwitchedCustom }}
-      </b-switch>
-    </b-field>
   
       <div class="has-text-centered textWhite pb-6">
           <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">

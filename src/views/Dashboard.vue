@@ -1,18 +1,10 @@
 <template>
   <main v-bind:id="isSwitchedCustom">
-    <b-field class="mode mt-4 letra">
-      <b-switch v-model="isSwitchedCustom"
-                class="mt-2 ml-3"
-                true-value="Light"
-                false-value="Dark">
-                {{ isSwitchedCustom }}
-      </b-switch>
-    </b-field>
     <div class="columns"> <!--Início das colunas principais-->
       <div class="column is-two-fifths" id="menu"><!-- Início coluna de menu esquerdo-->
         <div class="logo">
           <img src="../assets/nosconectados.svg" width="200" height="130">
-          <h2 class="is-size-4 is-uppercase has-text-weight-light">Bem vindo, $USUÁRIO</h2>
+          <h2 class="is-size-4 is-uppercase has-text-weight-light">Bem vindo, {{ user.firstName }}</h2>
         </div>
         
         <b-field label="Propriedade" class="mt-5">
@@ -23,89 +15,54 @@
                 <option value="silver">Fazenda Guarapó</option>
             </b-select>
         </b-field>
-
+<div class="table-container">
        <table class="table">
+        <thead>
+          <tr>
+            <td class="center">Status</td>
+            <td class="center">Propriedade</td>
+            <td class="center">Descrição</td>
+            <td class="center">Área</td>
+            <td class="center">Produção</td>
+            <td class="center">Informações</td>
+          </tr>
+        </thead>
         <tbody>
+          <tr class="center-table">
+            <td>
+          <b-icon v-if="sensorData.isActive === 0" icon="bug-check" size="is-large"
+          type="is-danger"></b-icon>
+          <b-icon v-else-if="sensorData.isActive === 1" icon="bug-check" size="is-large"
+          type="is-success"></b-icon>
+          <b-icon v-else icon="bug-check" size="is-large"
+          type="is-alert"></b-icon>
+            </td>
+            <td class="center">{{ sensorData.property }}</td>
+            <td class="center">{{ sensorData.lowDescription }}</td>
+            <td class="center">{{ sensorData.area }} ha</td>
+            <td class="center">{{ sensorData.typeProduction }}</td>
+            <td><b-button type="is-primary">Detalhes</b-button></td>
+          </tr>
+
           <tr>
             <td>
-          <b-icon icon="bug-check" size="is-large"
-          type="is-success"></b-icon>
-            </td>
-            <td></td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>23 ha</td>
-            <td>Café</td>
-            <td>Ativo</td>
-          </tr>
-           <tr>
-            <td>
-          <b-icon icon="bug" size="is-large"
-          type="is-warning"></b-icon>
-            </td>
-            <td>Talhão de café 1B</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>10 ha</td>
-            <td>Café</td>
-            <td>Em andamento</td>
-          </tr>
-           <tr>
-            <td>
-          <b-icon icon="bug" size="is-large"
+          <b-icon v-if="sensorData.isActive === 0" icon="bug-check" size="is-large"
           type="is-danger"></b-icon>
-            </td>
-            <td>Talhão de café 1C</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>43 ha</td>
-            <td>Café</td>
-            <td>Inativo</td>
-          </tr>
-             <tr>
-            <td>
-          <b-icon icon="bug" size="is-large"
-          type="is-danger"></b-icon>
-            </td>
-            <td>Talhão de café 1E</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>16 ha</td>
-            <td>Café</td>
-            <td>Inativo</td>
-          </tr>
-             <tr>
-            <td>
-          <b-icon icon="bug" size="is-large"
-          type="is-warning"></b-icon>
-            </td>
-            <td>Talhão de Arroz 1A</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>20 ha</td>
-            <td>Arroz</td>
-            <td>Em andamento</td>
-          </tr>
-               <tr>
-            <td>
-          <b-icon icon="bug-check" size="is-large"
+          <b-icon v-else-if="sensorData.isActive === 1" icon="bug-check" size="is-large"
           type="is-success"></b-icon>
+          <b-icon v-else icon="bug-check" size="is-large"
+          type="is-alert"></b-icon>
             </td>
-            <td>Talhão de Arroz 1B</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>17 ha</td>
-            <td>Arroz</td>
-            <td>Ativo</td>
-          </tr>
-              <tr>
-            <td>
-          <b-icon icon="bug-check" size="is-large"
-          type="is-success"></b-icon>
-            </td>
-            <td>Talhão de Café 1G</td>
-            <td>Lorem ipsum doler atmum specter</td>
-            <td>22 ha</td>
-            <td>Café</td>
-            <td>Ativo</td>
+            <td>{{ sensorData.property }}</td>
+            <td>{{ sensorData.lowDescription }}</td>
+            <td>{{ sensorData.area }} ha</td>
+            <td>{{ sensorData.typeProduction }}</td>
+            <td><b-button type="is-primary">Detalhes</b-button></td>
           </tr>
 
           </tbody>
         </table>
+      </div>
         <footer>
         <b-tabs size="is-large" class="block">
             <b-tab-item label="Resumo" icon="bell-plus"></b-tab-item>
@@ -130,6 +87,7 @@
 <script>
 import { mapState } from "vuex";
 import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+import { getSensorFromUser } from "../services/api";
 
 export default {
   components: {
@@ -139,9 +97,7 @@ export default {
   },
   data () {
     return {
-      sensor: {
-        readAt: "",
-      },
+      sensorData:{},
       isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -151,7 +107,22 @@ export default {
       markerLatLng: [-31.765399, -52.337589]
     };
   },
+  teste(){
+  },
+  mounted(){
+    this.loadSensor();
+  },
   methods: {
+    loadSensor() {
+      return getSensorFromUser()
+        .then((res) => {
+          this.sensorData = res.data;
+          console.log(this.sensorData.data)
+        })
+        .catch(() => {
+          this.error = true;
+        });
+    },
    },
   computed: {
     ...mapState(["user"]),
@@ -179,10 +150,12 @@ footer{
   bottom: 0;
   left: 0;
   right: 0;
+  top: 1;
 }
 
 #mapa{
   height: 100vh;
+  position: relative;
 }
 
 #Dark .letra{
@@ -197,6 +170,12 @@ footer{
   height: 100vh;
 }
 
+.center-table{
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+}
 .mode{
     position: absolute;
     color:#000000;

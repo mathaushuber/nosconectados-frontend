@@ -33,6 +33,7 @@ const routes = [
    {
     path: "/dashboard",
     name: "Dashboard",
+    beforeEnter: middlewareAuth,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Dashboard.vue"),
   },

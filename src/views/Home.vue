@@ -1,78 +1,75 @@
 <template>
-  <main v-bind:class="isSwitchedCustom">
-    <b-field>
-      <b-switch v-model="isSwitchedCustom"
-                class="mt-3 ml-3"
-                true-value="Light"
-                false-value="Dark">
-                {{ isSwitchedCustom }}
-      </b-switch>
-    </b-field>
-      <div class="container"><!-- Início container -->
-        <div class="card center"><!-- Início card-->
-          <div class="card-content"><!-- Início card-content -->
-            <div class="content"><!-- Início content -->
-              <div class="center">
+  <main v-bind:id="isSwitchedCustom">
+  <div class="home is-flex is-justify-content-space-around">
+    <div>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <div class="center">
                 <img src="../assets/nosconectados.svg" width="250" height="150">
               </div>
                 <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
-                <h2 class="is-justify-content-center">Login</h2>
-                <b-field :type="{ 'is-danger': error }">
-                 <b-input 
-                 placeholder="E-mail"
-                 v-model="email">
-                </b-input>
-                </b-field>
-                <b-field :type="{ 'is-danger': error }">
-                 <b-input 
-                 placeholder="Senha" 
-                 class="mt-5"
-                 type="password"
-                 v-model="user_password"
-                 password-reveal></b-input>
-                </b-field>
-                <br>
-                 <a class="center" @click="showAlert()">Esqueci minha senha</a><br>
-                 <div class="buttons center is-justify-content-center">
-                  <b-button 
-                     type="is-success" 
-                     tag="router-link"
-                     @click="login"
-                     :to="{ path: '/dashboard' }"
-                     class="mt-5">Entrar
-                  </b-button>                   
-                  <b-button
-                     class="mt-5"
-                     type="is-warning"
-                     tag="router-link"
-                     :to="{ path: '/registro' }">
-                     Criar conta
-                  </b-button>
-                 </div>
+                <h2 class="center">Login</h2>
+            <b-field label="Email">
+              <b-input
+                type="email"
+                placeholder="jon@arbuckle.com"
+                v-model="email"
+              >
+              </b-input>
+            </b-field>
 
-            </div><!-- Fim content -->
-          </div><!-- Fim card-content-->
-        </div><!-- Fim content-->
-      </div><!-- Fim container -->  
+            <b-field label="Senha">
+              <b-input
+                type="password"
+                password-reveal
+                placeholder="********"
+                v-model="user_password"
+                @keyup.enter="login"
+              >
+              </b-input>
+            </b-field>
+            <div class="center mt-5">
+            <b-button @click="login" type="is-primary" class="center">Entrar</b-button>
+            <b-button
+              class="ml-4"
+              @click="loginFacebook"
+              type="is-primary-outline"
+              >Entrar com Facebook
+              <b-icon
+                icon="facebook"
+                class="ml-1 content has-text-centered"
+                type="is-primary"
+              >
+              </b-icon>
+            </b-button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </main>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
-
-export default{
+import { loginFacebook } from "../services/api";
+export default {
   name: "Home",
   components: {},
   data() {
-    return {
-      isSwitchedCustom: 'Light',
-      email: '',
-      user_password: '',
-      error: false
-          }
-        },
+    return { email: "", user_password: "", error: false };
+  },
   methods: {
     ...mapActions(["loginUser", "loginUserByToken"]),
+    toast(error) {
+        if(error === true){
+            this.$buefy.toast.open({
+              message: 'Não foi possível realizar o login. Verifique seu email e senha!',
+              type: 'is-danger'});
+        }
+            },
     login() {
       this.loginUser({
         email: this.email,
@@ -82,42 +79,26 @@ export default{
           this.$router.push("/dashboard");
         })
         .catch(() => (this.error = true));
+        this.toast(this.error);
     },
-    showAlert(){
-      this.$swal({
-  title: 'Entre com o seu e-mail',
-  subtitle: 'Enviaremos uma solicitação de nova senha por lá!',
-  input: 'text',
-  inputAttributes: {
-    autocapitalize: 'off'
-  },
-  showCancelButton: true,
-  confirmButtonText: 'Enviar',
-  cancelButtonText: 'Cancelar',
-  showLoaderOnConfirm: true,
-  preConfirm: (login) => {
-    return fetch(`https://nosconectados.herokuapp.com/api/users?rq=read${login}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .catch(error => {
-        this.$swal.showValidationMessage(
-          `Request failed: ${error}`
-        )
-      })
-  },
-  allowOutsideClick: () => !this.$swal.isLoading()
-}).then((result) => {
-  if (result.isConfirmed) {
-    this.$swal({
-      title: `${result.value.login}'s avatar`,
-      imageUrl: result.value.avatar_url
-    })
-  }
-})
+    loginFacebook() {
+      window.FB.login(
+        (response) => {
+          console.log(response);
+          if (response.status == "connected")
+            if (response.authResponse) {
+              loginFacebook(response.authResponse.accessToken).then((res) => {
+                this.loginUserByToken(res.data.token).then(() => {
+                  window.sessionStorage.setItem("token", res.data.token);
+                  this.$router.push("/dashboard");
+                });
+              });
+            } else {
+              console.log("User cancelled login or did not fully authorize.");
+            }
+        },
+        { scope: "email,public_profile" }
+      );
     },
   },
   computed: { ...mapState(["user"]) },
@@ -128,48 +109,48 @@ export default{
   },
 };
 </script>
-
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
-.Light{
+.card-login {
+  margin-top: 7rem;
+}
+
+#Light{
   height: 100vh;
   background-image: url(../assets/Cover.png);
+  color: rgb(0, 0, 0);
 }
-
-.Dark{
+#Dark{
   height: 100vh;
   background-image: url(../assets/Cover-dark.png);
-}
-@include mobile{
-.card {
-  margin-top: 60px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-}
-@include desktop{
-  #fundo img{
-  height: 50vh;
-  width: 100vw;
+  color: rgb(255, 255, 255);
 }
 
-img{
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+@include tablet {
+  .home {
+    height: 100vh;
+  }
+}
+@include touch {
+  .home {
+    min-height: 100vh;
+  }
+
 }
 
 .card{
   width: 500px;
   display:block;
   margin-top: 150px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 100px;
   height: auto;
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 1);
   }
-}
 
+  main{
+    background-image: url(../assets/Cover.png);
+  }
 </style>

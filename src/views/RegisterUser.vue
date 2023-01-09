@@ -1,13 +1,5 @@
 <template>
   <main v-bind:id="isSwitchedCustom">
-    <b-field class="mode mt-1">
-      <b-switch v-model="isSwitchedCustom"
-                class="mt-2 ml-3 letra"
-                true-value="Light"
-                false-value="Dark">
-                {{ isSwitchedCustom }}
-      </b-switch>
-    </b-field>
     <div class="container pt-6 pb-4"><!-- Início container -->
       <div class="columns"><!-- Início columns -->
         <div class="column is-10 is-offset-1"><!--Início column-->
