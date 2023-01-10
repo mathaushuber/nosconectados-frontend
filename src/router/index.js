@@ -51,6 +51,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/CreateSensor.vue"),
   },
   {
+    path: "/edit-perfil",
+    name: "EditPerfil",
+    beforeEnter: middlewareAuth,
+    component: () =>
+      import(/* webpackChunkName: "edit" */ "../views/EditUser.vue"),
+  },
+  {
     path: "/help",
     name: "Help",
     component: () =>
@@ -61,6 +68,12 @@ const routes = [
     name: "About",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    path: "/sensores",
+    name: "Sensores",
+    component: () =>
+      import(/* webpackChunkName: "sensores" */ "../views/Sensores.vue"),
   },
 ];
 
