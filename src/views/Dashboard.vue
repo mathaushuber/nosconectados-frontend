@@ -25,16 +25,17 @@
             <td class="center">Área</td>
             <td class="center">Produção</td>
             <td class="center">Informações</td>
+            <td class="center">Mapa</td>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="v-for-object">
           <tr class="center-table">
             <td>
-          <b-icon v-if="sensorData.isActive === 0" icon="bug-check" size="is-large"
+          <b-icon v-if="sensorData.isActive === 0" icon="access-point-remove" size="is-large"
           type="is-danger"></b-icon>
-          <b-icon v-else-if="sensorData.isActive === 1" icon="bug-check" size="is-large"
+          <b-icon v-else-if="sensorData.isActive === 1" icon="access-point-check" size="is-large"
           type="is-success"></b-icon>
-          <b-icon v-else icon="bug-check" size="is-large"
+          <b-icon v-else icon="access-point-off" size="is-large"
           type="is-alert"></b-icon>
             </td>
             <td class="center">{{ sensorData.property }}</td>
@@ -42,22 +43,11 @@
             <td class="center">{{ sensorData.area }} ha</td>
             <td class="center">{{ sensorData.typeProduction }}</td>
             <td><b-button type="is-primary">Detalhes</b-button></td>
-          </tr>
-
-          <tr>
             <td>
-          <b-icon v-if="sensorData.isActive === 0" icon="bug-check" size="is-large"
-          type="is-danger"></b-icon>
-          <b-icon v-else-if="sensorData.isActive === 1" icon="bug-check" size="is-large"
-          type="is-success"></b-icon>
-          <b-icon v-else icon="bug-check" size="is-large"
-          type="is-alert"></b-icon>
+            <b-button
+                icon-left="arrow-right">
+            </b-button>
             </td>
-            <td>{{ sensorData.property }}</td>
-            <td>{{ sensorData.lowDescription }}</td>
-            <td>{{ sensorData.area }} ha</td>
-            <td>{{ sensorData.typeProduction }}</td>
-            <td><b-button type="is-primary">Detalhes</b-button></td>
           </tr>
 
           </tbody>
@@ -103,11 +93,9 @@ export default {
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 30,
-      center: [-31.765399, -52.337589],
+      center: [-31.78095019266983, -52.32305667671329],
       markerLatLng: [-31.765399, -52.337589]
     };
-  },
-  teste(){
   },
   mounted(){
     this.loadSensor();
@@ -117,7 +105,7 @@ export default {
       return getSensorFromUser()
         .then((res) => {
           this.sensorData = res.data;
-          console.log(this.sensorData.data)
+          console.log(this.sensorData)
         })
         .catch(() => {
           this.error = true;
