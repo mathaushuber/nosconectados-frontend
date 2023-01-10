@@ -20,6 +20,10 @@
         <b-navbar-item tag="router-link" :to="{ path: '/help' }">
           AJUDA
         </b-navbar-item>
+
+        <b-navbar-item tag="router-link" :to="{ path: '/sensores' }">
+          SENSORES
+        </b-navbar-item>
       </template>
 
       <template #start v-else>
@@ -30,7 +34,6 @@
         <b-navbar-item tag="router-link" :to="{ path: '/help' }">
           AJUDA
         </b-navbar-item>
-
         <b-dropdown
                     position="is-bottom-left"
                     append-to-body
@@ -39,33 +42,37 @@
                         <a
                             class="navbar-item"
                             role="button">
-                            <span>OPÇÕES</span>
+                            <span>PAINEL</span>
                             <b-icon icon="menu-down"></b-icon>
                         </a>
                     </template>
 
                     <b-dropdown-item has-link aria-role="menuitem">
-                        <a href="https://google.com" target="_blank">
-                            <b-icon icon="link"></b-icon>
-                            Google (link)
-                        </a>
+                        <router-link to="/create-sensor">
+                            <b-icon icon="plus-thick"></b-icon>
+                            Criar Sensor
+                        </router-link>
                     </b-dropdown-item>
-                    <b-dropdown-item value="home" aria-role="menuitem">
-                        <b-icon icon="home"></b-icon>
-                        Home
+                    <b-dropdown-item has-link aria-role="menuitem">
+                      <router-link to="/edit-perfil">
+                        <b-icon icon="account-edit"></b-icon>
+                        Editar Perfil
+                      </router-link>
                     </b-dropdown-item>
                     <b-dropdown-item value="products" aria-role="menuitem">
-                        <b-icon icon="cart"></b-icon>
-                        Products
+                        <b-icon icon="access-point-minus"></b-icon>
+                        Solicitações Enviadas
                     </b-dropdown-item>
-                    <b-dropdown-item value="blog" disabled aria-role="menuitem">
-                        <b-icon icon="book-open"></b-icon>
-                        Blog
+                    <b-dropdown-item value="blog" aria-role="menuitem">
+                        <b-icon icon="lan"></b-icon>
+                        Meus Sensores
                     </b-dropdown-item>
                     <hr class="dropdown-divider" aria-role="menuitem">
-                    <b-dropdown-item value="settings">
-                        <b-icon icon="settings"></b-icon>
-                        Settings
+                    <b-dropdown-item has-link aria-role="menuitem">
+                        <router-link to="/sensores">
+                            <b-icon icon="account-group"></b-icon>
+                            Sensores Públicos
+                        </router-link>
                     </b-dropdown-item>
                     <b-dropdown-item value="logout" aria-role="menuitem">
                         <b-icon icon="logout"></b-icon>
