@@ -75,8 +75,8 @@
                         </router-link>
                     </b-dropdown-item>
                     <b-dropdown-item value="logout" aria-role="menuitem">
-                        <b-icon icon="logout"></b-icon>
-                        Logout
+                        <b-icon icon="cog"></b-icon>
+                        Configurações
                     </b-dropdown-item>
                 </b-dropdown>
       </template>
