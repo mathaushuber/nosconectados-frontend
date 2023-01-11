@@ -13,7 +13,7 @@
             <b-field label="Email">
               <b-input
                 type="email"
-                placeholder="jon@arbuckle.com"
+                placeholder="usuario@nosconectados.com"
                 v-model="email"
               >
               </b-input>
@@ -59,7 +59,14 @@ export default {
   name: "Home",
   components: {},
   data() {
-    return { email: "", user_password: "", error: false };
+    return { 
+      email: "", 
+      user_password: "", 
+      error: false,
+      testeStatus: {
+        status: "Não foi possível fazer login, verifique seu email e senha!"
+      },
+     };
   },
   methods: {
     ...mapActions(["loginUser", "loginUserByToken"]),
