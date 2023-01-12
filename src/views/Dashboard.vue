@@ -15,7 +15,7 @@
                 <option value="silver">Fazenda Guarapó</option>
             </b-select>
         </b-field>
-<div class="table-container">
+<div class="table-container" v-if="!sensorData">
        <table class="table">
         <thead>
           <tr>
@@ -28,8 +28,8 @@
             <td class="center">Mapa</td>
           </tr>
         </thead>
-        <tbody id="v-for-object">
-          <tr class="center-table">
+        <tbody>
+          <tr class="center-table" v-for="sensor in sensorData" :key="sensor.id">
             <td>
           <b-icon v-if="sensorData.isActive === 0" icon="access-point-remove" size="is-large"
           type="is-danger"></b-icon>
@@ -38,10 +38,10 @@
           <b-icon v-else icon="access-point-off" size="is-large"
           type="is-alert"></b-icon>
             </td>
-            <td class="center">{{ sensorData.property }}</td>
-            <td class="center">{{ sensorData.lowDescription }}</td>
-            <td class="center">{{ sensorData.area }} ha</td>
-            <td class="center">{{ sensorData.typeProduction }}</td>
+            <td class="center">{{ sensor.property }}</td>
+            <td class="center">{{ sensor.lowDescription }}</td>
+            <td class="center">{{ sensor.area }} ha</td>
+            <td class="center">{{ sensor.typeProduction }}</td>
             <td><b-button type="is-primary">Detalhes</b-button></td>
             <td>
             <b-button
@@ -52,6 +52,10 @@
 
           </tbody>
         </table>
+      </div>
+      <div v-else class="imagem">
+        <img src="../assets/sensor-null.svg" />
+        <h1 class="is-size-5 center is-uppercase has-text-weight-light">Nenhum sensor identificado!</h1>
       </div>
         <footer>
         <b-tabs size="is-large" class="block">
@@ -87,7 +91,7 @@ export default {
   },
   data () {
     return {
-      sensorData:{},
+      sensorData:[],
       isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
@@ -141,6 +145,14 @@ footer{
   top: 1;
 }
 
+.imagem{
+  width: 400px;
+  height: 400px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
 #mapa{
   height: 100vh;
   position: relative;
