@@ -62,7 +62,6 @@ export default {
     return { 
       email: "", 
       user_password: "", 
-      error: false,
       testeStatus: {
         status: "Não foi possível fazer login, verifique seu email e senha!"
       },
@@ -70,13 +69,6 @@ export default {
   },
   methods: {
     ...mapActions(["loginUser", "loginUserByToken"]),
-    toast(error) {
-        if(error === true){
-            this.$buefy.toast.open({
-              message: 'Não foi possível realizar o login. Verifique seu email e senha!',
-              type: 'is-danger'});
-        }
-            },
     login() {
       this.loginUser({
         email: this.email,
@@ -85,8 +77,11 @@ export default {
         .then(() => {
           this.$router.push("/dashboard");
         })
-        .catch(() => (this.error = true));
-        this.toast(this.error);
+        .catch(() => {
+          this.$buefy.toast.open({
+              message: 'Não foi possível realizar o login. Verifique seu email e senha!',
+              type: 'is-danger'});
+        });
     },
     loginFacebook() {
       window.FB.login(
