@@ -1,5 +1,5 @@
 <template>
-    <main v-bind:id="isSwitchedCustom">
+    <main>
   
       <div class="has-text-centered textWhite pb-6">
           <h1 class="is-size-3 is-uppercase has-text-weight-bold pt-6 text-center help">
@@ -220,6 +220,7 @@ export default{
       color: white;
       background: url("../assets/capa.png"), url("../assets/ruido.png"),
       linear-gradient(110deg, $primary, #7c26f8); 
+      margin-top: -10px;
   }
   
   </style>
