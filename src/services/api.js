@@ -16,10 +16,15 @@ import axios from "axios";
     return api.get("/sensor");
   }
 
+  function getSensores() {
+    return api.get("/v1/sensores/lista-geral");
+  }
+
   export{
     loginUser,
     getUser,
     getSensorFromUser,
+    getSensores,
   };
 
   export default api;
