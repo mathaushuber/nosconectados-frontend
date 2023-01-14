@@ -75,6 +75,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "sensores" */ "../views/Sensores.vue"),
   },
+  {
+    path: "/administrador",
+    name: "Administrador",
+    component: () =>
+      import(/* webpackChunkName: "administrador" */ "../views/Admin.vue"),
+  },
 ];
 
 const router = new VueRouter({
