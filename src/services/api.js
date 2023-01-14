@@ -20,11 +20,21 @@ import axios from "axios";
     return api.get("/v1/sensores/lista-geral");
   }
 
+  function getUsers(){
+    return api.get("/v1/usuarios/lista");
+  }
+
+  function listaSensores(){
+    return api.get("/v1/sensores/lista")
+  }
+
   export{
     loginUser,
     getUser,
+    getUsers,
     getSensorFromUser,
     getSensores,
+    listaSensores,
   };
 
   export default api;
