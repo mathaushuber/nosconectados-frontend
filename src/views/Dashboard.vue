@@ -6,16 +6,19 @@
           <img src="../assets/nosconectados.svg" width="200" height="130">
           <h2 class="is-size-4 is-uppercase has-text-weight-light">Bem vindo, {{ user.firstName }}</h2>
         </div>
-        
+      
+    <div class="info-sensor" v-if="sensorData">
         <b-field label="Propriedade" class="mt-5">
             <b-select
-                placeholder="Fazenda São Cristóvão"
+                placeholder="Identificação da propriedade"
                 expanded>
-                <option value="flint">Fazenda Aracajú</option>
-                <option value="silver">Fazenda Guarapó</option>
+                <option 
+                v-for="sensor in sensorData" :key="sensor.id">
+                {{ sensor.property }}
+                </option>
             </b-select>
         </b-field>
-<div class="table-container" v-if="!sensorData">
+      <div class="table-container">
        <table class="table">
         <thead>
           <tr>
@@ -31,12 +34,12 @@
         <tbody>
           <tr class="center-table" v-for="sensor in sensorData" :key="sensor.id">
             <td>
-          <b-icon v-if="sensorData.isActive === 0" icon="access-point-remove" size="is-large"
+          <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" size="is-large"
           type="is-danger"></b-icon>
-          <b-icon v-else-if="sensorData.isActive === 1" icon="access-point-check" size="is-large"
+          <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check" size="is-large"
           type="is-success"></b-icon>
-          <b-icon v-else icon="access-point-off" size="is-large"
-          type="is-alert"></b-icon>
+          <b-icon v-else  icon="access-point-off" size="is-large"
+          type="is-warning"></b-icon>
             </td>
             <td class="center">{{ sensor.property }}</td>
             <td class="center">{{ sensor.lowDescription }}</td>
@@ -53,6 +56,7 @@
           </tbody>
         </table>
       </div>
+    </div>
       <div v-else class="imagem">
         <img src="../assets/sensor-null.svg" />
         <h1 class="is-size-5 center is-uppercase has-text-weight-light">Nenhum sensor identificado!</h1>
@@ -148,7 +152,7 @@ footer{
 .imagem{
   width: 400px;
   height: 400px;
-  margin-top: auto;
+  margin-top: 80px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: auto;
