@@ -8,9 +8,7 @@
                 <div class="container"><!--Início container secundario-->
                   <div class="is-flex is-flex-wrap-wrap is-justify-content-center mt-5 mb-6"><!--Início flex-wrap-->
                     <div class="is-relative">
-                      <div
-                        style="position: absolute;
-                        z-index: 1;">
+                      <div class="foto">
                         <b-button
                             type="is-danger"
                             @click="removePhoto"
@@ -81,6 +79,7 @@
                       <b-input
                         disabled
                         type="text"
+                        :value="userData.document"
                         placeholder="CPF"
                         validation-message="Entre com um documento válido"
                         v-mask.raw="['###.###.###-##']">                      
@@ -111,7 +110,7 @@
                         type="email">                      
                       </b-input>
                     </b-field>
-                    <b-tag v-if="tagEmail"
+                    <b-tag v-if="tagEmail && userData.registerConfirmed === 0"
                         close-type='is-danger'
                         attached
                         closable
@@ -167,6 +166,7 @@
                       label="CEP">
                       <b-input
                         type="text"
+                        :value="userData.zipcode"
                         placeholder="CEP"
                         validation-message="Entre com um CEP válido"
                         v-mask="['#####-###']">
@@ -178,6 +178,7 @@
                       label="Bairro">
                       <b-input
                         type="text"
+                        :value="userData.neighborhood"
                         maxlength="64"
                         minlength="3"
                         placeholder="Bairro">
@@ -188,8 +189,9 @@
                   <div class="columns">
                     <div class="column is-6">
                     <b-field
-                      label="Rua"                  >
+                      label="Rua">
                       <b-input
+                        :value="userData.street"
                         type="text"
                         maxlength="64"
                         minlength="3"
@@ -204,6 +206,7 @@
                         type="text"
                         maxlength="64"
                         minlength="3"
+                        :value="userData.numberU"
                         placeholder="Número"
                         validation-message="Entre com um número"
                         pattern="[0-9]*">
@@ -295,7 +298,7 @@
                       <div class="buttons is-justify-content-right">
                       <b-button
                         type="is-success">
-                        Registrar
+                        Atualizar
                       </b-button>
                       </div>
                     </div>
@@ -425,6 +428,12 @@
   </script>
   
   <style lang="scss" scoped>
+
+  .foto{
+    position: absolute;
+    z-index: 1;
+  }
+
   .img-avatar {
     max-width: 280px;
   }
