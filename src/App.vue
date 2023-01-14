@@ -74,9 +74,11 @@
                             Sensores Públicos
                         </router-link>
                     </b-dropdown-item>
-                    <b-dropdown-item value="logout" aria-role="menuitem" v-if="user.isAdmin === 1">
+                    <b-dropdown-item has-link aria-role="menuitem" v-if="user.isAdmin === 1">
+                      <router-link to="/administrador">
                         <b-icon icon="cog"></b-icon>
-                        Configurações
+                        Administrador
+                      </router-link>  
                     </b-dropdown-item>
                 </b-dropdown>
       </template>
