@@ -1,5 +1,5 @@
 <template>
-  <main v-bind:id="isSwitchedCustom">
+  <main>
   <div class="home is-flex is-justify-content-space-around">
     <div>
       <div class="card">
@@ -112,21 +112,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.card-login {
-  margin-top: 7rem;
-}
-
-#Light{
-  height: 100vh;
-  background-image: url(../assets/Cover.png);
-  color: rgb(0, 0, 0);
-}
-#Dark{
-  height: 100vh;
-  background-image: url(../assets/Cover-dark.png);
-  color: rgb(255, 255, 255);
-}
-
 @include tablet {
   .home {
     height: 100vh;
@@ -136,9 +121,7 @@ export default {
   .home {
     min-height: 100vh;
   }
-
 }
-
 .card{
   width: 500px;
   display:block;
@@ -151,7 +134,6 @@ export default {
   padding: 30px;
   background-color: rgba(255, 255, 255, 1);
   }
-
   main{
     background-image: url(../assets/Cover.png);
   }

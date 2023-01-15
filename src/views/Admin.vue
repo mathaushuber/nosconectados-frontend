@@ -7,45 +7,25 @@
                 </div>
                 <b-menu>
                     <b-menu-list label="Menu">
-                    <b-menu-item icon="information-outline" label="Info"></b-menu-item>
+                    <b-menu-item icon="information-outline" label="Info" @click="info"></b-menu-item>
                     <b-menu-item icon="settings" :active="isActive" expanded>
                         <template #label="props">
                         Administrador
                         <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-up' : 'menu-down'"></b-icon>
                         </template>
-                        <b-menu-item icon="account" @click="users">
-                            <template #label>
-                                Usuários
-                                <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
-                                    <template #trigger>
-                                        <b-icon icon="dots-vertical"></b-icon>
-                                    </template>
-                                    <b-dropdown-item aria-role="listitem">Informação</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem">Localização</b-dropdown-item>
-                                </b-dropdown>
-                            </template>
-                        </b-menu-item>
-                        
-                        <b-menu-item icon="cellphone-link">
-                        <template #label>
-                            Sensores
-                            <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
-                                <template #trigger>
-                                    <b-icon icon="dots-vertical"></b-icon>
-                                </template>
-                                <b-dropdown-item aria-role="listitem">Informações</b-dropdown-item>
-                                <b-dropdown-item aria-role="listitem">Atribuições</b-dropdown-item>
-                                <b-dropdown-item aria-role="listitem" @click="dados">Dados</b-dropdown-item>
-                            </b-dropdown>
-                        </template>
-                        </b-menu-item>
-                        <b-menu-item icon="cash-multiple" label="Imagens" disabled></b-menu-item>
+                        <b-menu-item icon="account-multiple"  label="Usuários" @click="users"></b-menu-item>
+                        <b-menu-item icon="cellphone-link" label="Sensores" @click="sensoresAll"></b-menu-item>
+                        <b-menu-item icon="chart-bell-curve" label="Dados" @click="dados"></b-menu-item>
+                        <b-menu-item icon="gesture-spread" label="Atribuições" @click="atrib"></b-menu-item>
+                        <b-menu-item icon="card-search" label="Informações" @click="information"></b-menu-item>
+                        <b-menu-item icon="map-marker-distance" label="Localização" @click="local"></b-menu-item>
+                        <b-menu-item icon="image-multiple" label="Imagens" disabled></b-menu-item>
                     </b-menu-item>
                     <b-menu-item icon="account" label="Minha conta">
                     </b-menu-item>
                     </b-menu-list>
                     <b-menu-list>
-                    <b-menu-item label="Exportar" icon="link"></b-menu-item>
+                    <b-menu-item label="Exportar" @click="download" icon="link"></b-menu-item>
                     </b-menu-list>
                     <b-menu-list label="Actions">
                     <b-menu-item label="Logout"></b-menu-item>
@@ -119,34 +99,262 @@
                     </div>
                 </div>
             </div>
+            <div class="column" v-if="activeSensores == true">
+                <div class="columns">
+                    <div class="column is-one-third mt-3 ml-1" v-for="sensorAll in sensorData" :key="sensorAll.id">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">{{ sensorAll.property }} - ID: {{ sensorAll.id }} </p>
+                                    <p class="subtitle is-6">{{ sensorAll.lowDescription }} </p>
+                                    <p>{{ sensorAll.city }}, {{ sensorAll.state }}</p>
+                                    <p v-if="sensorAll.isPublic === 1">Público: <b-icon icon="check" type="is-success"></b-icon></p>
+                                    <p v-else>Público: <b-icon icon="remove" type="is-danger"></b-icon></p>
+                                    <p>Status: <b-icon v-if="sensorAll.isActive == 0" icon="access-point-remove" 
+                                    type="is-danger"></b-icon>
+                                    <b-icon v-else-if="sensorAll.isActive == 1"  icon="access-point-check"
+                                    type="is-success"></b-icon>
+                                    <b-icon v-else  icon="access-point-off" 
+                                    type="is-warning"></b-icon></p>
+                                    <p>Altitude: {{ sensorAll.altitude }}  Pressão: {{ sensorAll.pressure }}</p>
+                                    <p>Temperatura do ar: {{ sensorAll.temperatureAir }}</p>
+                                </div>
+                                </div>
+
+                                <div class="content">
+                                <br>
+                                <div class="buttons">
+                                    <p class="mt-2">Criado em: {{ sensorAll.created_at }} </p>
+                                    <b-button  class="ml-3" type="is-danger"
+                                        icon-right="delete" /> 
+                                </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" v-if="activeInformation == true">
+                <div class="columns">
+                    <div class="column is-one-third mt-3 ml-1" v-for="sensor in informationData" :key="sensor.id">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4"> {{ sensor.property }} ID: {{ sensor.id }}</p>
+                                    <p class="subtitle is-6">{{ sensor.lowDescription }} </p>
+                                    <p>{{ sensor.city }}, {{ sensor.state }}</p>
+                                    <p>Latitude {{ sensor.latitude }} Longitude: {{ sensor.longitude }}</p>
+                                    <p>Referência(id): {{ sensor.idSensor }} Produção: {{ sensor.typeProduction }}</p>
+                                    <p v-if="sensor.isPublic === 1">Público: <b-icon icon="check" type="is-success"></b-icon></p>
+                                    <p v-else>Público: <b-icon icon="remove" type="is-danger"></b-icon></p>
+                                    <p>Status: <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" 
+                                    type="is-danger"></b-icon>
+                                    <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check"
+                                    type="is-success"></b-icon>
+                                    <b-icon v-else  icon="access-point-off" 
+                                    type="is-warning"></b-icon></p>
+                                    <p> Área: {{ sensor.area }}</p>
+                                    <br />
+                                    <p>{{ sensor.description }}</p>
+                                </div>
+                                </div>
+
+                                <div class="content">
+                                <br>
+                                <div class="buttons">
+                                    <p class="mt-2">Criado em: {{ sensor.created_at }} </p>
+                                    <b-button  class="ml-3" type="is-danger"
+                                        icon-right="delete" /> 
+                                </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" v-if="activeAtribuicao == true">
+                <div class="columns">
+                    <div class="column is-one-third mt-3 ml-1" v-for="atribuicaoUse in atribuicao" :key="atribuicaoUse.id">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">ID: {{ atribuicaoUse.id }}</p>
+                                    <p>idInfoSensor: {{ atribuicaoUse.idInfoSensor }}</p>
+                                    <p>idUsuario: {{ atribuicaoUse.idUsuario }}</p>
+                                    <b-tag v-if="atribuicaoUse.isAdminSensor === 2" type="is-success">Administrador</b-tag>
+                                    <b-tag v-if="atribuicaoUse.isAdminSensor === 1" type="is-info">Patrocinador</b-tag>
+                                    <b-tag v-if="atribuicaoUse.isAdminSensor === 0">Visualizador</b-tag>
+                                </div>
+                                </div>
+
+                                <div class="content">
+                                <br>
+                                <div class="buttons">
+                                    <p class="mt-2">Criado em: {{ atribuicaoUse.created_at }} </p>
+                                    <b-button  class="ml-3" type="is-danger"
+                                        icon-right="delete" /> 
+                                </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" v-if="activeLocalizacao == true">
+                <div class="columns">
+                    <div class="column is-one-third mt-3 ml-1" v-for="localizacao in localizacoesData" :key="localizacao.id">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">ID: {{ localizacao.id }}</p>
+                                    <p class="subtitle is-6">Usuário: {{ localizacao.idUser }} </p>
+                                    <p>Endereço: {{ localizacao.street }} {{ localizacao.numberU }} {{ localizacao.complement }}</p>
+                                    <p>{{ localizacao.city }}, {{ localizacao.state }}</p>
+                                    <p>CEP: {{ localizacao.zipcode }}</p>
+                                    <p>Bairro: {{ localizacao.neighborhood }}</p>
+                                </div>
+                                </div>
+
+                                <div class="content">
+                                <br>
+                                <div class="buttons">
+                                    <p class="mt-2">Criado em: {{ localizacao.created_at }} </p>
+                                    <b-button  class="ml-3" type="is-danger"
+                                        icon-right="delete" /> 
+                                </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" v-if="activeCardInfo == true">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-center center">
+                                <p class="title is-4">Painel do Administrador</p>
+                                <p class="subtitle is-7 is-uppercase">Configure as informações da plataforma</p>
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+           
+            </div>
         </div>
     </main>
 </template>
 
 <script>
-import { getUsers, listaSensores } from "../services/api";
+import { getUsers, listaSensores, getAllSensores, getInformationSensors, getAtribuicoes, getLocalizacoes } from "../services/api";
 export default {
   data() {
     return {
+      i: 0,
       isActive: true,
       activeUsers: false,
       activeDataSensores: false,
+      activeSensores: false,
+      activeInformation: false,
+      activeAtribuicao: false,
+      activeLocalizacao: false,
+      activeCardInfo: false,
       usuarios: [],
       sensores: [],
+      sensorData: [],
+      informationData: [],
+      atribuicao: [],
+      localizacoesData: [],
     }
   },
   mounted(){
     this.loadUsers();
     this.loadSensores();
+    this.loadAllSensores();
+    this.loadAtribuicoes();
+    this.loadInformationSensors();
+    this.loadLocalizacoes();
+    this.numberSensor();
   },
   methods:{
+    info(){
+        this.activeSensores = false;
+        this.activeAtribuicao = false;
+        this.activeDataSensores = false;
+        this.activeUsers = false;
+        this.activeInformation = false;
+        this.activeLocalizacao = false;
+        this.activeCardInfo = true;
+    },
+    local(){
+        this.activeCardInfo = false;
+        this.activeSensores = false;
+        this.activeAtribuicao = false;
+        this.activeDataSensores = false;
+        this.activeUsers = false;
+        this.activeInformation = false;
+        this.activeLocalizacao = true;
+    },
+    information(){
+        this.activeCardInfo = false;
+        this.activeLocalizacao = false;
+        this.activeSensores = false;
+        this.activeAtribuicao = false;
+        this.activeDataSensores = false;
+        this.activeUsers = false;
+        this.activeInformation = true;
+    },
     users(){
+        this.activeCardInfo = false;
+        this.activeLocalizacao = false;
+        this.activeAtribuicao = false;
+        this.activeInformation = false;
+        this.activeSensores = false;
         this.activeDataSensores = false;
         this.activeUsers = true;
     },
-    dados(){
+    sensoresAll(){
+        this.activeCardInfo = false;
+        this.activeLocalizacao = false;
+        this.activeAtribuicao = false;
+        this.activeInformation = false;
+        this.activeDataSensores = false;
         this.activeUsers = false;
+        this.activeSensores = true;
+    },
+    dados(){
+        this.activeCardInfo = false;
+        this.activeLocalizacao = false;
+        this.activeAtribuicao = false;
+        this.activeInformation = false;
+        this.activeUsers = false;
+        this.activeSensores = false;
         this.activeDataSensores = true;
+    },
+    atrib(){
+        this.activeCardInfo = false;
+        this.activeLocalizacao = false;
+        this.activeInformation = false;
+        this.activeUsers = false;
+        this.activeSensores = false;
+        this.activeDataSensores = false;
+        this.activeAtribuicao = true;
     },
     loadUsers(){
         return getUsers()
@@ -157,6 +365,24 @@ export default {
           this.usuarios = [];
         });
     },
+    loadAtribuicoes(){
+        return getAtribuicoes()
+        .then((res) => {
+          this.atribuicao = res.data;
+        })
+        .catch(() => {
+          this.atribuicao = [];
+        });
+    },
+    loadLocalizacoes(){
+        return getLocalizacoes()
+        .then((res) => {
+          this.localizacoesData = res.data;
+        })
+        .catch(() => {
+          this.localizacoesData = [];
+        });
+    },
     loadSensores(){
         return listaSensores()
         .then((res) => {
@@ -165,7 +391,41 @@ export default {
         .catch(() => {
           this.sensores = [];
         });
-    }
+    },
+    loadAllSensores(){
+        return getAllSensores()
+        .then((res) => {
+          this.sensorData = res.data;
+        })
+        .catch(() => {
+          this.sensorData = [];
+        });
+    },
+    loadInformationSensors(){
+        return getInformationSensors()
+        .then((res) => {
+          this.informationData = res.data;
+        })
+        .catch(() => {
+          this.informationData = [];
+        });
+    },
+    download() {
+        const dataObj = [
+            this.usuarios,
+            this.sensores,
+        ];
+        let filename = 'data.json';
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataObj)));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+        document.body.removeChild(element);     
+    },
   }
 }
 </script>
