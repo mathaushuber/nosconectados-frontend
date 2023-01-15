@@ -48,7 +48,7 @@
             <td><b-button type="is-primary">Detalhes</b-button></td>
             <td>
             <b-button
-                icon-left="arrow-right">
+                icon-left="arrow-right" @click="recenterMap">
             </b-button>
             </td>
           </tr>
@@ -72,7 +72,7 @@
         </div><!-- Fim column de menu esquerdo-->
       <div class="column"><!--Início coluna direita mapa-->
         <template id="mapa">
-          <l-map :zoom="zoom" :center="center">
+          <l-map ref="myMap" :zoom="zoom" :center="center">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
           <l-marker :lat-lng="markerLatLng"></l-marker>
           </l-map>
@@ -96,24 +96,30 @@ export default {
   data () {
     return {
       sensorData:[],
+      lat: -5.78095019266983,
+      lon: -22.32305667671329,
       isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 30,
-      center: [-31.78095019266983, -52.32305667671329],
-      markerLatLng: [-31.765399, -52.337589]
+      center: [-31.78095019, -52.32305668],
+      markerLatLng: [-31.78095019, -52.337589]
     };
   },
   mounted(){
     this.loadSensor();
   },
   methods: {
+    recenterMap() {
+      
+     this.$refs.myMap.mapObject.panTo(this.lat, this.lon);
+    },
     loadSensor() {
       return getSensorFromUser()
         .then((res) => {
           this.sensorData = res.data;
-          console.log(this.sensorData)
+          console.log(this.sensorData[0].longitude);
         })
         .catch(() => {
           this.error = true;
