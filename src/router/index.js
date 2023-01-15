@@ -78,8 +78,16 @@ const routes = [
   {
     path: "/administrador",
     name: "Administrador",
+    beforeEnter: middlewareAuth,
     component: () =>
       import(/* webpackChunkName: "administrador" */ "../views/Admin.vue"),
+  },
+  {
+    path: "/meus-sensores",
+    name: "MeusSensores",
+    beforeEnter: middlewareAuth,
+    component: () =>
+      import(/* webpackChunkName: "meus-sensores" */ "../views/MeusSensores.vue"),
   },
 ];
 
