@@ -28,6 +28,22 @@ import axios from "axios";
     return api.get("/v1/sensores/lista")
   }
 
+  function getAllSensores(){
+    return api.get("/v1/sensores/lista/todos")
+  }
+
+  function getInformationSensors(){
+    return api.get("/v1/informacoes-sensor/lista")
+  }
+
+  function getAtribuicoes(){
+    return api.get("/v1/atribuicao/lista")
+  }
+
+  function getLocalizacoes(){
+    return api.get("/v1/localizacoes-users/lista")
+  }
+
   export{
     loginUser,
     getUser,
@@ -35,6 +51,10 @@ import axios from "axios";
     getSensorFromUser,
     getSensores,
     listaSensores,
+    getAllSensores,
+    getInformationSensors,
+    getAtribuicoes,
+    getLocalizacoes,
   };
 
   export default api;
