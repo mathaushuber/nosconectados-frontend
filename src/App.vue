@@ -63,9 +63,11 @@
                         <b-icon icon="access-point-minus"></b-icon>
                         Solicitações Enviadas
                     </b-dropdown-item>
-                    <b-dropdown-item value="blog" aria-role="menuitem">
+                    <b-dropdown-item has-link value="blog" aria-role="menuitem">
+                      <router-link to="/meus-sensores">
                         <b-icon icon="lan"></b-icon>
                         Meus Sensores
+                      </router-link>
                     </b-dropdown-item>
                     <hr class="dropdown-divider" aria-role="menuitem">
                     <b-dropdown-item has-link aria-role="menuitem">
@@ -98,15 +100,6 @@
               </a>
             </div>
           </b-navbar-item>
-        <div v-bind:id="isSwitchedCustom">
-          <b-field class="mt-2 mr-3">
-            <b-switch v-model="isSwitchedCustom"
-                class="mt-2 ml-3"
-                true-value="Light"
-                false-value="Dark">
-            </b-switch>
-          </b-field>
-        </div>
       </template>
 
       <template #end v-else>
@@ -115,15 +108,6 @@
             position="is-left">
             <b-button label="Logout" @click="doLogout" class="mt-1 mr-3 button-logout" type="is-dark"  />
         </b-tooltip>
-        <div v-bind:id="isSwitchedCustom">
-          <b-field class="mt-2 mr-3">
-            <b-switch v-model="isSwitchedCustom"
-                class="mt-1"
-                true-value="Light"
-                false-value="Dark">
-            </b-switch>
-          </b-field>
-        </div>
       </template>
     </b-navbar>
     <router-view />
@@ -135,11 +119,6 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: 'App',
-  data(){
-    return {
-      isSwitchedCustom: 'Light',
-   };
-  },
   created() {
     if (!this.user.id) {
       let token = window.sessionStorage.getItem("token");
