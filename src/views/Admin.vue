@@ -8,7 +8,7 @@
                 <b-menu>
                     <b-menu-list label="Menu">
                     <b-menu-item icon="information-outline" label="Info" @click="info"></b-menu-item>
-                    <b-menu-item icon="settings" :active="isActive" expanded>
+                    <b-menu-item icon="cog" :active="isActive" expanded>
                         <template #label="props">
                         Administrador
                         <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-up' : 'menu-down'"></b-icon>
@@ -21,14 +21,14 @@
                         <b-menu-item icon="map-marker-distance" label="Localização" @click="local"></b-menu-item>
                         <b-menu-item icon="image-multiple" label="Imagens" disabled></b-menu-item>
                     </b-menu-item>
-                    <b-menu-item icon="account" label="Minha conta">
+                    <b-menu-item icon="account" label="Minha conta" @click="account">
                     </b-menu-item>
                     </b-menu-list>
                     <b-menu-list>
                     <b-menu-item label="Exportar" @click="download" icon="link"></b-menu-item>
                     </b-menu-list>
                     <b-menu-list label="Actions">
-                    <b-menu-item label="Logout"></b-menu-item>
+                    <b-menu-item label="Logout" @click="doLogout"></b-menu-item>
                     </b-menu-list>
                 </b-menu>
             </div>
@@ -241,41 +241,176 @@
                 </div>
             </div>
             <div class="column" v-if="activeCardInfo == true">
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-content">
                         <div class="media">
                             <div class="media-center center">
-                                <p class="title is-4">Painel do Administrador</p>
+                                <p class="title is-4 is-uppercase">Painel do Administrador</p>
                                 <p class="subtitle is-7 is-uppercase">Configure as informações da plataforma</p>
-                                <div>
-                                    
+                                <div class="columns mt-4">
+                                    <div class="column">
+                                        <div class="usuarios">
+                                            <h1 class="is-uppercase has-text-weight-bold">Usuários</h1>
+                                            <p class="number">{{ usuarios.length }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="sensores mt-3">
+                                            <h1 class="is-uppercase has-text-weight-bold">Sensores</h1>
+                                            <p class="number">{{ sensores.length}}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
+                                <div class="columns mt-5">
+                                    <div class="column">
+                                        <b-message title="Exportação dos dados" aria-close-label="Close message">
+                                            Para exportar os dados do banco de dados da aplicação basta clicar no item do menu "Exportar"! 
+                                            Será gerado um arquivo .json com todas as informações atualizadas das tabelas.
+                                        </b-message>
+                                    </div>
+                                    <div class="column">
+                                        <b-message title="Gerenciando os dados" aria-close-label="Close message">
+                                            Pelo painel do administrador é possível gerenciar todos os dados do banco de dados, sem a necessidade de utilizar comandos
+                                            SQL via linha de comando. Basta clicar no item "Administrador"!
+                                        </b-message>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <b-message title="Minha conta" aria-close-label="Close message">
+                                            Como administrador só é possível remover sua conta diretamente no painel, as informações de perfil somente podem editá-las. Não é possível remover outros administradores por aqui!
+                                        </b-message>
+                                    </div>
+                                    <div class="column">
+                                        <b-message type="is-warning" title="Atenção!" aria-close-label="Close message">
+                                            Tome cuidado ao apagar informações relevantes para a plataforma, atenção ao remover chaves estrangeiras nas tabelas referenciadas, todas as ações aqui requerem cautela!
+                                        </b-message>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>           
+            </div>
+            <div class="column" v-if="activeAccount == true">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card mt-3">
+                            <div class="card-content">
+                                <div class="media">
+                                <div class="media-left">
+                                </div>
+                                <div class="media-content center">
+                                    <p class="title is-4">{{ userData.firstName }} {{ userData.lastName }}</p>
+                                    <p class="subtitle is-6">{{ userData.email }}</p>
+                                </div>
+                                </div>
+
+                                <div class="content">
+                                    <div class="columns">
+                                        <div class="column">
+                                            <b-field label="ID">
+                                                <b-input disabled :value="userData.id"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="Telefone">
+                                                <b-input disabled :value="userData.phone"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="CPF">
+                                                <b-input disabled :value="userData.document"></b-input>
+                                            </b-field>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                            <b-field label="Perfil do Facebook">
+                                                <b-input disabled :value="userData.facebookProfile"></b-input>
+                                            </b-field>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <b-field label="Estado">
+                                                <b-input disabled :value="userData.state"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="Cidade">
+                                                <b-input disabled :value="userData.city"></b-input>
+                                            </b-field>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <b-field label="Rua">
+                                                <b-input disabled :value="userData.street"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="Número">
+                                                <b-input disabled :value="userData.numberU"></b-input>
+                                            </b-field>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <b-field label="Bairro">
+                                                <b-input disabled :value="userData.neighborhood"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="Complemento">
+                                                <b-input disabled :value="userData.complement"></b-input>
+                                            </b-field>
+                                        </div>
+                                        <div class="column">
+                                            <b-field label="CEP">
+                                                <b-input disabled :value="userData.zipcode"></b-input>
+                                            </b-field>
+                                        </div>
+                                    </div>
+                                <br>
+                                <p class="is-size-7 center is-uppercase has-text-weight-light mt-2">Criado em: {{ userData.created_at_user }} </p>
+                                <div class="buttons">
+                                    <div class="buttons">
+                                    <b-button  class="ml-3" type="is-danger"
+                                        icon-right="delete">
+                                        Excluir
+                                    </b-button> 
+                                    <b-button  tag="router-link" :to="{ path: '/edit-perfil' }" class="ml-3" type="is-primary"
+                                        icon-right="account-edit">
+                                        Editar
+                                    </b-button> 
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
                         </div>
                     </div>
                 </div>
-           
             </div>
         </div>
     </main>
 </template>
 
 <script>
-import { getUsers, listaSensores, getAllSensores, getInformationSensors, getAtribuicoes, getLocalizacoes } from "../services/api";
+import { getUsers, getUser, listaSensores, getAllSensores, getInformationSensors, getAtribuicoes, getLocalizacoes } from "../services/api";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      i: 0,
-      isActive: true,
+      isActive: false,
+      activeAccount: false,
       activeUsers: false,
       activeDataSensores: false,
       activeSensores: false,
       activeInformation: false,
       activeAtribuicao: false,
       activeLocalizacao: false,
-      activeCardInfo: false,
+      activeCardInfo: true,
       usuarios: [],
+      userData: [],
       sensores: [],
       sensorData: [],
       informationData: [],
@@ -285,15 +420,27 @@ export default {
   },
   mounted(){
     this.loadUsers();
+    this.loadUser();
     this.loadSensores();
     this.loadAllSensores();
     this.loadAtribuicoes();
     this.loadInformationSensors();
     this.loadLocalizacoes();
-    this.numberSensor();
   },
   methods:{
+    ...mapActions(["logout"]),
+    account(){
+        this.activeSensores = false;
+        this.activeAtribuicao = false;
+        this.activeDataSensores = false;
+        this.activeUsers = false;
+        this.activeInformation = false;
+        this.activeLocalizacao = false;
+        this.activeCardInfo = false;
+        this.activeAccount = true;
+    },
     info(){
+        this.activeAccount = false;
         this.activeSensores = false;
         this.activeAtribuicao = false;
         this.activeDataSensores = false;
@@ -303,6 +450,7 @@ export default {
         this.activeCardInfo = true;
     },
     local(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeSensores = false;
         this.activeAtribuicao = false;
@@ -312,6 +460,7 @@ export default {
         this.activeLocalizacao = true;
     },
     information(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeLocalizacao = false;
         this.activeSensores = false;
@@ -321,6 +470,7 @@ export default {
         this.activeInformation = true;
     },
     users(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeLocalizacao = false;
         this.activeAtribuicao = false;
@@ -330,6 +480,7 @@ export default {
         this.activeUsers = true;
     },
     sensoresAll(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeLocalizacao = false;
         this.activeAtribuicao = false;
@@ -339,6 +490,7 @@ export default {
         this.activeSensores = true;
     },
     dados(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeLocalizacao = false;
         this.activeAtribuicao = false;
@@ -348,6 +500,7 @@ export default {
         this.activeDataSensores = true;
     },
     atrib(){
+        this.activeAccount = false;
         this.activeCardInfo = false;
         this.activeLocalizacao = false;
         this.activeInformation = false;
@@ -355,6 +508,20 @@ export default {
         this.activeSensores = false;
         this.activeDataSensores = false;
         this.activeAtribuicao = true;
+    },
+    doLogout() {
+      this.logout();
+      this.$router.push("/");
+    },
+    loadUser() {
+      return getUser()
+        .then((res) => {
+          this.userData = res.data;
+          console.log(this.userData)
+        })
+        .catch(() => {
+          this.userData = [];
+        });
     },
     loadUsers(){
         return getUsers()
@@ -431,7 +598,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.number{
+  color: rgb(0, 0, 0);
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 900;
+  font-size: 8vw;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
 .menu-imagem{
     margin-left: 120px;
 }
