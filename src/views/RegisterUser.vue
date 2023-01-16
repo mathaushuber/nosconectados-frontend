@@ -1,5 +1,5 @@
 <template>
-  <main v-bind:id="isSwitchedCustom">
+  <main>
     <div class="container pt-6 pb-4"><!-- Início container -->
       <div class="columns"><!-- Início columns -->
         <div class="column is-10 is-offset-1"><!--Início column-->
@@ -174,7 +174,7 @@
                 <div class="columns">
                   <div class="column is-6">
                   <b-field
-                    label="Rua"                  >
+                    label="Rua">
                     <b-input
                       type="text"
                       maxlength="64"
@@ -249,31 +249,30 @@
                 </div>
                 <div class="columns">
                   <div class="column">
-                  <b-field
-                    label="Senha">
-                    <password
-                      maxlength="60"
-                      v-model="passwordTemp"
-                      :secureLength="8">
-                    </password>
-                  </b-field>
+                    <b-field
+                      label="Senha">
+                      <password
+                        maxlength="60"
+                        v-model="passwordTemp"
+                        :secureLength="8">
+                      </password>
+                    </b-field>
                   </div>
                   <div class="column">
                     <b-field
-                    label="Confirmação de senha"
-                    :type="{ 'is-danger': !errors.passwordConfirmed }"
-                    :message="{
-                      'Senha diferente da inserida anteriormente': !errors.passwordConfirmed,
-                    }">
-                    <b-input
-                      type="password"
-                      v-model="passwordConfirm"
-                      @input="
-                        errors.passwordConfirmed =
-                          passwordTemp == passwordConfirm
-                      ">
-                    </b-input>
-                  </b-field>
+                      label="Confirmação de senha"
+                      :type="{ 'is-danger': !errors.passwordConfirmed }"
+                      :message="{
+                        'Senha diferente da inserida anteriormente': !errors.passwordConfirmed,
+                      }">
+                      <b-input
+                        type="password"
+                        v-model="passwordConfirm"
+                        @input="
+                          errors.passwordConfirmed =
+                            passwordTemp == passwordConfirm">
+                      </b-input>
+                    </b-field>
                   </div>
                 </div>
                 <div class="columns">
@@ -309,7 +308,6 @@ export default{
   data() {
         return {
             avatar: null,
-            isSwitchedCustom: 'Light',
             imageData: null,
             errors: {
               passwordConfirmed: true,
@@ -328,8 +326,8 @@ export default{
       console.log("carregou estados");
     });
   },
-   methods: {
-        removePhoto() {
+  methods: {
+    removePhoto(){
       if (this.isEdit) {
         if (this.imageData && this.imageData.startsWith("http")) {
               this.avatar = null;
@@ -343,52 +341,54 @@ export default{
                 type: "is-danger",
               });
               return Promise.reject();
-        } else {
-          this.avatar = null;
-          this.imageData = "";
-          return Promise.resolve;
-        }
-      } else {
+      }
+      else{
         this.avatar = null;
         this.imageData = "";
-        return Promise.resolve();
+        return Promise.resolve;
+      }
+      } 
+      else{
+      this.avatar = null;
+      this.imageData = "";
+      return Promise.resolve();
       }
     },
-    loadMunicipios() {
+    loadMunicipios(){
       if (this.estadoTemp) {
         return getMunicipios(this.estadoTemp).then(
           (resp) => (this.municipios = resp.data)
         );
       } else return [];
     },
-     deleteDropFile() {
+    deleteDropFile(){
       this.avatar = null;
     },
-    previewImage: function() {
-      if (this.avatar) {
-        // create a new FileReader to read this image and convert to base64 format
-        var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          this.imageData = e.target.result;
-        };
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(this.avatar);
-      }
+    previewImage: function(){
+    if (this.avatar){
+      // criando um novo FileReader para ler a imagem e converter para o formato base64
+      var reader = new FileReader();
+      // Definindo uma função de retorno de chamada para executar quando o FileReader terminar a execução
+      reader.onload = (e) => {
+        // Observação: arrow function usada aqui, de modo que "this.imageData" se refira ao componente imageData do Vue
+        // Lendo a imagem como base64 e definindo como imageData
+        this.imageData = e.target.result;
+      };
+      // Iniciando o trabalho do leitor - lendo o arquivo como um URL de dados (formato base64)
+      reader.readAsDataURL(this.avatar);
+    }
     },
   },
-   watch: {
-    avatar(newAvatar) {
-      if (newAvatar) {
+  watch:{
+    avatar(newAvatar){
+      if (newAvatar){
         this.previewImage();
       }
     },
-    computed: {
-        selectedString() {
+    computed:{
+        selectedString(){
             return this.selected ? this.selected.toDateString() : ''
-        }
+      }
     },
   },
 };
@@ -400,25 +400,6 @@ export default{
   max-width: 280px;
 }
 
-.mode{
-    position: absolute;
-    color:#ffffff;
-  }
-
-#Light .card .card-content{
-  background-color: rgb(255, 255, 255);
-  color: #000000;
-}
-
-#Dark .card{
-  background-color: rgb(0, 0, 0);
-  color: #ffffff;
-}
-
-#Dark .card .card-content b-field .label{
-  color: #ffffff;
-}
-
 @include tablet {
   .img-avatar {
     margin-right: 3rem;
@@ -427,7 +408,7 @@ export default{
 @include desktop{
    .img-avatar {
     margin-right: 3rem;
-}
+  }
 }
 
 main {
@@ -435,4 +416,5 @@ main {
     linear-gradient(110deg, $primary, #7c26f8);
   background-attachment: fixed;
 }
+
 </style>
