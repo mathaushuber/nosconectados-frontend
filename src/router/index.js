@@ -89,6 +89,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "meus-sensores" */ "../views/MeusSensores.vue"),
   },
+  {
+    path: "/detalhes/:sensorId",
+    name: "Detalhes",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "meus-sensores" */ "../views/Detalhes.vue"),
+  },
 ];
 
 const router = new VueRouter({
