@@ -1,5 +1,5 @@
 <template>
-  <main v-bind:id="isSwitchedCustom">
+  <main>
     <div class="container pt-6 pb-4"><!-- Início container -->
       <div class="columns"><!-- Início columns -->
         <div class="column is-10 is-offset-1"><!--Início column-->
@@ -181,7 +181,6 @@ export default{
   data() {
         return {
             estados: [],
-            isSwitchedCustom: 'Light',
             estadoTemp: [],
             municipios: [],
             selected: null
@@ -216,21 +215,6 @@ export default{
 <style lang="scss" scoped>
 .img-avatar {
   max-width: 280px;
-}
-
-.mode{
-    position: absolute;
-    color:#ffffff;
-  }
-
-#Light .card .card-content{
-  background-color: rgb(255, 255, 255);
-  color: #000000;
-}
-
-#Dark .card{
-  background-color: rgb(0, 0, 0);
-  color: #ffffff;
 }
 
 @include tablet {
