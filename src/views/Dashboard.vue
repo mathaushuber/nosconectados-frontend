@@ -45,7 +45,8 @@
             <td class="center">{{ sensor.lowDescription }}</td>
             <td class="center">{{ sensor.area }} ha</td>
             <td class="center">{{ sensor.typeProduction }}</td>
-            <td><b-button type="is-primary">Detalhes</b-button></td>
+            <td><b-button 
+              type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">Detalhes</b-button></td>
             <td>
             <b-button
                 icon-left="arrow-right" @click="recenterMap">
