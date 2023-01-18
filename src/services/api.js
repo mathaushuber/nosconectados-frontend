@@ -44,6 +44,10 @@ import axios from "axios";
     return api.get("/v1/localizacoes-users/lista")
   }
 
+  function getDetalheSensor(sensorId){
+    return api.get("/v1/sensores/lista/geral/" + sensorId)
+  }
+
   export{
     loginUser,
     getUser,
@@ -55,6 +59,7 @@ import axios from "axios";
     getInformationSensors,
     getAtribuicoes,
     getLocalizacoes,
+    getDetalheSensor,
   };
 
   export default api;
