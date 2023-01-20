@@ -171,7 +171,7 @@
                     <b-message>{{ sensorData.description }}</b-message>
                     <div class="columns">
                         <div class="column">
-                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{ sensorData.update_at }}</p>
+                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{ sensorData.updated_at }}</p>
                         </div>
                         <div class="column">
                             <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Criado em: {{ sensorData.created_at }}</p>
@@ -179,7 +179,7 @@
                     </div>
                 </div>
                 <div class="column">
-
+                    <apexcharts class="mt-5" width="500" height="350" type="bar" :options="chartOptions" :series="series"></apexcharts>
                 </div>
             </div>
         </div>
@@ -187,27 +187,70 @@
 </template>
 
 <script>
-import {getDetalheSensor} from "../services/api";
+import {getDetalheSensor, getData} from "../services/api";
+import VueApexCharts from 'vue-apexcharts'
+
 export default {
     props: ["sensorId"],
+    components: {
+        apexcharts: VueApexCharts,
+    },
     data(){
         return{
             sensorData:[],
+            seriesData: [],
+            chartOptions: {
+                chart: {
+                id: 'basic-bar'
+                },
+                xaxis: {
+                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                }
+            },
+        series: [{
+            name: 'series-1',
+            data: [0, 0, 0, 0, 0, 0, 0, 0]
+        }]
         }
     },
     mounted(){
         this.loadSensor();
+        this.loadSeries();
+        this.teste();
     },
     methods:{
         loadSensor() {
             return getDetalheSensor(this.sensorId)
                 .then((res) => {
                 this.sensorData = res.data;
+                this.teste(this.sensorData.temperatureAir);
             })
                 .catch(() => {
                 this.sensorData = [];
             });
         },
+        loadSeries(){
+            return getData(this.sensorId)
+                .then((res) => {
+                this.seriesData = res.data;
+                console.log(this.seriesData[0].readAt);
+            })
+                .catch(() => {
+                this.seriesData = [];
+            });
+        },
+        teste(temperatureAir){
+            const getTemperatureAir = parseFloat(temperatureAir);
+            this.series[0].data[0] = getTemperatureAir;
+            console.log(this.series[0].data)
+            const newData = this.series[0].data
+            this.updateChart(newData)
+        },
+        updateChart(newData){
+            this.series = [{
+                data: newData
+            }];
+        }
     }
 }
 </script>
