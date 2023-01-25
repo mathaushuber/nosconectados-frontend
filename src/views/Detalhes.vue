@@ -179,7 +179,19 @@
                     </div>
                 </div>
                 <div class="column">
-                    <apexcharts class="mt-5" width="500" height="350" type="bar" :options="chartOptions" :series="series"></apexcharts>
+                    <div class="columns">
+                        <div class="column">
+                            <apexcharts class="mt-5" width="500" height="350" type="bar" :options="pluviometerOptions" :series="seriesPluviometer"></apexcharts>
+                        </div>
+                        <div class="column">
+                            <apexcharts class="mt-5" width="500" height="350" type="radar" :options="gasOptions" :series="seriesGas"></apexcharts>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <apexcharts width="1050" height="450" type="area" :options="chartOptions" :series="series"></apexcharts>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,27 +215,80 @@ export default {
                 chart: {
                 id: 'basic-bar'
                 },
+                title: {
+                text: 'Temperatura °C',
+                align: 'left'
+                },
                 xaxis: {
                 categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
                 }
             },
-        series: [{
-            name: 'series-1',
-            data: [0, 0, 0, 0, 0, 0, 0, 0]
-        }]
+            series: [{
+                name: 'Temperatura do ar',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                },{
+                name: 'Temperatura do solo',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                name: 'Temperatura do case',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+            }],
+            pluviometerOptions: {
+                chart: {
+                id: 'basic-pluviometer'
+                },
+                title: {
+                text: 'Tempo',
+                align: 'left'
+                },
+                xaxis: {
+                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                }
+            },
+            seriesPluviometer: [{
+                name: 'Pluviômetro (mm)',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                name: 'Humidade relativa do ar %',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                }],
+            gasOptions: {
+                chart: {
+                id: 'basic-gas'
+                },
+                title: {
+                text: 'Tempo',
+                align: 'left'
+                },
+                xaxis: {
+                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                }
+            },
+            seriesGas: [{
+                name: 'Gás',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                name: 'Ultravioleta',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                name: 'Luminosidade',
+                data: [0, 0, 0, 0, 0, 0, 0, 0]
+                }],
         }
     },
     mounted(){
         this.loadSensor();
         this.loadSeries();
-        this.teste();
     },
     methods:{
         loadSensor() {
             return getDetalheSensor(this.sensorId)
                 .then((res) => {
                 this.sensorData = res.data;
-                this.teste(this.sensorData.temperatureAir);
             })
                 .catch(() => {
                 this.sensorData = [];
@@ -233,23 +298,84 @@ export default {
             return getData(this.sensorId)
                 .then((res) => {
                 this.seriesData = res.data;
-                console.log(this.seriesData[0].readAt);
+                this.seriesTemperatureAir(this.seriesData);
+                this.seriesDataPluviometer(this.seriesData);
+                this.seriesDataGas(this.seriesData)
             })
                 .catch(() => {
                 this.seriesData = [];
             });
         },
-        teste(temperatureAir){
-            const getTemperatureAir = parseFloat(temperatureAir);
-            this.series[0].data[0] = getTemperatureAir;
-            console.log(this.series[0].data)
-            const newData = this.series[0].data
-            this.updateChart(newData)
+        seriesTemperatureAir(data){
+            var dataAr = [];
+            var dataSolo = [];
+            var dataCase = [];
+            for(var i = 0; i < 8; i++){
+                dataAr[i] = data[i].temperatureAir;
+                dataSolo[i] = data[i].temperatureSoil;
+                dataCase[i] = data[i].temperatureCase;
+            }
+            const newDataAir = dataAr
+            const newDataSolo = dataSolo
+            const newDataCase = dataCase
+            this.updateChart(newDataAir, newDataSolo, newDataCase)
         },
-        updateChart(newData){
+        seriesDataPluviometer(data){
+            var dataPl = [];
+            var dataHRA = [];
+            for(var i = 0; i < 8; i++){
+                dataPl[i] = data[i].pluviometer;
+                dataHRA[i] = data[i].humidityAirRelative;
+            }
+            const newDataPluviometer = dataPl
+            const newHumidityAirRelative = dataHRA
+            this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative)
+        },
+        seriesDataGas(data){
+            var dataGas = [];
+            var dataUltra = [];
+            var dataLuminosidade = [];
+            for(var i = 0; i < 8; i++){
+                dataGas[i] = data[i].gas;
+                dataUltra[i] = data[i].ultraviolet;
+                dataLuminosidade[i] = data[i].luminosity;
+            }
+            const newDataGas = dataGas;
+            const newDataUltra = dataUltra;
+            const newDataLuminosidade = dataLuminosidade;
+            this.updateChartGas(newDataGas, newDataUltra, newDataLuminosidade)
+        },
+        updateChartGas(newDataGas, newDataUltra, newDataLuminosidade){
+            this.seriesGas = [{
+                data: newDataGas
+            },
+            {
+                data: newDataUltra
+            },
+            {
+                data: newDataLuminosidade
+            }]
+        },
+        updateChartPluviometer(newDataPluviometer, newHumidityAirRelative){
+            this.seriesPluviometer = [{
+                data: newDataPluviometer
+            },
+            {
+                data: newHumidityAirRelative
+            }
+        ]
+        },
+        updateChart(newDataAir, newDataSolo, newDataCase){
             this.series = [{
-                data: newData
-            }];
+                data: newDataAir
+                },
+                {
+                data: newDataSolo
+                },
+                {
+                data: newDataCase
+                },
+            ]; 
         }
     }
 }
