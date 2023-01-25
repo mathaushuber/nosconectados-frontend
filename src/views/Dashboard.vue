@@ -49,7 +49,7 @@
               type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">Detalhes</b-button></td>
             <td>
             <b-button
-                icon-left="arrow-right" @click="recenterMap">
+                icon-left="arrow-right" @click="updateMap(sensor.id)">
             </b-button>
             </td>
           </tr>
@@ -96,40 +96,55 @@ export default {
   },
   data () {
     return {
+      tam: 0,
       sensorData:[],
-      lat: -5.78095019266983,
-      lon: -22.32305667671329,
+      arrayLat: [],
+      arrayLon: [],
       isSwitchedCustom: 'Light',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      zoom: 30,
+      zoom: 14,
       center: [-31.78095019, -52.32305668],
       markerLatLng: [-31.78095019, -52.337589]
     };
+  },
+  computed: {
+    ...mapState(["user"]),
   },
   mounted(){
     this.loadSensor();
   },
   methods: {
-    recenterMap() {
-      
-     this.$refs.myMap.mapObject.panTo(this.lat, this.lon);
-    },
     loadSensor() {
       return getSensorFromUser()
         .then((res) => {
           this.sensorData = res.data;
-          console.log(this.sensorData[0].longitude);
+          this.dataMap(this.sensorData);
         })
         .catch(() => {
           this.error = true;
         });
     },
+    dataMap(data){
+      return data
+    },
+    updateMap(id){
+      var data = this.dataMap(this.sensorData);
+      var tam = Object.keys(data).length;
+      for(var i = 0; i <= tam; i++){
+        if(data[i] === undefined){
+          i++;
+        }
+        if(id === data[i].id){
+          var lat = data[i].latitude;
+          var lon = data[i].longitude;
+        }
+      }
+      this.center = [lat, lon];
+      this.zoom = 30;
+    }
    },
-  computed: {
-    ...mapState(["user"]),
-  },
 }
 
 </script>
