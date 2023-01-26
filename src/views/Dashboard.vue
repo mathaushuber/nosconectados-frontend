@@ -75,7 +75,19 @@
         <template id="mapa">
           <l-map ref="myMap" :zoom="zoom" :center="center">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-          <l-marker :lat-lng="markerLatLng"></l-marker>
+          <l-marker :lat-lng="markerLatLng">
+            <l-icon
+          :icon-size="iconSize"
+          :icon-anchor="iconAnchor"
+          :icon-url="iconUrl" >
+          </l-icon>
+          </l-marker>
+          <l-circle-marker
+          :lat-lng="circle.center"
+          :radius="circle.radius"
+          :color="circle.color"
+          >
+          </l-circle-marker>
           </l-map>
         </template>
       </div><!-- Fim column direita mapa--> 
@@ -85,14 +97,16 @@
 
 <script>
 import { mapState } from "vuex";
-import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
+import {LMap, LTileLayer, LMarker, LCircleMarker, LIcon} from 'vue2-leaflet';
 import { getSensorFromUser } from "../services/api";
 
 export default {
   components: {
     LMap,
     LTileLayer,
-    LMarker
+    LMarker,
+    LCircleMarker,
+    LIcon
   },
   data () {
     return {
@@ -101,12 +115,25 @@ export default {
       arrayLat: [],
       arrayLon: [],
       isSwitchedCustom: 'Light',
+      iconUrl: 'https://icon-library.com/images/map-png-icon/map-png-icon-17.jpg',
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 14,
       center: [-31.78095019, -52.32305668],
-      markerLatLng: [-31.78095019, -52.337589]
+      markerLatLng: [0,0],
+      circle: {
+        center: [0, 0],
+        radius: 300,
+        color: '#40a5f5'
+      },
+      iconSize: [45, 45],
+      iconAnchor: [37, 37],
+      options:{
+      enableHighAccuracy: true,
+      timeout: 50000,
+      maximumAge: 0
+      },
     };
   },
   computed: {
@@ -114,6 +141,7 @@ export default {
   },
   mounted(){
     this.loadSensor();
+    this.getLocation();
   },
   methods: {
     loadSensor() {
@@ -141,9 +169,27 @@ export default {
           var lon = data[i].longitude;
         }
       }
+      this.iconUrl = 'https://cdn-icons-png.flaticon.com/512/6650/6650928.png';
       this.center = [lat, lon];
+      this.markerLatLng = [lat, lon];
       this.zoom = 30;
-    }
+      const desvio = 0.000300;
+      this.circle.center = [lat-desvio, lon-desvio];
+    },
+    getLocation(){
+      navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
+    },
+    success(pos){
+      const crd = pos.coords;
+      this.center = [crd.latitude, crd.longitude];
+      this.markerLatLng = [crd.latitude, crd.longitude];
+      this.zoom = 30;
+    },
+    error(err){
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    },
+
+
    },
 }
 
