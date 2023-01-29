@@ -57,7 +57,7 @@
                                 type="is-warning"></b-icon></p>
                             </div>
                             <div class="buttons mt-5">
-                                <b-button type="is-primary">
+                                <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
                                     Informações
                                 </b-button>
                                 <b-button type="is-info">
