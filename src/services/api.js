@@ -52,6 +52,10 @@ import axios from "axios";
     return api.get("/v1/sensores/data/" + sensorId)
   }
 
+  function getAdmins(sensorId){
+    return api.get("/v1/atribuicao/lista-geral/" + sensorId)
+  }
+
   export{
     loginUser,
     getUser,
@@ -65,6 +69,7 @@ import axios from "axios";
     getLocalizacoes,
     getDetalheSensor,
     getData,
+    getAdmins,
   };
 
   export default api;
