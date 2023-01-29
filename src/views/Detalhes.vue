@@ -168,6 +168,32 @@
                             </b-field>
                         </div>
                     </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="buttons">
+                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-primary">Administradores: </b-tag> 
+                                <div v-for="admin in adminData" :key="admin.id">
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 2">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="buttons">
+                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-info">Patrocinadores: </b-tag> 
+                                <div v-for="admin in adminData" :key="admin.id">
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 1">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="buttons">
+                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-warning">Visualizadores: </b-tag>
+                                <div v-for="admin in adminData" :key="admin.id">
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 0">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <b-message>{{ sensorData.description }}</b-message>
                     <div class="columns">
                         <div class="column">
@@ -199,7 +225,7 @@
 </template>
 
 <script>
-import {getDetalheSensor, getData} from "../services/api";
+import {getDetalheSensor, getData, getAdmins} from "../services/api";
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
@@ -211,6 +237,7 @@ export default {
         return{
             sensorData:[],
             seriesData: [],
+            adminData: [],
             chartOptions: {
                 chart: {
                 id: 'basic-bar'
@@ -283,6 +310,7 @@ export default {
     mounted(){
         this.loadSensor();
         this.loadSeries();
+        this.loadAdmins();
     },
     methods:{
         loadSensor() {
@@ -292,6 +320,15 @@ export default {
             })
                 .catch(() => {
                 this.sensorData = [];
+            });
+        },
+        loadAdmins(){
+            return getAdmins(this.sensorId)
+                .then((res) => {
+                this.adminData = res.data;
+            })
+                .catch(() => {
+                this.adminData = [];
             });
         },
         loadSeries(){
