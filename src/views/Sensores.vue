@@ -56,7 +56,7 @@
                                 <b-icon v-else  icon="access-point-off" 
                                 type="is-warning"></b-icon></p>
                             </div>
-                            <b-button type="is-primary" class="info-button mt-2">
+                            <b-button type="is-primary" class="info-button mt-2" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
                                 Informações
                             </b-button>
                             <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
