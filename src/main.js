@@ -7,8 +7,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from "./store";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import "buefy/dist/buefy.css";
@@ -16,6 +18,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import "./styles/style.scss";
 import "@mdi/font/css/materialdesignicons.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(Buefy);
 Vue.config.productionTip = false;
 Vue.use(VueMask);

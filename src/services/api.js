@@ -16,12 +16,24 @@ import axios from "axios";
     return api.get("/sensor");
   }
 
+  function registerUser(formData){
+    return api.post("/v1/usuarios/cadastro", formData);
+  }
+
+  function createSensor(formData){
+    return api.post("/v1/informacoes-sensor/adiciona", formData)
+  }
+
   function getSensores() {
     return api.get("/v1/sensores/lista-geral");
   }
 
   function getUsers(){
     return api.get("/v1/usuarios/lista");
+  }
+
+  function getNomesUser(){
+    return api.get("/v1/usuarios/nomes")
   }
 
   function listaSensores(){
@@ -70,6 +82,9 @@ import axios from "axios";
     getDetalheSensor,
     getData,
     getAdmins,
+    registerUser,
+    getNomesUser,
+    createSensor,
   };
 
   export default api;

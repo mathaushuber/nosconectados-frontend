@@ -8,9 +8,7 @@
               <div class="container"><!--Início container secundario-->
                 <div class="is-flex is-flex-wrap-wrap is-justify-content-center mt-5 mb-6"><!--Início flex-wrap-->
                   <div class="is-relative">
-                    <div
-                      style="position: absolute;
-                      z-index: 1;">
+                    <div>
                       <b-button
                           type="is-danger"
                           @click="removePhoto"
@@ -49,9 +47,10 @@
               </div><!--Fim container secundario-->
               <div class="columns">
                 <div class="column">
-                   <b-field label="Nome">
+                   <b-field label="Nome *">
                       <b-input 
                       placeholder="Nome"
+                      v-model="register.firstName"
                       type="text"
                       validation-message="Entre com um nome válido"
                       pattern="[A-ZA-z çâêîôûáéíóúàèìòùãẽĩõũ]*"
@@ -61,9 +60,10 @@
                    </b-field>
                 </div>
                 <div class="column">
-                  <b-field label="Sobrenome">
+                  <b-field label="Sobrenome *">
                       <b-input 
                       placeholder="Sobrenome"
+                      v-model="register.lastName"
                       type="text"
                       validation-message="Entre com um nome válido"
                       pattern="[A-ZA-z çâêîôûáéíóúàèìòùãẽĩõũ]*"
@@ -79,6 +79,7 @@
                     label="CPF *">
                     <b-input
                       type="text"
+                      v-model="register.document"
                       placeholder="CPF"
                       validation-message="Entre com um documento válido"
                       v-mask.raw="['###.###.###-##']">                      
@@ -89,6 +90,7 @@
                    <b-field
                     label="Gênero *">
                     <b-select
+                      v-model="register.gender"
                       placeholder="Selecione o gênero"
                       expanded>
                       <option value="M">Masculino</option>
@@ -103,6 +105,7 @@
                   <b-field
                     label="Email *">
                     <b-input
+                      v-model="register.email"
                       placeholder="Email"
                       type="email">                      
                     </b-input>
@@ -114,6 +117,7 @@
                     <b-field
                     label="Perfil do Facebook">
                     <b-input
+                      v-model="register.facebookProfile"
                       placeholder="URL"
                       type="url">
                     </b-input>
@@ -122,7 +126,7 @@
                 </div>
                 <div class="columns">
                   <div class="column">
-                    <b-field label="Data de Nascimento" grouped>
+                    <b-field label="Data de Nascimento" v-model="register.birthdayDate" grouped>
                     <b-datepicker
                       ref="datepicker"
                       expanded
@@ -137,12 +141,13 @@
                   </div>
                   <div class="column">
                     <b-field
-                    label="Telefone">
+                    label="Telefone *">
                     <b-input
                       type="text"
+                      v-model="register.phone"
                       placeholder="Fone"
                       validation-message="Entre com um telefone válido"
-                      v-mask.raw="['+55 (##) # ####-####']">
+                      v-mask.raw="['(##) # ####-####']">
                     </b-input>
                     </b-field>
                   </div>
@@ -150,9 +155,10 @@
                 <div class="columns">
                   <div class="column">
                     <b-field
-                    label="CEP">
+                    label="CEP *">
                     <b-input
                       type="text"
+                      v-model="register.zipcode"
                       placeholder="CEP"
                       validation-message="Entre com um CEP válido"
                       v-mask="['#####-###']">
@@ -161,9 +167,10 @@
                   </div>
                   <div class="column">
                   <b-field
-                    label="Bairro">
+                    label="Bairro *">
                     <b-input
                       type="text"
+                      v-model="register.neighborhood"
                       maxlength="64"
                       minlength="3"
                       placeholder="Bairro">
@@ -174,9 +181,10 @@
                 <div class="columns">
                   <div class="column is-6">
                   <b-field
-                    label="Rua">
+                    label="Rua *">
                     <b-input
                       type="text"
+                      v-model="register.street"
                       maxlength="64"
                       minlength="3"
                       placeholder="Rua">
@@ -185,11 +193,12 @@
                   </div>
                   <div class="column">
                   <b-field
-                    label="Número">
+                    label="Número *">
                     <b-input
                       type="text"
-                      maxlength="64"
-                      minlength="3"
+                      v-model="register.numberU"
+                      maxlength="7"
+                      minlength="1"
                       placeholder="Número"
                       validation-message="Entre com um número"
                       pattern="[0-9]*">
@@ -201,9 +210,12 @@
                     label="Complemento">
                     <b-input
                       type="text"
-                      maxlength="64"
-                      minlength="3"
-                      placeholder="Complemento">
+                      v-model="register.complement"
+                      maxlength="7"
+                      minlength="1"
+                      placeholder="Complemento"
+                      validation-message="Entre com um número"
+                      pattern="[0-9]*">
                     </b-input>
                   </b-field>
                   </div>
@@ -211,11 +223,11 @@
                 <div class="columns">
                   <div class="column">
                   <b-field
-                    label="Estado">
+                    label="Estado *">
                     <b-select
                       placeholder="Selecione o estado"
                       @input="loadMunicipios"
-                      v-model="estadoTemp"
+                      v-model="register.state"
                       expanded>
                       <option
                         v-for="estado in estados"
@@ -228,12 +240,13 @@
                   </div>
                   <div class="column">
                   <b-field
-                    label="Municipio">
+                    label="Município *">
                     <b-select
                       placeholder="Selecione o municipio"
-                      :disabled="!estadoTemp"
+                      v-model="register.city"
+                      :disabled="!register.state"
                       expanded>
-                      <option v-if="!estadoTemp" value=""
+                      <option v-if="!register.state" value=""
                         >Selecione o estado primeiro
                       </option>
                       <option
@@ -250,17 +263,17 @@
                 <div class="columns">
                   <div class="column">
                     <b-field
-                      label="Senha">
+                      label="Senha *">
                       <password
                         maxlength="60"
-                        v-model="passwordTemp"
+                        v-model="register.user_password"
                         :secureLength="8">
                       </password>
                     </b-field>
                   </div>
                   <div class="column">
                     <b-field
-                      label="Confirmação de senha"
+                      label="Confirmação de senha *"
                       :type="{ 'is-danger': !errors.passwordConfirmed }"
                       :message="{
                         'Senha diferente da inserida anteriormente': !errors.passwordConfirmed,
@@ -269,8 +282,8 @@
                         type="password"
                         v-model="passwordConfirm"
                         @input="
-                          errors.passwordConfirmed =
-                            passwordTemp == passwordConfirm">
+                          errors.passwordConfirmed = 
+                            register.user_password == passwordConfirm">
                       </b-input>
                     </b-field>
                   </div>
@@ -279,9 +292,11 @@
                   <div class="column">
                     <div class="buttons is-justify-content-right">
                     <b-button
+                      @click="doRegister"
                       type="is-success">
                       Registrar
                     </b-button>
+                    <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
                     </div>
                   </div>
                 </div>
@@ -296,7 +311,9 @@
 <script>
 import { mask } from "vue-the-mask";
 import Password from "vue-password-strength-meter";
-import { getEstados, getMunicipios } from "../services/ibge";
+import { getEstados, getMunicipios} from "../services/ibge";
+import { registerUser } from "../services/api";
+
 export default{
   name: "Registro",
   components: { Password },
@@ -307,17 +324,36 @@ export default{
   },
   data() {
         return {
+            isLoading: false,
             avatar: null,
             imageData: null,
             errors: {
               passwordConfirmed: true,
             },
-            passwordConfirm: null,
+            passwordConfirm: "",
             estados: [],
-            estadoTemp: [],
-            passwordTemp: null,
             municipios: [],
-            selected: null
+            selected: null,
+            register: {
+              firstName: "", //
+              lastName: "",
+              user_password: "", //
+              document: "",
+              isAdmin: 0, //
+              birthdayDate: new Date(), //
+              phone: "", //
+              email: "", //
+              gender: "M", //
+              registerConfirmed: 0,
+              facebookProfile: "", //
+              street: "", //
+              numberU: null, //
+              complement: "", //
+              neighborhood: "", //
+              city: "", //
+              state: "", //
+              zipcode: "", //
+          },
         }
     },
   mounted() {
@@ -354,9 +390,59 @@ export default{
       return Promise.resolve();
       }
     },
+    doRegister(){
+      this.isLoading = true;
+      let formData = new FormData();
+      formData.append("user_password", this.register.user_password);
+      formData.append("isAdmin", this.register.isAdmin);
+      formData.append("registerConfirmed", this.register.registerConfirmed);
+      formData.append("firstName", this.register.firstName);
+      formData.append("lastName", this.register.lastName);
+      formData.append("phone", this.register.phone.replace(/[ +()-]/g, ""));
+      formData.append("document", this.register.document.replace(/[.-]/g, ""));
+      formData.append("email", this.register.email);
+      if(this.register.facebookProfile){
+        formData.append("facebookProfile", this.register.facebookProfile);
+      }
+      formData.append("gender", this.register.gender);
+      if(this.register.birthdayDate){
+        formData.append(
+          "birthdayDate",
+          this.register.birthdayDate
+            .toISOString()
+            .split("T")[0]
+            .replaceAll("/", "-")
+        );
+      }
+      formData.append("street", this.register.street);
+      formData.append("numberU", this.register.numberU);
+      formData.append("city", this.register.city);
+      formData.append("state", this.register.state);
+      formData.append("zipcode", this.register.zipcode.replace(/[.-]/g, ""));
+      formData.append("neighborhood", this.register.neighborhood);
+      if(this.register.complement){
+        formData.append("complement", this.register.complement);
+      }
+      registerUser(formData).then(() => {
+            this.isLoading = false;
+            this.$router.push("/");
+            this.$buefy.toast.open({
+              message: "Cadastro efetuado com sucesso!",
+              type: "is-success",
+            });
+          })
+          .catch((error) => {
+            this.isLoading = false;
+            this.formErrors = error.response.data.errors;
+            this.$buefy.toast.open({
+              message: "Ocorreu um erro ao efetuar o registro.",
+              type: "is-danger",
+            });
+          })
+    },
     loadMunicipios(){
-      if (this.estadoTemp) {
-        return getMunicipios(this.estadoTemp).then(
+      if (this.register.state) {
+        return getMunicipios(this.register.state).then(
           (resp) => (this.municipios = resp.data)
         );
       } else return [];
@@ -417,4 +503,7 @@ main {
   background-attachment: fixed;
 }
 
+.card{
+  margin-bottom: 50px;
+}
 </style>

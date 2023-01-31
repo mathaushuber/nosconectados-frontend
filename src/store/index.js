@@ -7,38 +7,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    filters: {
-      sex: null,
-      size: null,
-      specie: null,
-    },
-    sort: null,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
-    },
-    clearFilters(state) {
-      state.filters = {
-        sex: null,
-        size: null,
-        specie: null,
-      };
-    },
-    clearFiltersAndSort(state) {
-      state.filters = {
-        sex: null,
-        size: null,
-        specie: null,
-      };
-      state.sort = null;
-    },
-    setFiltersAndSort(state, filtersAndSort) {
-      state.sort = filtersAndSort.sort;
-      state.filters = Object.assign({}, state.filters, filtersAndSort.filters);
-    },
-    setFilters(state, filters) {
-      state.filters = Object.assign({}, state.filters, filters);
     },
   },
   actions: {

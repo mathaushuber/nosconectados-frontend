@@ -32,16 +32,10 @@
             <div class="center mt-5">
             <b-button @click="login" type="is-primary" class="center">Entrar</b-button>
             <b-button
+              tag="router-link" :to="{ path: '/registro'}"
               class="ml-4"
-              @click="loginFacebook"
-              type="is-primary-outline"
-              >Entrar com Facebook
-              <b-icon
-                icon="facebook"
-                class="ml-1 content has-text-centered"
-                type="is-primary"
-              >
-              </b-icon>
+              type="is-warning"
+              >Criar conta
             </b-button>
           </div>
           </div>
@@ -54,7 +48,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { loginFacebook } from "../services/api";
 export default {
   name: "Home",
   components: {},
@@ -82,25 +75,6 @@ export default {
               message: 'Não foi possível realizar o login. Verifique seu email e senha!',
               type: 'is-danger'});
         });
-    },
-    loginFacebook() {
-      window.FB.login(
-        (response) => {
-          console.log(response);
-          if (response.status == "connected")
-            if (response.authResponse) {
-              loginFacebook(response.authResponse.accessToken).then((res) => {
-                this.loginUserByToken(res.data.token).then(() => {
-                  window.sessionStorage.setItem("token", res.data.token);
-                  this.$router.push("/dashboard");
-                });
-              });
-            } else {
-              console.log("User cancelled login or did not fully authorize.");
-            }
-        },
-        { scope: "email,public_profile" }
-      );
     },
   },
   computed: { ...mapState(["user"]) },

@@ -160,7 +160,7 @@ export default {
     updateMap(id){
       var data = this.dataMap(this.sensorData);
       var tam = Object.keys(data).length;
-      for(var i = 0; i <= tam; i++){
+      for(var i = 0; i < tam; i++){
         if(data[i] === undefined){
           i++;
         }

@@ -41,35 +41,35 @@
                 </div>
             </div>
             <div class="column mt-5">
-                <div class="columns">
-                    <div class="card column is-one-third mt-3 ml-3" v-for="sensor in sensoresData" :key="sensor.id">
-                        <div class="card-content mt-3">
-                            <h1 class="is-size-5">{{ sensor.property }} - {{ sensor.lowDescription }}</h1>
-                            <div>
-                                <p>{{ sensor.city }}, {{ sensor.state}}</p>
-                                <p>Área: {{ sensor.area }}ha</p>
-                                <p>Tipo: {{ sensor.typeProduction }}</p>
-                                <p>Status: <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" 
-                                type="is-danger"></b-icon>
-                                <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check"
-                                type="is-success"></b-icon>
-                                <b-icon v-else  icon="access-point-off" 
-                                type="is-warning"></b-icon></p>
+                <div class="row">
+                        <div class="card col-4 mt-1" v-for="sensor in sensoresData" :key="sensor.id">
+                            <div class="card-content mt-3">
+                                <h1 class="is-size-5">{{ sensor.property }} - {{ sensor.lowDescription }}</h1>
+                                <div>
+                                    <p>{{ sensor.city }}, {{ sensor.state}}</p>
+                                    <p>Área: {{ sensor.area }}ha</p>
+                                    <p>Tipo: {{ sensor.typeProduction }}</p>
+                                    <p>Status: <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" 
+                                    type="is-danger"></b-icon>
+                                    <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check"
+                                    type="is-success"></b-icon>
+                                    <b-icon v-else  icon="access-point-off" 
+                                    type="is-warning"></b-icon></p>
+                                </div>
+                                <div class="buttons mt-5">
+                                    <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
+                                        Informações
+                                    </b-button>
+                                    <b-button type="is-info">
+                                        Editar
+                                    </b-button>
+                                    <b-button type="is-danger">
+                                        Excluir
+                                    </b-button>
+                                </div>
+                                <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
                             </div>
-                            <div class="buttons mt-5">
-                                <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
-                                    Informações
-                                </b-button>
-                                <b-button type="is-info">
-                                    Editar
-                                </b-button>
-                                <b-button type="is-danger">
-                                    Excluir
-                                </b-button>
-                            </div>
-                            <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
