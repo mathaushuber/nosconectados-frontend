@@ -96,6 +96,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "meus-sensores" */ "../views/Detalhes.vue"),
   },
+  {
+    path: "/solicitacoes",
+    name: "Solicitacoes",
+    component: () =>
+      import(/* webpackChunkName: "meus-sensores" */ "../views/Solicitacoes.vue"),
+  },
 ];
 
 const router = new VueRouter({
