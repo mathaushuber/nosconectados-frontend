@@ -68,6 +68,30 @@ import axios from "axios";
     return api.get("/v1/atribuicao/lista-geral/" + sensorId)
   }
 
+  function removeSensor(sensorId){
+    return api.delete("/v1/informacoes-sensor/remove/" + sensorId)
+  }
+
+  function removeUsuario(usuarioId){
+    return api.delete("/v1/usuarios/remove/" + usuarioId)
+  }
+
+  function removeDadoSensor(sensorId){
+    return api.delete("/v1/sensores/remove/" + sensorId)
+  }
+
+  function removeAtribuicao(sensorId){
+    return api.delete("/v1/atribuicao/remove/" + sensorId)
+  }
+
+  function removeLocalizacao(usuarioId){
+    return api.delete("/v1/localizacoes-users/remove/" + usuarioId);
+  }
+
+  function sensoresSolicitados(){
+    return api.get("/v1/sensores/solicitados")
+  }
+
   export{
     loginUser,
     getUser,
@@ -85,6 +109,12 @@ import axios from "axios";
     registerUser,
     getNomesUser,
     createSensor,
+    removeSensor,
+    removeUsuario,
+    removeDadoSensor,
+    removeAtribuicao,
+    removeLocalizacao,
+    sensoresSolicitados,
   };
 
   export default api;
