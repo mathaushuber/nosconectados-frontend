@@ -33,8 +33,8 @@
                 </b-menu>
             </div>
             <div class="column" v-if="activeUsers == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="usuario in usuarios" :key="usuario.id">
+                <div class="row">
+                    <div class="col-md-4 mt-1" v-for="usuario in usuarios" :key="usuario.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -58,7 +58,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ usuario.created_at }}</p>
                                     <b-button v-if="usuario.isAdmin !== 1" class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmUsuarioDelete(usuario.id)"/> 
                                 </div>
                                 </div>
                                 </div>
@@ -67,8 +67,8 @@
                 </div>
             </div>
             <div class="column" v-if="activeDataSensores == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="sensor in sensores" :key="sensor.id">
+                <div class="row">
+                    <div class="col-md-4 mt-2 ml-1" v-for="sensor in sensores" :key="sensor.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -91,7 +91,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ sensor.created_at }} </p>
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmDadoDelete(sensor.id)"/> 
                                 </div>
                                 </div>
                                 </div>
@@ -100,8 +100,8 @@
                 </div>
             </div>
             <div class="column" v-if="activeSensores == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="sensorAll in sensorData" :key="sensorAll.id">
+                <div class="row">
+                    <div class="col-md-4 mt-2 ml-1" v-for="sensorAll in sensorData" :key="sensorAll.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -129,7 +129,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ sensorAll.created_at }} </p>
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmSensorDelete(sensorAll.id)" /> 
                                 </div>
                                 </div>
                                 </div>
@@ -138,8 +138,8 @@
                 </div>
             </div>
             <div class="column" v-if="activeInformation == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="sensor in informationData" :key="sensor.id">
+                <div class="row">
+                    <div class="col-md-4 mt-2 ml-1" v-for="sensor in informationData" :key="sensor.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -170,7 +170,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ sensor.created_at }} </p>
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmSensorDelete(sensor.id)" /> 
                                 </div>
                                 </div>
                                 </div>
@@ -179,8 +179,8 @@
                 </div>
             </div>
             <div class="column" v-if="activeAtribuicao == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="atribuicaoUse in atribuicao" :key="atribuicaoUse.id">
+                <div class="row">
+                    <div class="col-md-4 mt-2" v-for="atribuicaoUse in atribuicao" :key="atribuicaoUse.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -192,7 +192,7 @@
                                     <p>idUsuario: {{ atribuicaoUse.idUsuario }}</p>
                                     <b-tag v-if="atribuicaoUse.isAdminSensor === 2" type="is-success">Administrador</b-tag>
                                     <b-tag v-if="atribuicaoUse.isAdminSensor === 1" type="is-info">Patrocinador</b-tag>
-                                    <b-tag v-if="atribuicaoUse.isAdminSensor === 0">Visualizador</b-tag>
+                                    <b-tag v-if="atribuicaoUse.isAdminSensor === 0" type="is-warning">Visualizador</b-tag>
                                 </div>
                                 </div>
 
@@ -201,7 +201,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ atribuicaoUse.created_at }} </p>
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmAtribuicaoDelete(atribuicaoUse.id)"/> 
                                 </div>
                                 </div>
                                 </div>
@@ -210,8 +210,8 @@
                 </div>
             </div>
             <div class="column" v-if="activeLocalizacao == true">
-                <div class="columns">
-                    <div class="column is-one-third mt-3 ml-1" v-for="localizacao in localizacoesData" :key="localizacao.id">
+                <div class="row">
+                    <div class="col-md-4 mt-2" v-for="localizacao in localizacoesData" :key="localizacao.id">
                         <div class="card">
                             <div class="card-content">
                                 <div class="media">
@@ -232,7 +232,7 @@
                                 <div class="buttons">
                                     <p class="mt-2">Criado em: {{ localizacao.created_at }} </p>
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete" /> 
+                                        icon-right="delete" @click="confirmLocalizacaoDelete(localizacao.id)"/> 
                                 </div>
                                 </div>
                                 </div>
@@ -375,7 +375,7 @@
                                 <div class="buttons">
                                     <div class="buttons">
                                     <b-button  class="ml-3" type="is-danger"
-                                        icon-right="delete">
+                                        icon-right="delete" @click="confirmAdminDelete(userData.id)">
                                         Excluir
                                     </b-button> 
                                     <b-button  tag="router-link" :to="{ path: '/edit-perfil' }" class="ml-3" type="is-primary"
@@ -395,7 +395,8 @@
 </template>
 
 <script>
-import { getUsers, getUser, listaSensores, getAllSensores, getInformationSensors, getAtribuicoes, getLocalizacoes } from "../services/api";
+import { getUsers, getUser, listaSensores, getAllSensores, getInformationSensors, getAtribuicoes, getLocalizacoes, removeUsuario, removeDadoSensor,
+removeSensor, removeAtribuicao, removeLocalizacao} from "../services/api";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -513,11 +514,143 @@ export default {
       this.logout();
       this.$router.push("/");
     },
+    confirmUsuarioDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover usuário',
+            message: 'Você tem certeza que deseja <b>deletar</b> este usuário? Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteSensor(id);
+                this.$buefy.toast.open({
+                    message: 'Sensor removido! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteUsuario(id){
+        removeUsuario(id).then(() => {
+            this.loadUsers();
+        });
+    },
+    confirmDadoDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover dados',
+            message: 'Você tem certeza que deseja <b>deletar</b> os dados deste sensor? Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteDados(id);
+                this.$buefy.toast.open({
+                    message: 'Dados removido! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteDados(id){
+        removeDadoSensor(id).then(() => {
+            this.loadSensores();
+        });
+    },
+    confirmSensorDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover sensor',
+            message: 'Você tem certeza que deseja <b>deletar</b> as informações deste sensor? Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteSensor(id);
+                this.$buefy.toast.open({
+                    message: 'Informações removidas! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteSensor(id){
+        removeSensor(id).then(() => {
+            this.loadAllSensores();
+        });
+    },
+    confirmAtribuicaoDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover atribuição',
+            message: 'Você tem certeza que deseja <b>deletar</b> as atribuições para usuários deste sensor? Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteAtribuicao(id);
+                this.$buefy.toast.open({
+                    message: 'Atribuições removidas! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteAtribuicao(id){
+        removeAtribuicao(id).then(() => {
+            this.loadAtribuicoes();
+        });
+    },
+    confirmLocalizacaoDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover localização',
+            message: 'Você tem certeza que deseja <b>deletar</b> a localização deste usuário? Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteLocalizacao(id);
+                this.$buefy.toast.open({
+                    message: 'Localização removida! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteLocalizacao(id){
+        removeLocalizacao(id).then(() => {
+            this.loadLocalizacoes();
+        });
+    },
+    confirmAdminDelete(id) {
+        this.$buefy.dialog.confirm({
+            title: 'Remover conta',
+            message: 'Você tem certeza que deseja <b>deletar</b> a sua conta? Todo o acesso ao painel será removido, assim como os seus sensores e informações, não será possível criar uma conta do tipo <b>ADMINISTRADOR</b> novamente. Essa ação não pode ser desfeita.',
+            confirmText: 'Remover',
+            cancelText: 'Cancelar',
+            type: 'is-danger',
+            hasIcon: true,
+            onConfirm: () => {
+                this.deleteAdmin(id);
+                this.$buefy.toast.open({
+                    message: 'Conta removida! Busque nos logs do servidor para qualquer backup.',
+                    type: "is-danger",
+                });
+            }
+        })
+    },
+    deleteAdmin(id){
+        removeUsuario(id).then(() => {
+            this.logout();
+            this.$router.push("/");
+        });
+    },
     loadUser() {
       return getUser()
         .then((res) => {
           this.userData = res.data;
-          console.log(this.userData)
         })
         .catch(() => {
           this.userData = [];
@@ -581,6 +714,9 @@ export default {
         const dataObj = [
             this.usuarios,
             this.sensores,
+            this.informationData,
+            this.atribuicao,
+            this.localizacoesData,
         ];
         let filename = 'data.json';
         let element = document.createElement('a');
