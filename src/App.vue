@@ -59,9 +59,11 @@
                         Editar Perfil
                       </router-link>
                     </b-dropdown-item>
-                    <b-dropdown-item value="products" aria-role="menuitem">
+                    <b-dropdown-item has-link aria-role="menuitem">
+                      <router-link to="solicitacoes">
                         <b-icon icon="access-point-minus"></b-icon>
                         Solicitações Enviadas
+                      </router-link>
                     </b-dropdown-item>
                     <b-dropdown-item has-link value="blog" aria-role="menuitem">
                       <router-link to="/meus-sensores">
