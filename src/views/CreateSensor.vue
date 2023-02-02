@@ -271,6 +271,7 @@ export default{
   },
   data() {
         return {
+            isLoading: false,
             estados: [],
             municipios: [],
             filteredTags: [],
@@ -327,7 +328,6 @@ export default{
                 "0": "Privado",
                 "1": "Público",
             };
-            //   return this.petsData.consts.sizes[petSize];
             return sizes[isSwitched];
     },
     getLocation(){
@@ -342,6 +342,7 @@ export default{
       console.warn(`ERROR(${err.code}): ${err.message}`);
     },
     doCreate(){
+      this.isLoading = true;
       let formData = new FormData();
       formData.append("property", this.sensor.property);
       formData.append("typeProduction", this.sensor.typeProduction);
@@ -368,14 +369,16 @@ export default{
         formData.append("visualizadores", this.visualizadores)
       }
       createSensor(formData).then(() => {
+          this.isLoading = false;
+          this.$router.push("/dashboard");
           this.$buefy.toast.open({
-            message: "Cadastro efetuado com sucesso!",
+            message: "Sensor cadastrado com sucesso na plataforma!",
             type: "is-success",
           });
         })
         .catch(() => {
           this.$buefy.toast.open({
-            message: "Ocorreu um erro ao efetuar o registro.",
+            message: "Ocorreu um erro ao cadastrar o sensor, por favor cheque os campos!",
             type: "is-danger",
           });
         })
