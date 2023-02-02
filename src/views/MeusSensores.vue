@@ -42,42 +42,43 @@
             </div>
             <div class="column mt-5">
                 <div class="row">
-                        <div class="card col-4 mt-1" v-for="sensor in sensoresData" :key="sensor.id">
-                            <div class="card-content mt-3">
-                                <h1 class="is-size-5">{{ sensor.property }} - {{ sensor.lowDescription }}</h1>
-                                <div>
-                                    <p>{{ sensor.city }}, {{ sensor.state}}</p>
-                                    <p>Área: {{ sensor.area }}ha</p>
-                                    <p>Tipo: {{ sensor.typeProduction }}</p>
-                                    <p>Status: <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" 
-                                    type="is-danger"></b-icon>
-                                    <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check"
-                                    type="is-success"></b-icon>
-                                    <b-icon v-else  icon="access-point-off" 
-                                    type="is-warning"></b-icon></p>
-                                </div>
-                                <div class="buttons mt-5">
-                                    <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
-                                        Informações
-                                    </b-button>
-                                    <b-button type="is-info">
-                                        Editar
-                                    </b-button>
-                                    <b-button type="is-danger">
-                                        Excluir
-                                    </b-button>
-                                </div>
-                                <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
+                    <div class="card col-4 mt-1" v-for="sensor in sensoresData" :key="sensor.id">
+                        <div class="card-content mt-3">
+                            <h1 class="is-size-5">{{ sensor.property }} - {{ sensor.lowDescription }}</h1>
+                            <div>
+                                <p>{{ sensor.city }}, {{ sensor.state}}</p>
+                                <p>Área: {{ sensor.area }}ha</p>
+                                <p>Tipo: {{ sensor.typeProduction }}</p>
+                                <p>Status: <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" 
+                                type="is-danger"></b-icon>
+                                <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check"
+                                type="is-success"></b-icon>
+                                <b-icon v-else  icon="access-point-off" 
+                                type="is-warning"></b-icon></p>
                             </div>
+                            <div class="buttons mt-5">
+                                <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
+                                    Informações
+                                </b-button>
+                                <b-button type="is-info">
+                                    Editar
+                                </b-button>
+                                <b-button type="is-danger" @click="confirmCustomDelete(sensor.id)">
+                                    Excluir
+                                </b-button>
+                            </div>
+                            <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
     </main>
 </template>
 
 <script>
-import { getSensorFromUser } from "../services/api";
+import { getSensorFromUser, removeSensor } from "../services/api";
 
 export default{
     data () {
@@ -97,6 +98,28 @@ export default{
                 .catch(() => {
                     this.sensoresData = [];
                 });
+        },
+        deleteSensor(id){
+            removeSensor(id).then(() => {
+                this.loadSensores();
+            });
+        },
+        confirmCustomDelete(id) {
+            this.$buefy.dialog.confirm({
+                title: 'Remover sensor',
+                message: 'Você tem certeza que deseja <b>deletar</b> este sensor? Essa ação não pode ser desfeita.',
+                confirmText: 'Remover',
+                cancelText: 'Cancelar',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => {
+                    this.deleteSensor(id);
+                    this.$buefy.toast.open({
+                        message: 'Sensor removido! Entre em contato com o servidor para qualquer backup.',
+                        type: "is-danger",
+                    });
+                }
+            })
         },
     },
 
