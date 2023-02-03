@@ -97,11 +97,26 @@
                     </b-field>
                   </div>
                   <div class="column">
-                    <b-field
-                      label="Privacidade *">
-                      <b-switch class="mt-2" true-value=1 false-value=0 v-model="sensor.isPublic">
-                        {{transformValue(sensor.isPublic)}}
-                      </b-switch>
+                    <b-field grouped label="Privacidade *">
+                      <b-radio-button v-model="sensor.isPublic"
+                          native-value="0"
+                          type="is-danger">
+                          <b-icon icon="close"></b-icon>
+                          <span>Privado</span>
+                      </b-radio-button>
+
+                      <b-radio-button v-model="sensor.isPublic"
+                          native-value="1"
+                          type="is-success">
+                          <b-icon icon="check"></b-icon>
+                          <span>Público</span>
+                      </b-radio-button>
+
+                      <b-radio-button v-model="sensor.isPublic"
+                          native-value="1"
+                          type="is-info">
+                          Padrão
+                      </b-radio-button>
                     </b-field>
                   </div>
                 </div>
@@ -286,7 +301,7 @@ export default{
               description: "",
               area: null,
               isActive: null,
-              isPublic: 1,
+              isPublic: null,
               state: null,
               city: "",
               latitude: "",

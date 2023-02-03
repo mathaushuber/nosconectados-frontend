@@ -16,6 +16,10 @@ import axios from "axios";
     return api.get("/sensor");
   }
 
+  function getToken() {
+    return api.get("/token");
+  }
+
   function registerUser(formData){
     return api.post("/v1/usuarios/cadastro", formData);
   }
@@ -115,6 +119,7 @@ import axios from "axios";
     removeAtribuicao,
     removeLocalizacao,
     sensoresSolicitados,
+    getToken,
   };
 
   export default api;

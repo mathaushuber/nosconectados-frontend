@@ -155,7 +155,7 @@
                         type="text"
                         placeholder="Fone"
                         validation-message="Entre com um telefone válido"
-                        v-mask.raw="['+55 (##) # ####-####']">
+                        v-mask.raw="['(##) # ####-####']">
                       </b-input>
                       </b-field>
                     </div>
@@ -299,6 +299,11 @@
                       <b-button
                         type="is-success">
                         Atualizar
+                      </b-button>
+                      <b-button
+                        v-if="userData.isAdmin == 0"
+                        type="is-danger">
+                        Excluir
                       </b-button>
                       </div>
                     </div>

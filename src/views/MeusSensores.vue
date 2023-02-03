@@ -42,9 +42,12 @@
             </div>
             <div class="column mt-5">
                 <div class="row">
-                    <div class="card col-4 mt-1" v-for="sensor in sensoresData" :key="sensor.id">
+                    <div class="card col-md-4" v-for="sensor in sensoresData" :key="sensor.id">
+                        <div class="card-header mt-2">
+                            <p class="center is-uppercase has-text-weight-bold">{{ sensor.property }}</p>
+                        </div>
                         <div class="card-content mt-3">
-                            <h1 class="is-size-5">{{ sensor.property }} - {{ sensor.lowDescription }}</h1>
+                            <h1 class="is-size-5"> {{ sensor.lowDescription }}</h1>
                             <div>
                                 <p>{{ sensor.city }}, {{ sensor.state}}</p>
                                 <p>Área: {{ sensor.area }}ha</p>
@@ -67,9 +70,31 @@
                                     Excluir
                                 </b-button>
                             </div>
-                            <p class="is-size-7 rodape is-uppercase has-text-weight-light">Atualizado em: {{ sensor.readAt }}</p>
+                            <p class="is-size-7 is-uppercase has-text-weight-light">Atualizado em: {{ sensor.updated_at }}</p>
                         </div>
                     </div>
+                </div>
+                <div class="column mt-5">
+                    <b-pagination
+                        :total="total"
+                        v-model="current"
+                        :range-before="rangeBefore"
+                        :range-after="rangeAfter"
+                        :order="order"
+                        :size="size"
+                        :simple="isSimple"
+                        :rounded="isRounded"
+                        :per-page="perPage"
+                        :icon-prev="prevIcon"
+                        :icon-next="nextIcon"
+                        aria-next-label="Next page"
+                        aria-previous-label="Previous page"
+                        aria-page-label="Page"
+                        aria-current-label="Current page"
+                        :page-input="hasInput"
+                        :page-input-position="inputPosition"
+                        :debounce-page-input="inputDebounce">
+                    </b-pagination>
                 </div>
             </div>
         </div>
@@ -84,6 +109,20 @@ export default{
     data () {
         return {
             sensoresData:[],
+            total: 200,
+            current: 10,
+            perPage: 10,
+            rangeBefore: 3,
+            rangeAfter: 1,
+            order: '',
+            size: '',
+            isSimple: false,
+            isRounded: false,
+            hasInput: false,
+            prevIcon: 'chevron-left',
+            nextIcon: 'chevron-right',
+            inputPosition: '',
+            inputDebounce: ''
         };
     },
     mounted(){
@@ -142,6 +181,13 @@ export default{
     background-position: center;
     background-repeat: no-repeat;
     background-size: 250px;
+}
+
+.card-header{
+    color: white;
+    background: url("../assets/capa.png"), url("../assets/ruido.png"),
+    linear-gradient(110deg, $primary, #7c26f8); 
+    width: 100%;
 }
 
 </style>

@@ -34,19 +34,51 @@
         <tbody>
           <tr class="center-table" v-for="sensor in sensorData" :key="sensor.id">
             <td>
-          <b-icon v-if="sensor.isActive == 0" icon="access-point-remove" size="is-large"
+          <b-icon v-if="sensor.isActive === 0 && sensor.idSensor !== null" icon="access-point-remove" size="is-large"
           type="is-danger"></b-icon>
-          <b-icon v-else-if="sensor.isActive == 1"  icon="access-point-check" size="is-large"
+          <b-icon v-else-if="sensor.isActive === 1 && sensor.idSensor !== null"  icon="access-point-check" size="is-large"
           type="is-success"></b-icon>
-          <b-icon v-else  icon="access-point-off" size="is-large"
+          <b-icon v-else-if="sensor.isActive === 2 && sensor.idSensor !== null" icon="access-point-off" size="is-large"
           type="is-warning"></b-icon>
+          <b-icon v-else icon="access-point-network-off" size="is-large"
+          type="is-info"></b-icon>
             </td>
             <td class="center">{{ sensor.property }}</td>
             <td class="center">{{ sensor.lowDescription }}</td>
             <td class="center">{{ sensor.area }} ha</td>
             <td class="center">{{ sensor.typeProduction }}</td>
-            <td><b-button 
-              type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">Detalhes</b-button></td>
+            <td>
+              <b-tooltip 
+              label="Sensor Inativo" type="is-danger" v-if="sensor.isActive === 0 && sensor.idSensor !== null">
+                <b-button 
+                type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">
+                Detalhes
+                </b-button>
+              </b-tooltip>
+              <b-tooltip 
+              label="Sensor Ativo" type="is-success" v-else-if="sensor.isActive === 1 && sensor.idSensor !== null">
+                <b-button 
+                type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">
+                Detalhes
+                </b-button>
+              </b-tooltip>
+              <b-tooltip 
+              label="Sensor em andamento" type="is-warning" v-else-if="sensor.isActive === 2 && sensor.idSensor !== null">
+                <b-button 
+                type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">
+                Detalhes
+                </b-button>
+              </b-tooltip>
+              <b-tooltip 
+              label="Sensor pendente" type="is-info" v-else>
+                <b-button 
+                type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id}">
+                Detalhes
+                </b-button>
+              </b-tooltip>
+
+
+            </td>
             <td>
             <b-button
                 icon-left="arrow-right" @click="updateMap(sensor.id)">
