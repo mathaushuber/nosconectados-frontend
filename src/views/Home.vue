@@ -31,7 +31,7 @@
             </b-field>
             <div class="center mt-5">
             <b-button @click="login" type="is-primary" class="center">Entrar 
-              <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="false"></b-loading>
+              <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="false"></b-loading>
             </b-button>
             <b-button
               tag="router-link" :to="{ path: '/registro'}"
