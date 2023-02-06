@@ -61,9 +61,9 @@
                             </div>
                             <div class="buttons mt-5">
                                 <b-button type="is-primary" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
-                                    Informações
+                                    Detalhes
                                 </b-button>
-                                <b-button type="is-info">
+                                <b-button type="is-info" tag="router-link" :to="{ path: '/edit-sensor/' + sensor.id }">
                                     Editar
                                 </b-button>
                                 <b-button type="is-danger" @click="confirmCustomDelete(sensor.id)">

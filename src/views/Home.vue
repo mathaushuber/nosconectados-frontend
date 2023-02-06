@@ -30,7 +30,9 @@
               </b-input>
             </b-field>
             <div class="center mt-5">
-            <b-button @click="login" type="is-primary" class="center">Entrar</b-button>
+            <b-button @click="login" type="is-primary" class="center">Entrar 
+              <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="false"></b-loading>
+            </b-button>
             <b-button
               tag="router-link" :to="{ path: '/registro'}"
               class="ml-4"
@@ -52,7 +54,8 @@ export default {
   name: "Home",
   components: {},
   data() {
-    return { 
+    return {
+      isLoading: false, 
       email: "", 
       user_password: "", 
       testeStatus: {
@@ -63,14 +66,17 @@ export default {
   methods: {
     ...mapActions(["loginUser", "loginUserByToken"]),
     login() {
+      this.isLoading = true;
       this.loginUser({
         email: this.email,
         user_password: this.user_password,
       })
         .then(() => {
+          this.isLoading = false;
           this.$router.push("/dashboard");
         })
         .catch(() => {
+          this.isLoading = false;
           this.$buefy.toast.open({
               message: 'Não foi possível realizar o login. Verifique seu email e senha!',
               type: 'is-danger'});

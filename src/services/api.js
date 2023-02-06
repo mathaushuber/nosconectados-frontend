@@ -28,6 +28,10 @@ import axios from "axios";
     return api.post("/v1/informacoes-sensor/adiciona", formData)
   }
 
+  function updateSensor(formData, sensorId){
+    return api.post("/v1/informacoes-sensor/atualiza/" + sensorId, formData)
+  }
+
   function getSensores() {
     return api.get("/v1/sensores/lista-geral");
   }
@@ -120,6 +124,7 @@ import axios from "axios";
     removeLocalizacao,
     sensoresSolicitados,
     getToken,
+    updateSensor,
   };
 
   export default api;

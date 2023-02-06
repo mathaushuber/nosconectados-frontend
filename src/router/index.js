@@ -109,6 +109,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "meus-sensores" */ "../views/Atribuicao.vue"),
   },
+  {
+    path: "/edit-sensor/:sensorId",
+    name: "EditSensor",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "edit-sensor" */ "../views/EditSensor.vue"),
+  },
 ];
 
 const router = new VueRouter({

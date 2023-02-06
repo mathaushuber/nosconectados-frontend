@@ -360,7 +360,6 @@
       return getUser()
         .then((res) => {
           this.userData = res.data;
-          console.log(this.userData)
         })
         .catch(() => {
           this.error = true;
