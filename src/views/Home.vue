@@ -72,8 +72,8 @@ export default {
         user_password: this.user_password,
       })
         .then(() => {
-          this.isLoading = false;
           this.$router.push("/dashboard");
+          this.isLoading = false;
         })
         .catch(() => {
           this.isLoading = false;

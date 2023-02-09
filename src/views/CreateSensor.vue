@@ -317,7 +317,6 @@ export default{
   mounted() {
     getEstados().then((resp) => {
       this.estados = resp.data;
-      console.log("carregou estados");
     });
     this.loadNomes();
   },
