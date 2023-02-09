@@ -1,7 +1,7 @@
 <template>
     <main>
-        <div class="columns">
-            <div class="column is-one-third mt-5 ml-3">
+        <div class="row">
+            <div class="col-md-4 mt-5">
                 <div class="center">
                     <h1 class="is-size-4 is-uppercase has-text-weight-light">
                         <b>Sensores Públicos</b>
@@ -10,39 +10,99 @@
                     <h1 class="is-size-6 is-uppercase has-text-weight-light pb-2 mt-2 center">
                         AQUI VOCÊ PODE FILTRAR PELOS SENSORES DESEJADOS.
                     </h1>
-                <div class="mt-5">
+                <div class="mt-5 ml-3">
                     <b-field label="Propriedade">
-                        <b-input placeholder="Identificação do sensor" rounded icon="barn"></b-input>
+                        <b-input placeholder="Identificação do sensor" rounded icon="barn" v-model="property"></b-input>
                     </b-field>
 
                     <b-field label="Estado">
-                        <b-select placeholder="Estado" expanded rounded icon="home-group"></b-select>
+                        <b-select placeholder="Selecione o estado" expanded rounded icon="home-group" @input="loadMunicipios" v-model="state">
+                        <option
+                            v-for="estado in estados"
+                            :key="estado.id"
+                            :value="estado.sigla"
+                            >{{ estado.nome }}
+                        </option>
+                        </b-select>
                     </b-field>
 
                     <b-field label="Cidade">
-                        <b-select placeholder="Cidade" expanded rounded icon="city"></b-select>
+                        <b-select placeholder="Selecione a cidade" expanded rounded icon="city" v-model="city" :disabled="!state">
+                            <option v-if="!state" value=""
+                                >Selecione o estado primeiro
+                            </option>
+                            <option
+                                v-else
+                                v-for="municipio in municipios"
+                                :key="municipio.id"
+                                :value="municipio.nome"
+                                >{{ municipio.nome }}
+                            </option>
+                        </b-select>
                     </b-field>
 
                     <b-field label="Produção">
-                        <b-select placeholder="Tipo de produção" expanded rounded icon="sprout"></b-select>
+                        <b-select placeholder="Tipo de produção" expanded rounded icon="sprout" v-model="typeProduction" >
+                            <option value="Arroz">Arroz</option>
+                            <option value="Milho">Milho em grão</option>
+                            <option value="Soja">Soja</option>
+                            <option value="Cana-de-açúcar">Cana-de-açúcar</option>
+                            <option value="Café">Café</option>
+                            <option value="Algodão">Algodão herbáceo</option>
+                            <option value="Mandioca">Mandioca</option>
+                            <option value="Laranja">Laranja</option>
+                            <option value="Trigo">Trigo</option>
+                            <option value="Banana">Banana</option>
+                            <option value="Outros">Outros</option>
+                        </b-select>
                     </b-field>
 
-                    <b-field label="Ordenação">
-                        <b-select placeholder="Selecione a ordem" expanded rounded icon="sort"></b-select>
+                    <b-field label="Status">
+                        <b-select placeholder="Selecione o status" expanded rounded icon="sort" v-model="isActive">
+                            <option value="0">Inativo</option>
+                            <option value="2">Em Andamento</option>
+                            <option value="1">Ativo</option>
+                        </b-select>
                     </b-field>
-                    <div class="buttons">
-                        <b-button class="is-primary">
-                            Buscar
-                        </b-button>
-                        <b-button>
+                    <div class="buttons is-justify-content-right">
+                        <b-button @click="clearFilter" type="is-primary">
                             Limpar
+                            <b-icon
+                                icon="filter-remove-outline"
+                                size="is-small"
+                                class="ml-1">
+                            </b-icon>
                         </b-button>
                     </div>
                 </div>
             </div>
-            <div class="column mt-5">
+            <div class="col-md-8">
+            <div class="col-md-12 mt-3">
+                <b-pagination
+                        class="mr-3"
+                        :total="total"
+                        v-model="current"
+                        :range-before="rangeBefore"
+                        :range-after="rangeAfter"
+                        :order="order"
+                        :size="size"
+                        :simple="isSimple"
+                        :rounded="isRounded"
+                        :per-page="perPage"
+                        :icon-prev="prevIcon"
+                        :icon-next="nextIcon"
+                        aria-next-label="Next page"
+                        aria-previous-label="Previous page"
+                        aria-page-label="Page"
+                        aria-current-label="Current page"
+                        :page-input="hasInput"
+                        :page-input-position="inputPosition"
+                        :debounce-page-input="inputDebounce">
+                    </b-pagination>
+            </div>
+            <div class="col-md-12 mt-5">
                 <div class="row">
-                    <div class="card col-md-4" v-for="sensor in sensoresData" :key="sensor.id">
+                    <div class="card col-md-4" v-for="sensor in filteredItems" :key="sensor.id">
                         <div class="card-header mt-2">
                             <p class="center is-uppercase has-text-weight-bold">{{ sensor.property }}</p>
                         </div>
@@ -66,8 +126,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="column mt-5">
+            </div>
+                <div class="col-md-12 mt-5">
                     <b-pagination
+                        class="mr-3"
                         :total="total"
                         v-model="current"
                         :range-before="rangeBefore"
@@ -95,13 +157,13 @@
 
 <script>
 import { getSensores } from "../services/api";
-
+import { getEstados, getMunicipios } from "../services/ibge";
 export default{
     data () {
         return {
             sensoresData:[],
             total: 200,
-            current: 10,
+            current: 1,
             perPage: 10,
             rangeBefore: 3,
             rangeAfter: 1,
@@ -113,13 +175,62 @@ export default{
             prevIcon: 'chevron-left',
             nextIcon: 'chevron-right',
             inputPosition: '',
-            inputDebounce: ''
+            inputDebounce: '',
+            property: '',
+            state: null,
+            city: null,
+            estados: [],
+            municipios: [],
+            isActive: null,
+            typeProduction: null,
         };
     },
     mounted(){
+        getEstados().then((resp) => {
+            this.estados = resp.data;
+        });
         this.loadSensores();
     },
+    computed: {
+        filteredItems() {
+            let filterSensors = [];
+            filterSensors = this.sensoresData.filter((filterSensor) => {
+                return (
+                filterSensor.property.toLowerCase().indexOf(this.property.toLowerCase()) > -1 
+                );
+            });
+
+            filterSensors = filterSensors.filter((filterSensor) => {
+            if (this.state == null) return filterSensor;
+            return filterSensor.state === this.state;
+            });
+
+            filterSensors = filterSensors.filter((filterSensor) => {
+            if (this.city == null) return filterSensor;
+            return filterSensor.city === this.city;
+            });
+
+            filterSensors = filterSensors.filter((filterSensor) => {
+            if (this.typeProduction == null) return filterSensor;
+            return filterSensor.typeProduction === this.typeProduction;
+            });
+
+            filterSensors = filterSensors.filter((filterSensor) => {
+            if (this.isActive == null) return filterSensor;
+            return filterSensor.isActive == this.isActive;
+            });
+
+            return filterSensors;
+        },
+    },
     methods: {
+        loadMunicipios() {
+            if (this.state) {
+                return getMunicipios(this.state).then(
+                (resp) => (this.municipios = resp.data)
+                );
+            } else return [];
+        },
         loadSensores() {
         return getSensores()
             .then((res) => {
@@ -129,6 +240,13 @@ export default{
                 this.sensoresData = [];
             });
         },
+        clearFilter(){
+            this.property = '';
+            this.state = null;
+            this.city = null;
+            this.isActive = null;
+            this.typeProduction = null;
+        }
     },
 
 };
