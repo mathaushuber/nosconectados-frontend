@@ -1,5 +1,7 @@
 <template>
   <main>
+  <div class="container">
+    <div class="col-md-12">
   <div class="home is-flex is-justify-content-space-around">
     <div>
       <div class="card">
@@ -45,6 +47,8 @@
       </div>
     </div>
   </div>
+</div>
+</div>
   </main>
 </template>
 
@@ -99,7 +103,7 @@ export default {
 }
 @include touch {
   .home {
-    min-height: 100vh;
+    min-width: 100vw;
   }
 }
 .card{
