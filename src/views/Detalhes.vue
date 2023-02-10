@@ -29,8 +29,8 @@
                             </p>
                         </div>
                         <div class="column" id="isPublic">
-                            <p v-if="sensorData.isPublic === 0" class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="attachment-lock" 
+                            <p v-if="sensorData.isPublic == 0" class="is-size-6 is-uppercase has-text-weight-bold">
+                                <b-icon icon="lock" 
                                 type="is-danger" class="mr-1">
                                 </b-icon>
                                 Privado
@@ -286,7 +286,7 @@ export default {
                 id: 'basic-gas'
                 },
                 title: {
-                text: 'Tempo',
+                text: 'Atmosfera',
                 align: 'left'
                 },
                 xaxis: {
