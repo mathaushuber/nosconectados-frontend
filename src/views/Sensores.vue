@@ -1,5 +1,6 @@
 <template>
     <main>
+        <div class="container is-fluid">
         <div class="row">
             <div class="col-md-4 mt-5">
                 <div class="center">
@@ -100,7 +101,7 @@
                         :debounce-page-input="inputDebounce">
                     </b-pagination>
             </div>
-            <div class="col-md-12 mt-5">
+            <div class="col-md-12 mt-5" v-if="filteredItems">
                 <div class="row">
                     <div class="card col-md-4" v-for="sensor in filteredItems" :key="sensor.id">
                         <div class="card-header mt-2">
@@ -125,6 +126,12 @@
                             <p class="is-size-7 is-uppercase has-text-weight-light mb-1 mt-4">Atualizado em: {{ sensor.updated_at }}</p>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-5" v-else>
+                <div class="center imagem">
+                    <img src="../assets/sensores-null.svg" />
+                    <h1 class="is-size-5 center is-uppercase has-text-weight-light">Nenhum sensor disponível!</h1>
                 </div>
             </div>
                 <div class="col-md-12 mt-5">
@@ -152,6 +159,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </main>
 </template>
 
@@ -193,6 +201,9 @@ export default{
     },
     computed: {
         filteredItems() {
+            if(this.sensoresData === null){
+                return null;
+            }
             let filterSensors = [];
             filterSensors = this.sensoresData.filter((filterSensor) => {
                 return (
@@ -273,5 +284,11 @@ export default{
     background: url("../assets/capa.png"), url("../assets/ruido.png"),
     linear-gradient(110deg, $primary, #7c26f8); 
     width: 100%;
+}
+
+.imagem{
+  width: 500px;
+  height: 500px;
+  margin-bottom: 70px;
 }
 </style>
