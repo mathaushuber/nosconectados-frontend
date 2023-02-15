@@ -181,7 +181,7 @@
             <td class="center" v-else-if="sensor.typeProduction == 'Soja'">Produção de soja de tipo indeterminado. Plantio Outubro-Novembro; Colheita Maio</td>
             <td class="center" v-else-if="sensor.typeProduction == 'Cana-de-açúcar'">Produção de Cana-de-açúcar. Plantio Janeiro-Fevereiro; Colheita Abril-Agosto</td>
             <td class="center" v-else-if="sensor.typeProduction == 'Café'">Produção de Café. Plantio Janeiro-Março; Colheita Abril-Setembro.</td>
-            <td class="center" v-else-if="sensor.typeProduction == 'Algodão herbáceo'">Produção de Algodão herbáceo. Plantio Novembro-Março; Colheita Maio-Agosto</td>
+            <td class="center" v-else-if="sensor.typeProduction == 'Algodão'">Produção de Algodão herbáceo. Plantio Novembro-Março; Colheita Maio-Agosto</td>
             <td class="center" v-else-if="sensor.typeProduction == 'Mandioca'">Produção de Mandioca. Plantio Agosto-Setembro; Colheita Março-Julho</td>
             <td class="center" v-else-if="sensor.typeProduction == 'Laranja'">Cultivare de Laranja de tipo indeterminado. Maturação Indeterminada</td>
             <td class="center" v-else-if="sensor.typeProduction == 'Trigo'">Produção de Trigo de tipo indeterminado. Plantio Outubro-Novembro-Dezembro; Colheita Abril-Maio</td>

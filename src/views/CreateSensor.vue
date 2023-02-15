@@ -382,6 +382,9 @@ export default{
       if(this.visualizadores){
         formData.append("visualizadores", this.visualizadores)
       }
+      console.log("administradores" + Object(this.administradores));
+      console.log("patrocinadores" + Object(this.patrocinadores));
+      console.log("visualizadores" + Object(this.visualizadores));
       createSensor(formData).then(() => {
           this.isLoading = false;
           this.$router.push("/dashboard");
