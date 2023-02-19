@@ -106,6 +106,7 @@ export default {
     min-width: 100vw;
   }
 }
+@include desktop{
 .card{
   width: 500px;
   display:block;
@@ -118,6 +119,7 @@ export default {
   padding: 30px;
   background-color: rgba(255, 255, 255, 1);
   }
+}
   main{
     background-image: url(../assets/Cover.png);
   }
