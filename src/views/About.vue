@@ -2,10 +2,10 @@
   <main v-bind:id="isSwitchedCustom">
     <section id="init"><!--Início seção inicial-->
       <div>
-     <div class="wave"></div>
-     <div class="wave"></div>
-     <div class="wave"></div>
-  </div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+      </div>
       <div class="columns">
         <div class="column">
           <div class="center">
@@ -416,7 +416,7 @@ h3 {
   text-align: center;
 }
 
-.text{
+.text {
   font-family: 'Bebas Neue', cursive;
   color: white;
 }
@@ -439,7 +439,7 @@ h3 {
 }
 
 @include mobile {
-  #init .columns{
+  #init .columns {
     margin-top: 40px;
   }
 }
@@ -564,78 +564,79 @@ h3 {
 }
 
 #init {
-    margin: auto;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    background: linear-gradient(315deg, rgb(32, 128, 8) 3%, rgba(60,132,206,1) 38%, rgba(48,238,226,1) 68%, rgb(236, 25, 255) 98%);
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-    min-height: 100vh;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background: linear-gradient(315deg, rgb(32, 128, 8) 3%, rgba(60, 132, 206, 1) 38%, rgba(48, 238, 226, 1) 68%, rgb(236, 25, 255) 98%);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-#init p{
+#init p {
   color: white;
 }
 
 @keyframes gradient {
-    0% {
-        background-position: 0% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .wave {
-    background: rgb(255 255 255 / 25%);
-    border-radius: 1000% 1000% 0 0;
-    position: fixed;
-    width: 200%;
-    height: 12em;
-    animation: wave 10s -3s linear infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
+  background: rgb(255 255 255 / 25%);
+  border-radius: 1000% 1000% 0 0;
+  position: fixed;
+  width: 200%;
+  height: 12em;
+  animation: wave 10s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .wave:nth-of-type(2) {
-    bottom: -1.25em;
-    animation: wave 18s linear reverse infinite;
-    opacity: 0.8;
+  bottom: -1.25em;
+  animation: wave 18s linear reverse infinite;
+  opacity: 0.8;
 }
 
 .wave:nth-of-type(3) {
-    bottom: -2.5em;
-    animation: wave 20s -1s reverse infinite;
-    opacity: 0.9;
+  bottom: -2.5em;
+  animation: wave 20s -1s reverse infinite;
+  opacity: 0.9;
 }
 
 @keyframes wave {
-    2% {
-        transform: translateX(1);
-    }
+  2% {
+    transform: translateX(1);
+  }
 
-    25% {
-        transform: translateX(-25%);
-    }
+  25% {
+    transform: translateX(-25%);
+  }
 
-    50% {
-        transform: translateX(-50%);
-    }
+  50% {
+    transform: translateX(-50%);
+  }
 
-    75% {
-        transform: translateX(-25%);
-    }
+  75% {
+    transform: translateX(-25%);
+  }
 
-    100% {
-        transform: translateX(1);
-    }
+  100% {
+    transform: translateX(1);
+  }
 }
-
 </style>

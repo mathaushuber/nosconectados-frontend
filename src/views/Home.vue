@@ -1,54 +1,41 @@
 <template>
   <main>
-  <div class="container">
-    <div class="col-md-12">
-  <div class="home is-flex is-justify-content-space-around">
-    <div>
-      <div class="card">
-        <div class="card-content">
-          <div class="content">
-            <div class="center">
-                <img src="../assets/nosconectados.svg" width="250" height="150">
-              </div>
-                <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
-                <h2 class="center">Login</h2>
-            <b-field label="Email">
-              <b-input
-                type="email"
-                placeholder="usuario@nosconectados.com"
-                v-model="email"
-              >
-              </b-input>
-            </b-field>
+    <div class="container">
+      <div class="col-md-12">
+        <div class="home is-flex is-justify-content-space-around">
+          <div>
+            <div class="card">
+              <div class="card-content">
+                <div class="content">
+                  <div class="center">
+                    <img src="../assets/nosconectados.svg" width="250" height="150">
+                  </div>
+                  <p class="mt-2 center">Plataforma integrada de soluções IoT</p>
+                  <h2 class="center">Login</h2>
+                  <b-field label="Email">
+                    <b-input type="email" placeholder="usuario@nosconectados.com" v-model="email">
+                    </b-input>
+                  </b-field>
 
-            <b-field label="Senha">
-              <b-input
-                type="password"
-                password-reveal
-                placeholder="********"
-                v-model="user_password"
-                @keyup.enter="login"
-              >
-              </b-input>
-            </b-field>
-            <div class="center mt-5">
-            <b-button @click="login" type="is-primary" class="center">Entrar 
-              <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="false"></b-loading>
-            </b-button>
-            <b-button
-              tag="router-link" :to="{ path: '/registro'}"
-              class="ml-4"
-              type="is-warning"
-              >Criar conta
-            </b-button>
-          </div>
+                  <b-field label="Senha">
+                    <b-input type="password" password-reveal placeholder="********" v-model="user_password"
+                      @keyup.enter="login">
+                    </b-input>
+                  </b-field>
+                  <div class="center mt-5">
+                    <b-button @click="login" type="is-primary" class="center">Entrar
+                      <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="false"></b-loading>
+                    </b-button>
+                    <b-button tag="router-link" :to="{ path: '/registro' }" class="ml-4" type="is-warning">Criar conta
+                    </b-button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
   </main>
 </template>
 
@@ -59,13 +46,13 @@ export default {
   components: {},
   data() {
     return {
-      isLoading: false, 
-      email: "", 
-      user_password: "", 
+      isLoading: false,
+      email: "",
+      user_password: "",
       testeStatus: {
         status: "Não foi possível fazer login, verifique seu email e senha!"
       },
-     };
+    };
   },
   methods: {
     ...mapActions(["loginUser", "loginUserByToken"]),
@@ -82,8 +69,9 @@ export default {
         .catch(() => {
           this.isLoading = false;
           this.$buefy.toast.open({
-              message: 'Não foi possível realizar o login. Verifique seu email e senha!',
-              type: 'is-danger'});
+            message: 'Não foi possível realizar o login. Verifique seu email e senha!',
+            type: 'is-danger'
+          });
         });
     },
   },
@@ -101,14 +89,21 @@ export default {
     height: 100vh;
   }
 }
+
 @include touch {
   .home {
     min-width: 100vw;
   }
+  .card{
+    width: 100%;
+    margin-left: -10px;
+    margin-top: 50px;
+  }
 }
-.card{
+@include desktop{
+.card {
   width: 500px;
-  display:block;
+  display: block;
   margin-top: 150px;
   margin-bottom: auto;
   margin-left: auto;
@@ -117,8 +112,9 @@ export default {
   height: auto;
   padding: 30px;
   background-color: rgba(255, 255, 255, 1);
-  }
-  main{
-    background-image: url(../assets/Cover.png);
-  }
+}
+}
+main {
+  background-image: url(../assets/Cover.png);
+}
 </style>
