@@ -105,6 +105,12 @@ export default {
   .home {
     min-width: 100vw;
   }
+
+  .card{
+    width: 100%;
+    margin-left: -10px;
+    margin-top: 50px;
+  }
 }
 @include desktop{
 .card{
