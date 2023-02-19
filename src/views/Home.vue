@@ -101,11 +101,11 @@ export default {
     height: 100vh;
   }
 }
+
 @include touch {
   .home {
     min-width: 100vw;
   }
-
   .card{
     width: 100%;
     margin-left: -10px;
@@ -113,9 +113,9 @@ export default {
   }
 }
 @include desktop{
-.card{
+.card {
   width: 500px;
-  display:block;
+  display: block;
   margin-top: 150px;
   margin-bottom: auto;
   margin-left: auto;
@@ -124,9 +124,9 @@ export default {
   height: auto;
   padding: 30px;
   background-color: rgba(255, 255, 255, 1);
-  }
 }
-  main{
-    background-image: url(../assets/Cover.png);
-  }
+}
+main {
+  background-image: url(../assets/Cover.png);
+}
 </style>
