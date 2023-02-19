@@ -109,7 +109,7 @@ export default {
   .card{
     width: 100%;
     margin-left: -10px;
-    margin-top: 50px;
+    margin-top: 20px;
   }
 }
 @include desktop{
