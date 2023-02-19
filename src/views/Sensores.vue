@@ -123,7 +123,7 @@
                             <b-button type="is-primary" class="info-button mt-2" tag="router-link" :to="{ path: '/detalhes/' + sensor.id }">
                                 Informações
                             </b-button>
-                            <p class="is-size-7 is-uppercase has-text-weight-light mb-1 mt-4">Atualizado em: {{ sensor.updated_at }}</p>
+                            <p class="is-size-7 is-uppercase has-text-weight-light mb-1 mt-4">Atualizado em: {{ sensor.updated_at.substr(0,19) }}</p>
                         </div>
                     </div>
                 </div>

@@ -132,7 +132,7 @@
                                         Excluir
                                     </b-button>
                                 </div>
-                                <p class="is-size-7 is-uppercase has-text-weight-light">Atualizado em: {{ sensor.updated_at }}</p>
+                                <p class="is-size-7 is-uppercase has-text-weight-light">Atualizado em: {{ sensor.updated_at.substr(0,19) }}</p>
                             </div>
                         </div>
                     </div>
