@@ -308,12 +308,22 @@ export default {
         }
     },
     mounted(){
+        getData(this.sensorId)
+                .then((res) => {
+                this.seriesData = res.data;
+                this.seriesTemperatureAir(this.seriesData);
+                this.seriesDataPluviometer(this.seriesData);
+                this.seriesDataGas(this.seriesData);
+            })
+                .catch(() => {
+                this.seriesData = [];
+            });
         this.loadSensor();
-        this.loadSeries();
         this.loadAdmins();
     },
     methods:{
         loadSensor() {
+            console.log(this.seriesData);
             return getDetalheSensor(this.sensorId)
                 .then((res) => {
                 this.sensorData = res.data;
@@ -337,7 +347,7 @@ export default {
                 this.seriesData = res.data;
                 this.seriesTemperatureAir(this.seriesData);
                 this.seriesDataPluviometer(this.seriesData);
-                this.seriesDataGas(this.seriesData)
+                this.seriesDataGas(this.seriesData);
             })
                 .catch(() => {
                 this.seriesData = [];
@@ -355,7 +365,7 @@ export default {
             const newDataAir = dataAr
             const newDataSolo = dataSolo
             const newDataCase = dataCase
-            this.updateChart(newDataAir, newDataSolo, newDataCase)
+             this.updateChart(newDataAir, newDataSolo, newDataCase)
         },
         seriesDataPluviometer(data){
             var dataPl = [];
@@ -403,6 +413,7 @@ export default {
         ]
         },
         updateChart(newDataAir, newDataSolo, newDataCase){
+            console.log('teste' + newDataAir);
             this.series = [{
                 data: newDataAir
                 },
