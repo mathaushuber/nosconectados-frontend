@@ -308,22 +308,16 @@ export default {
         }
     },
     mounted(){
-        getData(this.sensorId)
-                .then((res) => {
-                this.seriesData = res.data;
-                this.seriesTemperatureAir(this.seriesData);
-                this.seriesDataPluviometer(this.seriesData);
-                this.seriesDataGas(this.seriesData);
-            })
-                .catch(() => {
-                this.seriesData = [];
-            });
-        this.loadSensor();
-        this.loadAdmins();
+        this.loadData();
     },
     methods:{
+        async loadData() {
+            await this.loadSeries();
+            await this.loadSensor();
+            await this.loadAdmins();
+            this.updated();
+        },
         loadSensor() {
-            console.log(this.seriesData);
             return getDetalheSensor(this.sensorId)
                 .then((res) => {
                 this.sensorData = res.data;
@@ -341,51 +335,53 @@ export default {
                 this.adminData = [];
             });
         },
-        loadSeries(){
-            return getData(this.sensorId)
-                .then((res) => {
+        async loadSeries() {
+            try {
+                const res = await getData(this.sensorId);
                 this.seriesData = res.data;
-                this.seriesTemperatureAir(this.seriesData);
-                this.seriesDataPluviometer(this.seriesData);
-                this.seriesDataGas(this.seriesData);
-            })
-                .catch(() => {
+            } catch (err) {
                 this.seriesData = [];
-            });
+            }
         },
-        seriesTemperatureAir(data){
+        async updated() {
+            await this.seriesTemperatureAir();
+            await this.seriesDataPluviometer();
+            await this.seriesDataGas();
+        },
+        seriesTemperatureAir(){
             var dataAr = [];
             var dataSolo = [];
             var dataCase = [];
-            for(var i = 0; i < 8; i++){
-                dataAr[i] = data[i].temperatureAir;
-                dataSolo[i] = data[i].temperatureSoil;
-                dataCase[i] = data[i].temperatureCase;
+            for(var i = 0; i < this.seriesData.length; i++){
+                dataAr[i] = this.seriesData[i].temperatureAir;
+                dataSolo[i] = this.seriesData[i].temperatureSoil;
+                dataCase[i] = this.seriesData[i].temperatureCase;
             }
             const newDataAir = dataAr
             const newDataSolo = dataSolo
             const newDataCase = dataCase
-             this.updateChart(newDataAir, newDataSolo, newDataCase)
+            console.log('teste this.newDataAir' + this.newDataAir);
+            this.updateChart(newDataAir, newDataSolo, newDataCase)
         },
-        seriesDataPluviometer(data){
+        seriesDataPluviometer(){
             var dataPl = [];
             var dataHRA = [];
-            for(var i = 0; i < 8; i++){
-                dataPl[i] = data[i].pluviometer;
-                dataHRA[i] = data[i].humidityAirRelative;
+            for(var i = 0; i < this.seriesData.length; i++){
+                dataPl[i] = this.seriesData[i].pluviometer;
+                dataHRA[i] = this.seriesData[i].humidityAirRelative;
             }
             const newDataPluviometer = dataPl
             const newHumidityAirRelative = dataHRA
             this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative)
         },
-        seriesDataGas(data){
+        seriesDataGas(){
             var dataGas = [];
             var dataUltra = [];
             var dataLuminosidade = [];
-            for(var i = 0; i < 8; i++){
-                dataGas[i] = data[i].gas;
-                dataUltra[i] = data[i].ultraviolet;
-                dataLuminosidade[i] = data[i].luminosity;
+            for(var i = 0; i < this.seriesData.length; i++){
+                dataGas[i] = this.seriesData[i].gas;
+                dataUltra[i] = this.seriesData[i].ultraviolet;
+                dataLuminosidade[i] = this.seriesData[i].luminosity;
             }
             const newDataGas = dataGas;
             const newDataUltra = dataUltra;
