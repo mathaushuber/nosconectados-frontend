@@ -1,5 +1,5 @@
 import axios from "axios";
-  const API_URL = 'https://nosconectados.herokuapp.com/public';
+  const API_URL = process.env.VUE_APP_API_URL;
   const api = axios.create({
     baseURL: `${API_URL}/api`,
   });
@@ -69,7 +69,7 @@ import axios from "axios";
   }
 
   function getData(sensorId){
-    return api.get("/v1/sensores/data/" + sensorId)
+    return api.get("/v1/dados/lista/" + sensorId)
   }
 
   function getAdmins(sensorId){
