@@ -360,7 +360,6 @@ export default {
             const newDataAir = dataAr
             const newDataSolo = dataSolo
             const newDataCase = dataCase
-            console.log('teste this.newDataAir' + this.newDataAir);
             this.updateChart(newDataAir, newDataSolo, newDataCase)
         },
         seriesDataPluviometer(){
