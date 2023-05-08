@@ -352,43 +352,51 @@ export default {
             var dataAr = [];
             var dataSolo = [];
             var dataCase = [];
+            var dataCategories = [];
             for(var i = 0; i < this.seriesData.length; i++){
                 dataAr[i] = this.seriesData[i].temperatureAir;
                 dataSolo[i] = this.seriesData[i].temperatureSoil;
                 dataCase[i] = this.seriesData[i].temperatureCase;
+                dataCategories[i] = this.seriesData[i].readAt; 
             }
             const newDataAir = dataAr
             const newDataSolo = dataSolo
             const newDataCase = dataCase
-            console.log('teste this.newDataAir' + this.newDataAir);
-            this.updateChart(newDataAir, newDataSolo, newDataCase)
+            const newCategories = dataCategories
+            this.updateChart(newDataAir, newDataSolo, newDataCase, newCategories)
         },
         seriesDataPluviometer(){
             var dataPl = [];
             var dataHRA = [];
+            var dataCategories = [];
             for(var i = 0; i < this.seriesData.length; i++){
                 dataPl[i] = this.seriesData[i].pluviometer;
                 dataHRA[i] = this.seriesData[i].humidityAirRelative;
+                dataCategories[i] = this.seriesData[i].readAt; 
             }
             const newDataPluviometer = dataPl
             const newHumidityAirRelative = dataHRA
-            this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative)
+            const newCategories = dataCategories
+            this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative, newCategories)
         },
         seriesDataGas(){
             var dataGas = [];
             var dataUltra = [];
             var dataLuminosidade = [];
+            var dataCategories = [];
             for(var i = 0; i < this.seriesData.length; i++){
                 dataGas[i] = this.seriesData[i].gas;
                 dataUltra[i] = this.seriesData[i].ultraviolet;
                 dataLuminosidade[i] = this.seriesData[i].luminosity;
+                dataCategories[i] = this.seriesData[i].readAt; 
             }
             const newDataGas = dataGas;
             const newDataUltra = dataUltra;
             const newDataLuminosidade = dataLuminosidade;
-            this.updateChartGas(newDataGas, newDataUltra, newDataLuminosidade)
+            const newCategories = dataCategories
+            this.updateChartGas(newDataGas, newDataUltra, newDataLuminosidade, newCategories)
         },
-        updateChartGas(newDataGas, newDataUltra, newDataLuminosidade){
+        updateChartGas(newDataGas, newDataUltra, newDataLuminosidade, newCategories){
             this.seriesGas = [{
                 data: newDataGas
             },
@@ -397,19 +405,26 @@ export default {
             },
             {
                 data: newDataLuminosidade
-            }]
+            }];
+            this.gasOptions = [{
+                categories: newCategories
+                }
+            ]; 
         },
-        updateChartPluviometer(newDataPluviometer, newHumidityAirRelative){
+        updateChartPluviometer(newDataPluviometer, newHumidityAirRelative, newCategories){
             this.seriesPluviometer = [{
                 data: newDataPluviometer
             },
             {
                 data: newHumidityAirRelative
             }
-        ]
+        ];
+        this.pluviometerOptions = [{
+                categories: newCategories
+                }
+            ]; 
         },
-        updateChart(newDataAir, newDataSolo, newDataCase){
-            console.log('teste' + newDataAir);
+        updateChart(newDataAir, newDataSolo, newDataCase, newCategories){
             this.series = [{
                 data: newDataAir
                 },
@@ -419,6 +434,10 @@ export default {
                 {
                 data: newDataCase
                 },
+            ];
+            this.chartOptions = [{
+                categories: newCategories
+                }
             ]; 
         }
     }
