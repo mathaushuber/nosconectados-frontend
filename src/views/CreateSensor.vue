@@ -373,18 +373,21 @@ export default{
       if(this.sensor.longitude){
         formData.append("longitude", this.sensor.longitude);
       }
-      if(this.administradores){
-        formData.append("administradores", this.administradores)
+      if (this.administradores) {
+        const adminJson = JSON.stringify(this.administradores);
+        formData.append('administradores', adminJson);
       }
       if(this.patrocinadores){
-        formData.append("patrocinadores", this.patrocinadores)
+        const patroJson = JSON.stringify(this.patrocinadores);
+        formData.append('patrocinadores', patroJson);
       }
       if(this.visualizadores){
-        formData.append("visualizadores", this.visualizadores)
+        const visuJson = JSON.stringify(this.visualizadores);
+        formData.append('visualizadores', visuJson);
       }
-      console.log("administradores" + Object(this.administradores));
-      console.log("patrocinadores" + Object(this.patrocinadores));
-      console.log("visualizadores" + Object(this.visualizadores));
+      console.log("administradores", JSON.stringify(this.administradores));
+      console.log("patrocinadores", JSON.stringify(this.patrocinadores));
+      console.log("visualizadores", JSON.stringify(this.visualizadores));
       createSensor(formData).then(() => {
           this.isLoading = false;
           this.$router.push("/dashboard");

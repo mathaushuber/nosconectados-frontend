@@ -197,10 +197,10 @@
                     <b-message>{{ sensorData.description }}</b-message>
                     <div class="columns">
                         <div class="column">
-                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{ sensorData.updated_at }}</p>
+                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{ sensorData.updated_at.substr(0,19) }}</p>
                         </div>
                         <div class="column">
-                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Criado em: {{ sensorData.created_at }}</p>
+                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Criado em: {{ sensorData.created_at.substr(0,19) }}</p>
                         </div>
                     </div>
                 </div>
