@@ -205,38 +205,38 @@ export default{
     },
     computed: {
         filteredItems() {
-            if(this.sensoresData === null){
-                return null;
-            }
-            let filterSensors = [];
-            filterSensors = this.sensoresData.filter((filterSensor) => {
-                return (
-                filterSensor.property.toLowerCase().indexOf(this.property.toLowerCase()) > -1 
-                );
-            });
+    if(this.sensoresData === null){
+        return null;
+    }
+    let filterSensors = [];
+    filterSensors = Object.values(this.sensoresData).filter((filterSensor) => {
+        return (
+            filterSensor.property.toLowerCase().indexOf(this.property.toLowerCase()) > -1 
+        );
+    });
 
-            filterSensors = filterSensors.filter((filterSensor) => {
-            if (this.state == null) return filterSensor;
-            return filterSensor.state === this.state;
-            });
+    filterSensors = Object.values((filterSensor) => {
+        if (this.state == null) return filterSensor;
+        return filterSensor.state === this.state;
+    });
 
-            filterSensors = filterSensors.filter((filterSensor) => {
-            if (this.city == null) return filterSensor;
-            return filterSensor.city === this.city;
-            });
+    filterSensors = Object.values((filterSensor) => {
+        if (this.city == null) return filterSensor;
+        return filterSensor.city === this.city;
+    });
 
-            filterSensors = filterSensors.filter((filterSensor) => {
-            if (this.typeProduction == null) return filterSensor;
-            return filterSensor.typeProduction === this.typeProduction;
-            });
+    filterSensors = Object.values((filterSensor) => {
+        if (this.typeProduction == null) return filterSensor;
+        return filterSensor.typeProduction === this.typeProduction;
+    });
 
-            filterSensors = filterSensors.filter((filterSensor) => {
-            if (this.isActive == null) return filterSensor;
-            return filterSensor.isActive == this.isActive;
-            });
+    filterSensors = Object.values((filterSensor) => {
+        if (this.isActive == null) return filterSensor;
+        return filterSensor.isActive == this.isActive;
+    });
 
-            return filterSensors;
-        },
+    return filterSensors;
+},
     },
     mounted(){
         getEstados().then((resp) => {
