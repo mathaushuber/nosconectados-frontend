@@ -375,17 +375,20 @@ export default {
   computed: {
     ...mapState(["user"]),
     filteredItems() {
-        if(this.sensorData === null){
-            return null;
-        }
-        let filterSensors = [];
-        filterSensors = this.sensorData.filter((filterSensor) => {
-          if (this.property == null) return filterSensor;
-          return filterSensor.property === this.property;
-        });
-
-        return filterSensors;
-    },
+    if(this.sensorData === null){
+        return null;
+    }
+    let filterSensors = [];
+    if (typeof this.sensorData === 'object' && this.sensorData !== null) { // adiciona esta verificação
+        const dataKeys = Object.keys(this.sensorData);
+        filterSensors = dataKeys.filter((key) => {
+            const filterSensor = this.sensorData[key];
+            if (this.property == null) return filterSensor;
+            return filterSensor.property === this.property;
+        }).map(key => this.sensorData[key]);
+    }
+    return filterSensors;
+},
   },
   mounted(){
     this.loadSensor();
