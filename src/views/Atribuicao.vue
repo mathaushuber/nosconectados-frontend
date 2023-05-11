@@ -5,7 +5,7 @@
                 <div class="container">
                     <div class="card mt-5">
                         <div class="card-content">
-                            <h2 class="is-size-4 titulo is-uppercase has-text-weight-light">{{ user.firstName }}, atribua os dados do sensor <strong>{{ sensorData.property }}</strong> a um sensor instalado</h2>
+                            <h2 class="is-size-4 titulo is-uppercase has-text-weight-light">{{ user.firstName }}, atribua os dados do sensor <strong>{{ sensorData.property }}</strong> com id <strong>{{ sensorData.id }}</strong> a um sensor instalado</h2>
                             <div class="columns">
                                 <div class="column">
                                     <b-field class="mt-5">
@@ -39,6 +39,7 @@
                                 <div class="column">
                                     <b-message type="is-warning" class="mt-4" has-icon>
                                         Se você criou as informações do sensor pela plataforma mas ainda não tem um sensor ativo instalado, certifique-se de gerar um token antes de atribuir estes dados ao sensor localizado em campo. Para que o sensor envie dados para a plataforma é necessário a utilização de um token no cabeçalho das requisições. No botão acima é possível gerar um token com as informações deste sensor, certifique-se que o mesmo não será modificado após a sua criação.
+                                        Após a geração do token, coloque-o no firmware do sensor, no cabeçalho do protocolo HTTP, no campo Authorization, enviando os dados para a rota <strong>https://nosconectados.herokuapp.com/public/api/v1/sensores/atualiza/{{ sensorData.id}}</strong> através do método <strong>PUT</strong>.
                                     </b-message>
                                 </div>
                             </div>
