@@ -362,10 +362,13 @@ export default {
             this.chartOptions = {
                 ...this.chartOptions,
                 xaxis: {
-                ...this.chartOptions.xaxis,
-                categories: dataCategories
+                    ...this.chartOptions.xaxis,
+                    categories: dataCategories.map((data) => {
+                        const dataFormatada = new Date(data).toLocaleDateString("pt-BR");
+                        return dataFormatada;
+                    })
                 }
-            }
+            };
             const newDataAir = dataAr
             const newDataSolo = dataSolo
             const newDataCase = dataCase
@@ -383,10 +386,13 @@ export default {
             this.pluviometerOptions = {
                 ...this.pluviometerOptions,
                 xaxis: {
-                ...this.pluviometerOptions.xaxis,
-                categories: dataCategories
+                    ...this.pluviometerOptions.xaxis,
+                    categories: dataCategories.map((data) => {
+                        const dataFormatada = new Date(data).toLocaleDateString("pt-BR");
+                        return dataFormatada;
+                    })
                 }
-            }
+            };
             const newDataPluviometer = dataPl
             const newHumidityAirRelative = dataHRA
             this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative)
@@ -405,10 +411,13 @@ export default {
             this.gasOptions = {
                 ...this.gasOptions,
                 xaxis: {
-                ...this.gasOptions.xaxis,
-                categories: dataCategories
+                    ...this.gasOptions.xaxis,
+                    categories: dataCategories.map((data) => {
+                        const dataFormatada = new Date(data).toLocaleDateString("pt-BR");
+                        return dataFormatada;
+                    })
                 }
-            }
+            };
             const newDataGas = dataGas;
             const newDataUltra = dataUltra;
             const newDataLuminosidade = dataLuminosidade;
