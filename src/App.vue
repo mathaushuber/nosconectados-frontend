@@ -159,4 +159,8 @@ export default {
     margin-left: 14px;
   }
 }
+
+main {
+  overflow-x: auto; /* Barra de rolagem horizontal */
+}
 </style>
