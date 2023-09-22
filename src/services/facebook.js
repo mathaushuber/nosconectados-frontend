@@ -1,3 +1,4 @@
+//Essa é uma implementação do OAuth que eu não terminei. Era para ser uma opção de se logar via Facebook
 export default function () {
     window.fbAsyncInit = function () {
         window.FB.init({

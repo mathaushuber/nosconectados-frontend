@@ -5,56 +5,49 @@
                 <div class="column mt-4 is-two-fifths">
                     <p class="title is-2 is-uppercase center">{{ sensorData.property }}</p>
                     <p class="subtitle is-5 is-uppercase center">{{ sensorData.lowDescription }}</p>
-                    <p class="is-size-5 is-uppercase has-text-weight-light center"> {{ sensorData.city }}, {{ sensorData.state }}</p>
+                    <p class="is-size-5 is-uppercase has-text-weight-light center"> {{ sensorData.city }}, {{
+                        sensorData.state }}</p>
                     <div class="columns mt-4 center">
                         <div class="column">
                             <p v-if="sensorData.isActive == 0" class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="access-point-remove" 
-                                type="is-danger" class="mr-1">
+                                <b-icon icon="access-point-remove" type="is-danger" class="mr-1">
                                 </b-icon>
                                 Inativo
                             </p>
                             <p v-else-if="sensorData.isActive == 1" class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon  icon="access-point-check"
-                                    type="is-success" class="mr-1">
+                                <b-icon icon="access-point-check" type="is-success" class="mr-1">
                                 </b-icon>
                                 Ativo
                             </p>
                             <p v-else class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="access-point-off" 
-                                    type="is-warning"
-                                    class="mr-1">
+                                <b-icon icon="access-point-off" type="is-warning" class="mr-1">
                                 </b-icon>
                                 Pendente
                             </p>
                         </div>
                         <div class="column" id="isPublic">
                             <p v-if="sensorData.isPublic == 0" class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="lock" 
-                                type="is-danger" class="mr-1">
+                                <b-icon icon="lock" type="is-danger" class="mr-1">
                                 </b-icon>
                                 Privado
                             </p>
                             <p v-else class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="attachment" 
-                                type="is-success" class="mr-1">
+                                <b-icon icon="attachment" type="is-success" class="mr-1">
                                 </b-icon>
                                 Público
                             </p>
                         </div>
                         <div class="column" id="area">
                             <p class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="vector-line" 
-                                type="is-info" class="mr-1">
+                                <b-icon icon="vector-line" type="is-info" class="mr-1">
                                 </b-icon>
-                                 Área: {{ sensorData.area }}ha
+                                Área: {{ sensorData.area }}ha
                             </p>
                         </div>
                         <div class="column" id="producao">
                             <p class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="sprout-outline" 
-                                type="is-info" class="mr-1">
-                                </b-icon> 
+                                <b-icon icon="sprout-outline" type="is-info" class="mr-1">
+                                </b-icon>
                                 {{ sensorData.typeProduction }}
                             </p>
                         </div>
@@ -62,16 +55,14 @@
                     <div class="columns center">
                         <div class="column" id="latitude">
                             <p class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="map-marker-radius" 
-                                type="is-info" class="mr-1">
+                                <b-icon icon="map-marker-radius" type="is-info" class="mr-1">
                                 </b-icon>
                                 Latitude: {{ sensorData.latitude }}
                             </p>
                         </div>
                         <div class="ml-4 column" id="longitude">
                             <p class="is-size-6 is-uppercase has-text-weight-bold">
-                                <b-icon icon="map-marker-radius" 
-                                type="is-info" class="mr-1">
+                                <b-icon icon="map-marker-radius" type="is-info" class="mr-1">
                                 </b-icon>
                                 Longitude: {{ sensorData.longitude }}
                             </p>
@@ -171,17 +162,19 @@
                     <div class="columns">
                         <div class="column">
                             <div class="buttons">
-                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-primary">Administradores: </b-tag> 
+                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-primary">Administradores: </b-tag>
                                 <div v-for="admin in adminData" :key="admin.id">
-                                    <p class="mr-1" v-if="admin.isAdminSensor === 2">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 2">{{ admin.firstName }} {{ admin.lastName
+                                    }} </p>
                                 </div>
                             </div>
                         </div>
                         <div class="column">
                             <div class="buttons">
-                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-info">Patrocinadores: </b-tag> 
+                                <b-tag class="mr-1 mb-1 is-uppercase" type="is-info">Patrocinadores: </b-tag>
                                 <div v-for="admin in adminData" :key="admin.id">
-                                    <p class="mr-1" v-if="admin.isAdminSensor === 1">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 1">{{ admin.firstName }} {{ admin.lastName
+                                    }} </p>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +182,8 @@
                             <div class="buttons">
                                 <b-tag class="mr-1 mb-1 is-uppercase" type="is-warning">Visualizadores: </b-tag>
                                 <div v-for="admin in adminData" :key="admin.id">
-                                    <p class="mr-1" v-if="admin.isAdminSensor === 0">{{ admin.firstName }} {{ admin.lastName }} </p>
+                                    <p class="mr-1" v-if="admin.isAdminSensor === 0">{{ admin.firstName }} {{ admin.lastName
+                                    }} </p>
                                 </div>
                             </div>
                         </div>
@@ -197,25 +191,30 @@
                     <b-message>{{ sensorData.description }}</b-message>
                     <div class="columns">
                         <div class="column">
-                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{ sensorData.updated_at.substr(0,19) }}</p>
+                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Atualizado em: {{
+                                sensorData.updated_at.substr(0, 19) }}</p>
                         </div>
                         <div class="column">
-                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Criado em: {{ sensorData.created_at.substr(0,19) }}</p>
+                            <p class="mb-3 is-size-7 is-uppercase has-text-weight-light center">Criado em: {{
+                                sensorData.created_at.substr(0, 19) }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="column">
                     <div class="columns">
                         <div class="column">
-                            <apexcharts class="mt-5" width="500" height="350" type="bar" :options="pluviometerOptions" :series="seriesPluviometer"></apexcharts>
+                            <apexcharts class="mt-5" width="500" height="350" type="bar" :options="pluviometerOptions"
+                                :series="seriesPluviometer"></apexcharts>
                         </div>
                         <div class="column">
-                            <apexcharts class="mt-5" width="500" height="350" type="radar" :options="gasOptions" :series="seriesGas"></apexcharts>
+                            <apexcharts class="mt-5" width="500" height="350" type="radar" :options="gasOptions"
+                                :series="seriesGas"></apexcharts>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <apexcharts width="1050" height="450" type="area" :options="chartOptions" :series="series"></apexcharts>
+                            <apexcharts width="1050" height="450" type="area" :options="chartOptions" :series="series">
+                            </apexcharts>
                         </div>
                     </div>
                 </div>
@@ -225,7 +224,7 @@
 </template>
 
 <script>
-import {getDetalheSensor, getData, getAdmins} from "../services/api";
+import { getDetalheSensor, getData, getAdmins } from "../services/api";
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
@@ -233,87 +232,87 @@ export default {
     components: {
         apexcharts: VueApexCharts,
     },
-    data(){
-        return{
-            sensorData:[],
+    data() {
+        return {
+            sensorData: [],
             seriesData: [],
             adminData: [],
             chartOptions: {
                 chart: {
-                id: 'basic-bar'
+                    id: 'basic-bar'
                 },
                 title: {
-                text: 'Temperatura °C',
-                align: 'left'
+                    text: 'Temperatura °C',
+                    align: 'left'
                 },
                 xaxis: {
-                type: 'category',
-                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                    type: 'category',
+                    categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
                 }
             },
             series: [{
                 name: 'Temperatura do ar',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                },{
+            }, {
                 name: 'Temperatura do solo',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                },
-                {
+            },
+            {
                 name: 'Temperatura do case',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
             }],
             pluviometerOptions: {
                 chart: {
-                id: 'basic-pluviometer'
+                    id: 'basic-pluviometer'
                 },
                 title: {
-                text: 'Tempo',
-                align: 'left'
+                    text: 'Tempo',
+                    align: 'left'
                 },
                 xaxis: {
-                type: 'category',
-                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                    type: 'category',
+                    categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
                 }
             },
             seriesPluviometer: [{
                 name: 'Pluviômetro (mm)',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                },
-                {
+            },
+            {
                 name: 'Humidade relativa do ar %',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                }],
+            }],
             gasOptions: {
                 chart: {
-                id: 'basic-gas'
+                    id: 'basic-gas'
                 },
                 title: {
-                text: 'Atmosfera',
-                align: 'left'
+                    text: 'Atmosfera',
+                    align: 'left'
                 },
                 xaxis: {
-                type: 'category',
-                categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
+                    type: 'category',
+                    categories: ["2023-01-13", "2023-01-14", "2023-01-15", "2023-01-16", "2023-01-16", "2023-01-17", "2023-01-18", "2023-01-19", "2023-01-20"]
                 }
             },
             seriesGas: [{
                 name: 'Gás',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                },
-                {
+            },
+            {
                 name: 'Ultravioleta',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                },
-                {
+            },
+            {
                 name: 'Luminosidade',
                 data: [0, 0, 0, 0, 0, 0, 0, 0]
-                }],
+            }],
         }
     },
-    mounted(){
+    mounted() {
         this.loadData();
     },
-    methods:{
+    methods: {
         async loadData() {
             await this.loadSeries();
             await this.loadSensor();
@@ -323,20 +322,20 @@ export default {
         loadSensor() {
             return getDetalheSensor(this.sensorId)
                 .then((res) => {
-                this.sensorData = res.data;
-            })
+                    this.sensorData = res.data;
+                })
                 .catch(() => {
-                this.sensorData = [];
-            });
+                    this.sensorData = [];
+                });
         },
-        loadAdmins(){
+        loadAdmins() {
             return getAdmins(this.sensorId)
                 .then((res) => {
-                this.adminData = res.data;
-            })
+                    this.adminData = res.data;
+                })
                 .catch(() => {
-                this.adminData = [];
-            });
+                    this.adminData = [];
+                });
         },
         async loadSeries() {
             try {
@@ -351,22 +350,22 @@ export default {
             await this.seriesDataPluviometer();
             await this.seriesDataGas();
         },
-        seriesTemperatureAir(){
+        seriesTemperatureAir() {
             var dataAr = [];
             var dataSolo = [];
             var dataCase = [];
             var dataCategories = [];
-            for(var i = 0; i < this.seriesData.length; i++){
+            for (var i = 0; i < this.seriesData.length; i++) {
                 dataAr[i] = this.seriesData[i].temperatureAir;
                 dataSolo[i] = this.seriesData[i].temperatureSoil;
                 dataCase[i] = this.seriesData[i].temperatureCase;
-                dataCategories[i] = this.seriesData[i].readAt; 
+                dataCategories[i] = this.seriesData[i].readAt;
             }
             this.chartOptions = {
                 ...this.chartOptions,
                 xaxis: {
-                ...this.chartOptions.xaxis,
-                categories: dataCategories
+                    ...this.chartOptions.xaxis,
+                    categories: dataCategories
                 }
             }
             const newDataAir = dataAr
@@ -374,42 +373,42 @@ export default {
             const newDataCase = dataCase
             this.updateChart(newDataAir, newDataSolo, newDataCase)
         },
-        seriesDataPluviometer(){
+        seriesDataPluviometer() {
             var dataPl = [];
             var dataHRA = [];
             var dataCategories = [];
-            for(var i = 0; i < this.seriesData.length; i++){
+            for (var i = 0; i < this.seriesData.length; i++) {
                 dataPl[i] = this.seriesData[i].pluviometer;
                 dataHRA[i] = this.seriesData[i].humidityAirRelative;
-                dataCategories[i] = this.seriesData[i].readAt; 
+                dataCategories[i] = this.seriesData[i].readAt;
             }
             this.pluviometerOptions = {
                 ...this.pluviometerOptions,
                 xaxis: {
-                ...this.pluviometerOptions.xaxis,
-                categories: dataCategories
+                    ...this.pluviometerOptions.xaxis,
+                    categories: dataCategories
                 }
             }
             const newDataPluviometer = dataPl
             const newHumidityAirRelative = dataHRA
             this.updateChartPluviometer(newDataPluviometer, newHumidityAirRelative)
         },
-        seriesDataGas(){
+        seriesDataGas() {
             var dataGas = [];
             var dataUltra = [];
             var dataLuminosidade = [];
             var dataCategories = [];
-            for(var i = 0; i < this.seriesData.length; i++){
+            for (var i = 0; i < this.seriesData.length; i++) {
                 dataGas[i] = this.seriesData[i].gas;
                 dataUltra[i] = this.seriesData[i].ultraviolet;
                 dataLuminosidade[i] = this.seriesData[i].luminosity;
-                dataCategories[i] = this.seriesData[i].readAt; 
+                dataCategories[i] = this.seriesData[i].readAt;
             }
             this.gasOptions = {
                 ...this.gasOptions,
                 xaxis: {
-                ...this.gasOptions.xaxis,
-                categories: dataCategories
+                    ...this.gasOptions.xaxis,
+                    categories: dataCategories
                 }
             }
             const newDataGas = dataGas;
@@ -417,7 +416,7 @@ export default {
             const newDataLuminosidade = dataLuminosidade;
             this.updateChartGas(newDataGas, newDataUltra, newDataLuminosidade)
         },
-        updateChartGas(newDataGas, newDataUltra, newDataLuminosidade){
+        updateChartGas(newDataGas, newDataUltra, newDataLuminosidade) {
             this.seriesGas = [{
                 data: newDataGas
             },
@@ -428,7 +427,7 @@ export default {
                 data: newDataLuminosidade
             }];
         },
-        updateChartPluviometer(newDataPluviometer, newHumidityAirRelative){
+        updateChartPluviometer(newDataPluviometer, newHumidityAirRelative) {
             this.seriesPluviometer = [{
                 data: newDataPluviometer
             },
@@ -437,22 +436,20 @@ export default {
             }
             ];
         },
-        updateChart(newDataAir, newDataSolo, newDataCase){
+        updateChart(newDataAir, newDataSolo, newDataCase) {
             this.series = [{
                 data: newDataAir
-                },
-                {
+            },
+            {
                 data: newDataSolo
-                },
-                {
+            },
+            {
                 data: newDataCase
-                },
+            },
             ];
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

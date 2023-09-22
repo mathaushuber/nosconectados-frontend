@@ -176,7 +176,7 @@
                     <b-input type="password" v-model="passwordConfirm" @input="
                       errors.passwordConfirmed =
                       passwordTemp == passwordConfirm
-                    ">
+                      ">
                     </b-input>
                   </b-field>
                 </div>
@@ -287,15 +287,10 @@ export default {
     },
     previewImage: function () {
       if (this.avatar) {
-        // create a new FileReader to read this image and convert to base64 format
         var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
         reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
           this.imageData = e.target.result;
         };
-        // Start the reader job - read file as a data url (base64 format)
         reader.readAsDataURL(this.avatar);
       }
     },

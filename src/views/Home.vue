@@ -94,27 +94,29 @@ export default {
   .home {
     min-width: 100vw;
   }
-  .card{
+
+  .card {
     width: 100%;
     margin-left: -10px;
     margin-top: 20px;
   }
 }
-@include desktop{
-.card {
-  width: 500px;
-  display: block;
-  margin-top: 150px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 100px;
-  height: auto;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 1);
+
+@include desktop {
+  .card {
+    width: 500px;
+    display: block;
+    margin-top: 150px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    height: auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 1);
+  }
 }
-}
+
 main {
   background-image: url(../assets/Cover.png);
-}
-</style>
+}</style>
